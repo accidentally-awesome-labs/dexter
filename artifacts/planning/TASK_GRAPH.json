@@ -1,33 +1,65 @@
 [
   {
-    "id": "t1-discovery",
-    "title": "Discovery artifacts",
-    "description": "Generate brief, glossary, market evidence, and risk register.",
+    "id": "t1-bootstrap-workspace",
+    "title": "Bootstrap workspace implementation artifacts",
+    "description": "Create baseline implementation notes and scaffolding files in isolated workspace.",
     "mode": "AFK",
     "dependencies": [],
     "acceptanceCriteria": [
-      "All discovery artifacts written",
-      "Risk levels assigned"
+      "Bootstrap artifact generated"
     ],
     "nfrTags": [
-      "traceability"
+      "traceability",
+      "reliability"
+    ],
+    "workspaceStrategy": "shared",
+    "maxAttempts": 2,
+    "backendHint": "scripted",
+    "commands": [
+      {
+        "type": "agent",
+        "prompt": "Create an implementation brief for sample-app. Guidance: Use deterministic, test-first iteration."
+      },
+      {
+        "type": "shell",
+        "command": "mkdir -p generated && printf \"project=%s\\nstatus=bootstrapped\\n\" \"sample-app\" > generated/bootstrap.txt"
+      }
+    ],
+    "acceptanceChecks": [
+      {
+        "type": "file-exists",
+        "path": "generated/bootstrap.txt"
+      }
     ]
   },
   {
-    "id": "t2-planning",
-    "title": "Compile PRD and task graph",
-    "description": "Generate PRD, architecture spec, NFR spec, and task graph.",
+    "id": "t2-build-and-verify",
+    "title": "Run build and verification commands",
+    "description": "Execute deterministic build checks and capture verification output.",
     "mode": "AFK",
     "dependencies": [
-      "t1-discovery"
+      "t1-bootstrap-workspace"
     ],
     "acceptanceCriteria": [
-      "Task graph is acyclic",
-      "All tasks have acceptance criteria"
+      "Generated bootstrap output validated"
     ],
     "nfrTags": [
       "reliability",
       "security"
+    ],
+    "workspaceStrategy": "shared",
+    "maxAttempts": 2,
+    "commands": [
+      {
+        "type": "shell",
+        "command": "test -f generated/bootstrap.txt"
+      }
+    ],
+    "acceptanceChecks": [
+      {
+        "type": "shell",
+        "command": "test -f generated/bootstrap.txt"
+      }
     ]
   },
   {
@@ -36,13 +68,15 @@
     "description": "Evaluate safety and rollback constraints before execution.",
     "mode": "HITL",
     "dependencies": [
-      "t2-planning"
+      "t2-build-and-verify"
     ],
     "acceptanceCriteria": [
       "No critical blockers unresolved"
     ],
     "nfrTags": [
       "governance"
-    ]
+    ],
+    "workspaceStrategy": "shared",
+    "commands": []
   }
 ]

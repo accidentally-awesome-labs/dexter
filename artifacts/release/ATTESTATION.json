@@ -2,7 +2,7 @@
   "schemaVersion": "1.2",
   "keyId": "default",
   "signatureAlg": "hmac-sha256",
-  "generatedAt": "2026-05-20T14:33:57.239Z",
+  "generatedAt": "2026-05-20T19:46:04.321Z",
   "files": [
     {
       "path": "artifacts/release/DEPLOYMENT_GUIDE.md",
@@ -22,7 +22,7 @@
     },
     {
       "path": "artifacts/release/PROVENANCE.intoto.json",
-      "sha256": "d06c0b5a286ba5ba09e62e9f51f4f4abd2a5d1b3c46cf0654c178a1fa89a6958"
+      "sha256": "95da45f79fd49a056287438a2361f999ac7b8102dc6d288128bfdaaf94274864"
     },
     {
       "path": "artifacts/verification/SBOM_AND_PROVENANCE.md",
@@ -33,5 +33,5 @@
       "sha256": "caa2e73ab1caa92e7931b57a9bf1619fd52c00467ddafab181e3b09b9314899e"
     }
   ],
-  "signature": "e9d28165ebaf13c684a2a71d3c9d863bef1b218d00818e9c45130cddfce9990b"
+  "signature": "89de6448b3ee94144fd5695f37c7dff97497498a4336a1b9cd6151c894effed8"
 }

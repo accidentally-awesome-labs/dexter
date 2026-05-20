@@ -856,5 +856,5322 @@
       "release",
       "safety"
     ]
+  },
+  {
+    "id": "edafaef5-947f-4168-82b3-eaf434bb9f0d",
+    "createdAt": "2026-05-20T14:49:33.447Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "01ce3871-5b3a-4379-80c5-5f1c636712d2",
+    "createdAt": "2026-05-20T14:49:39.138Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4d500183-2130-4e4d-8f05-c4ba77684b42",
+    "createdAt": "2026-05-20T14:49:40.094Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "690e3b48-ab11-4dbb-a3e8-44cb834152e4",
+    "createdAt": "2026-05-20T14:49:40.947Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a2a17ec2-d114-4607-8b19-3580ebbc211f",
+    "createdAt": "2026-05-20T14:49:43.268Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ea678be3-8232-41e0-986a-a90cea73fa32",
+    "createdAt": "2026-05-20T14:49:44.268Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5f56733f-78db-4607-97b6-657fbbbed612",
+    "createdAt": "2026-05-20T14:49:45.410Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "78b664f2-f54a-4eac-bfbd-b688a29ed60c",
+    "createdAt": "2026-05-20T14:49:46.594Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3942ee55-77eb-41bd-b6e1-74c046aece4c",
+    "createdAt": "2026-05-20T14:49:47.676Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ce622a3a-faa9-4aaa-bb3f-eb57d6999719",
+    "createdAt": "2026-05-20T14:49:48.530Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "af851483-a171-418b-8dda-1c7a99f86a87",
+    "createdAt": "2026-05-20T14:49:49.496Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c1b6ddc4-e264-43c4-b793-6f23555b289c",
+    "createdAt": "2026-05-20T14:49:50.431Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "96128f8d-a144-4ac4-b292-a62aa9ed2944",
+    "createdAt": "2026-05-20T14:49:51.481Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a08a7be7-b2af-4b99-a4ff-45e04ee3c163",
+    "createdAt": "2026-05-20T14:49:52.517Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "829661a1-981d-4452-a2e5-0e6c4f68e76b",
+    "createdAt": "2026-05-20T14:49:53.772Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7dbf0970-68c5-469a-a4ee-db5d43da0d67",
+    "createdAt": "2026-05-20T14:49:54.787Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0a246966-e94f-46f6-98d0-7f298156ab64",
+    "createdAt": "2026-05-20T15:27:48.118Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7f4f2332-9d1a-46ec-b525-a46a0de06d56",
+    "createdAt": "2026-05-20T15:46:54.561Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3fc29c83-6aab-45ad-a183-74d0995063e7",
+    "createdAt": "2026-05-20T15:48:07.317Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ded5248f-0651-4b85-a711-62ce3ec075f9",
+    "createdAt": "2026-05-20T15:48:14.281Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ec315111-0643-4902-ba7c-742fbc7c84ae",
+    "createdAt": "2026-05-20T15:48:20.877Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "348276bb-e59b-4e7b-9f8a-1d04f4f77312",
+    "createdAt": "2026-05-20T15:48:27.212Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "26703212-d0f7-4b7a-bfb4-8eb483b78122",
+    "createdAt": "2026-05-20T15:48:33.840Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c62a5c91-2bf9-4087-ae25-454ab3521303",
+    "createdAt": "2026-05-20T15:48:40.356Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d589cd45-6eba-412a-b485-e2ebd23ecd3b",
+    "createdAt": "2026-05-20T15:48:47.316Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "19051e57-7741-4d05-b47d-072c99a24371",
+    "createdAt": "2026-05-20T15:48:53.682Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d7e12702-9733-41e9-871b-44083f4701e4",
+    "createdAt": "2026-05-20T15:49:00.373Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c9fc08d3-0a33-4b6c-874d-c72a1ed6bc52",
+    "createdAt": "2026-05-20T15:49:07.269Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6d179981-4cba-4499-bc56-4d87eb429479",
+    "createdAt": "2026-05-20T15:49:13.994Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "35845308-f4e8-4a0c-be9b-e3411f24b12a",
+    "createdAt": "2026-05-20T15:49:21.564Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "41ea5e11-6f09-4240-a7c9-858650cf3f46",
+    "createdAt": "2026-05-20T15:49:28.852Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e4b6509a-fbc9-4bfa-96f9-d71f831536b3",
+    "createdAt": "2026-05-20T15:49:38.164Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9776cbe7-096c-460e-a4b5-edf57abd03f8",
+    "createdAt": "2026-05-20T15:49:45.712Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8ccfb3c3-3c3a-4961-8b13-1d9d45d32bcc",
+    "createdAt": "2026-05-20T15:49:52.920Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "47aac933-d956-4f81-828d-f894bbe2da81",
+    "createdAt": "2026-05-20T15:50:00.869Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "78caf606-56a2-4c42-858a-a7fd54756f67",
+    "createdAt": "2026-05-20T15:50:07.233Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "39971ec7-d926-46ae-9aff-42e19b4610d2",
+    "createdAt": "2026-05-20T15:50:15.015Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f88d89bb-052e-4ecc-901e-191af9c8ec54",
+    "createdAt": "2026-05-20T15:50:22.824Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4bce4bd2-0cb1-45c2-a17e-dedc50a84e99",
+    "createdAt": "2026-05-20T15:50:30.881Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "71503245-2dbc-4efb-853b-cbd6f2f25cb0",
+    "createdAt": "2026-05-20T15:50:38.979Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5ec5abb7-429e-4d13-aa48-274fb25d8a88",
+    "createdAt": "2026-05-20T15:50:46.910Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "59be483d-d5fb-4378-9142-8e601a79ee31",
+    "createdAt": "2026-05-20T15:50:54.174Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8a63f650-657e-4eae-b65c-ed4c83fcd5b4",
+    "createdAt": "2026-05-20T15:51:01.421Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "78969dd3-b0e4-49b5-9b38-25512b93ab8b",
+    "createdAt": "2026-05-20T15:51:08.601Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8f24ab70-ae8f-4178-a915-0a71ef9e6e72",
+    "createdAt": "2026-05-20T15:51:17.041Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "251e5a36-6cc6-48fd-b960-33668123648f",
+    "createdAt": "2026-05-20T15:51:24.510Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7aabc49c-1db3-4bd7-b2e3-4ae5eb901689",
+    "createdAt": "2026-05-20T15:51:31.325Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b118b765-3fbe-46cb-acd9-b3efc5a842b5",
+    "createdAt": "2026-05-20T15:51:38.084Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "85361e23-e05f-4eda-b9fd-a94aadf78096",
+    "createdAt": "2026-05-20T15:51:46.633Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1c8611ec-393d-40cf-8416-c556b3f72997",
+    "createdAt": "2026-05-20T15:51:56.734Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "de46396d-adba-4a2a-a16a-733822ce8789",
+    "createdAt": "2026-05-20T15:52:04.023Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bc62e37b-78ae-4a35-aa34-3c52211a175c",
+    "createdAt": "2026-05-20T15:52:12.142Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4dbc4049-eba8-48df-bf99-05a1378fe65a",
+    "createdAt": "2026-05-20T15:52:22.686Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "647f52a3-8094-4842-8675-de5c55cc7dbf",
+    "createdAt": "2026-05-20T15:52:31.686Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "78e005a7-b2a6-4eaa-bf17-d10ff1cce66a",
+    "createdAt": "2026-05-20T15:52:39.678Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c8a9c182-11f3-439c-9b13-a6c67b1f6b47",
+    "createdAt": "2026-05-20T15:52:48.016Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "340405d4-6679-4526-861b-f08209bd8d39",
+    "createdAt": "2026-05-20T15:52:58.270Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "196b6741-8e89-44cd-a690-9fda92c2fbd0",
+    "createdAt": "2026-05-20T15:53:08.214Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5bd08b69-0ae5-4d8b-92ce-54dcef623d71",
+    "createdAt": "2026-05-20T15:53:19.138Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6058b8a4-4ea6-496f-9b77-ecd66345cd6e",
+    "createdAt": "2026-05-20T15:53:28.353Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e00092f2-fc13-4e23-bab1-b1ee98e88318",
+    "createdAt": "2026-05-20T15:53:37.175Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "af9bd4f5-920f-4a94-8ff5-3678c1e810f8",
+    "createdAt": "2026-05-20T15:53:47.079Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4e984772-b333-40e3-ba5a-c80cef53411f",
+    "createdAt": "2026-05-20T15:53:55.187Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c94473af-fb61-4ee5-a62f-1004fbd53ca0",
+    "createdAt": "2026-05-20T15:54:02.273Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "02d24c6e-71b0-4a1e-86b7-cd9881ae1b4a",
+    "createdAt": "2026-05-20T15:54:11.603Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6079f43a-8cd9-4f69-b0fa-2756a55dabbd",
+    "createdAt": "2026-05-20T15:54:20.413Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fcce2449-bbd6-4266-a3a7-4d7c9da95851",
+    "createdAt": "2026-05-20T15:54:28.152Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "71bd4126-ffc3-43a8-8931-f91159295e2b",
+    "createdAt": "2026-05-20T15:54:36.322Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "978df101-195e-42cd-8f6a-cc324b172d34",
+    "createdAt": "2026-05-20T15:54:43.631Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "be9dde6c-2f05-40c3-a74c-ad1249a72ab1",
+    "createdAt": "2026-05-20T15:54:52.050Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "09bb2859-7d87-49e6-a522-68e8aa749239",
+    "createdAt": "2026-05-20T15:54:59.939Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a3574109-dddf-46c5-9b39-09de79242fe1",
+    "createdAt": "2026-05-20T15:55:07.595Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3db53d8c-877a-4ac9-9329-35f0ba2ae7a4",
+    "createdAt": "2026-05-20T15:55:15.546Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0cb92924-ce4b-4ff9-b8e0-e4de4221f007",
+    "createdAt": "2026-05-20T15:55:24.404Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "cdef1df4-50f3-4f83-985e-4db0cb6b8c0e",
+    "createdAt": "2026-05-20T15:55:31.560Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d3964ff1-42a2-4544-94ff-c992e6ac6cce",
+    "createdAt": "2026-05-20T15:55:40.425Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "301225b3-a246-42fe-acca-82cdf2042db6",
+    "createdAt": "2026-05-20T15:55:49.205Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e5525420-c3dc-476e-9c31-8bcb7b52f92e",
+    "createdAt": "2026-05-20T15:55:58.560Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bbe61bdb-e43c-4ed6-a9b7-6072ce48a193",
+    "createdAt": "2026-05-20T15:56:06.653Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "14daa146-ae2f-4a62-a021-f6f15ad124c3",
+    "createdAt": "2026-05-20T15:56:15.408Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ce6a8c17-e0a1-4d2d-a51d-6da26691d4a2",
+    "createdAt": "2026-05-20T15:56:24.525Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2b61e19c-107e-4ddf-affe-3abb00d4117f",
+    "createdAt": "2026-05-20T15:56:32.086Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c51faee7-daad-487f-8996-a09e976aadc7",
+    "createdAt": "2026-05-20T15:56:39.902Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "732328c1-e1cf-4960-a83e-5acaa46583c2",
+    "createdAt": "2026-05-20T15:56:49.415Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5ae025d7-4d22-49b5-ad3b-f6159efc9214",
+    "createdAt": "2026-05-20T15:56:59.395Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bd285930-81fa-47e8-b3b8-4afeafe1a4ae",
+    "createdAt": "2026-05-20T15:57:08.347Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1c9d0cf5-9a26-4cf0-88ac-5502bf4be453",
+    "createdAt": "2026-05-20T15:57:17.681Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8c41032d-20eb-42d1-8a0f-eeff24e9f8b9",
+    "createdAt": "2026-05-20T15:57:27.175Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "23668411-4503-4ca6-9015-2f5f870e8d6f",
+    "createdAt": "2026-05-20T15:57:36.608Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "638a57de-dbda-4259-9a3b-5093f3657c8a",
+    "createdAt": "2026-05-20T15:57:46.289Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "efc66479-e40a-49c6-8126-4a41ce1052b6",
+    "createdAt": "2026-05-20T15:57:55.306Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "669b206f-9d2a-4546-b9a6-e73e34ba39dc",
+    "createdAt": "2026-05-20T15:58:06.820Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3151cd24-b746-4410-8747-bdfccd90c685",
+    "createdAt": "2026-05-20T15:58:17.617Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ef178ebc-45ac-42df-bc64-ffb9a0759b62",
+    "createdAt": "2026-05-20T15:58:26.815Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bc38564d-f097-4e67-837f-4a1672eb560e",
+    "createdAt": "2026-05-20T15:58:35.280Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b2cc607a-7602-46ac-b09b-a54f86d2681c",
+    "createdAt": "2026-05-20T15:58:44.585Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ad5ee03a-fdd0-4920-ba17-2d68aa31a658",
+    "createdAt": "2026-05-20T15:58:53.382Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3bc32671-c3ff-43ff-a749-4badd5d09c6f",
+    "createdAt": "2026-05-20T15:59:02.221Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "60bb5917-5230-49d8-b55f-c5eff84709d4",
+    "createdAt": "2026-05-20T15:59:10.961Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a55aa3ba-4de5-41a6-aa2a-1fc5010921db",
+    "createdAt": "2026-05-20T15:59:20.084Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0ca701e0-93b2-46b8-9121-eecb8aa2b93b",
+    "createdAt": "2026-05-20T15:59:29.158Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "865da041-2289-4489-b26b-3f67e36c73d6",
+    "createdAt": "2026-05-20T15:59:38.086Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fffd66a6-42f5-4895-8469-0b6e523c1621",
+    "createdAt": "2026-05-20T15:59:47.256Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "235a7e44-cd13-4a5d-ab75-9a9f81699d59",
+    "createdAt": "2026-05-20T15:59:57.612Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a2b801cc-6692-49cc-936c-321810b97400",
+    "createdAt": "2026-05-20T16:00:07.711Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "49dbf629-5741-4607-8d20-fcd6f0dc2fac",
+    "createdAt": "2026-05-20T16:00:17.368Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d0cf4af5-df6f-43f3-9bf7-faff710208af",
+    "createdAt": "2026-05-20T16:00:26.318Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "21305249-49aa-461d-bfa3-6746541908ce",
+    "createdAt": "2026-05-20T16:00:35.746Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "241b9303-7e79-45eb-bc0f-110b98154e90",
+    "createdAt": "2026-05-20T16:00:45.253Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "323b2a84-ef18-4a59-b62b-2d493b155e6a",
+    "createdAt": "2026-05-20T16:00:56.730Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3257ec34-c81c-4819-8c77-e677d98eb992",
+    "createdAt": "2026-05-20T16:01:07.167Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2a0bc2b0-af78-406d-87ef-0b969eff87f1",
+    "createdAt": "2026-05-20T16:01:16.822Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "990d347a-a47d-456d-9f66-e7945b90198b",
+    "createdAt": "2026-05-20T16:01:25.461Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "30d57697-fb88-416f-a40f-a268c6fa0341",
+    "createdAt": "2026-05-20T16:01:34.772Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "73edec8e-eb9b-4fcd-99a2-28327e894e45",
+    "createdAt": "2026-05-20T16:01:46.044Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7cab8e87-e978-4ad4-a846-031705bb88d1",
+    "createdAt": "2026-05-20T16:01:56.174Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3f74377d-ab4a-4c1c-9391-4a2a66ae2d4c",
+    "createdAt": "2026-05-20T16:02:05.254Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "dbeeba4e-deac-4fde-9b40-eee48f7b0244",
+    "createdAt": "2026-05-20T16:02:16.822Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ca96c7cc-371b-4ff8-bed4-7593293ef152",
+    "createdAt": "2026-05-20T16:02:26.442Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b5102fa1-1598-43d1-903e-ad31e693aa74",
+    "createdAt": "2026-05-20T16:02:36.061Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1f405422-ee5c-4bac-9b14-11c7ea9fea8e",
+    "createdAt": "2026-05-20T16:02:45.783Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5c5a08a5-bf3d-4af7-9698-cc3c0964c157",
+    "createdAt": "2026-05-20T16:02:56.630Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9c0ea9fe-554a-42f6-ad58-d71995d5e13a",
+    "createdAt": "2026-05-20T16:03:06.708Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3b013dbe-c267-4fc9-aacd-b736ab142127",
+    "createdAt": "2026-05-20T16:03:17.597Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "40ebd561-39e0-4645-88e7-18135b2df7cb",
+    "createdAt": "2026-05-20T16:03:27.802Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ecacd134-0f0d-4ee6-93c0-d2685cde9e31",
+    "createdAt": "2026-05-20T16:03:38.284Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "dfd64dd6-3fa3-40f0-83dd-e11e2d301acd",
+    "createdAt": "2026-05-20T16:03:48.684Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2de8b378-b902-4f4b-a814-84a536c43d35",
+    "createdAt": "2026-05-20T16:04:00.969Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7d62ece0-4c19-47c1-9cc1-9b2b7eb7faa2",
+    "createdAt": "2026-05-20T16:04:10.747Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3db29d9f-1a46-4a65-beb7-c1787faa6eea",
+    "createdAt": "2026-05-20T16:04:22.209Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "595a84ea-79d2-4c3c-894e-10db96811636",
+    "createdAt": "2026-05-20T16:04:33.438Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ee2630c2-e590-40d5-8380-54c9d10e2cea",
+    "createdAt": "2026-05-20T16:04:43.117Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d4f90e20-d8b2-4d75-95f9-2d7716d8dca2",
+    "createdAt": "2026-05-20T16:04:53.758Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0df87ab2-1fde-4737-905d-93cae90b0bbb",
+    "createdAt": "2026-05-20T16:05:05.721Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d727126d-ee73-4f6c-a606-229bb9d3a1d4",
+    "createdAt": "2026-05-20T16:05:18.395Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b6cdd5be-ad87-4be0-a0f8-e53507fe4158",
+    "createdAt": "2026-05-20T16:05:26.844Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a83eb1aa-5b7e-4612-a863-71ee9ff28f9d",
+    "createdAt": "2026-05-20T16:05:36.106Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fecdc640-087f-4598-bf7a-30ec9e92ed3f",
+    "createdAt": "2026-05-20T16:05:49.010Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fb255c78-893f-48ff-9532-9f6f3293e5cb",
+    "createdAt": "2026-05-20T16:06:05.461Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "97dd5578-198e-4702-9612-556cadfd82e2",
+    "createdAt": "2026-05-20T16:06:15.563Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a2b57431-e803-4657-92c8-08e290a8d177",
+    "createdAt": "2026-05-20T16:06:23.859Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "406de66e-bfb8-4bd1-a468-632ca4f0b4e9",
+    "createdAt": "2026-05-20T16:06:32.819Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "45acfc76-f6fe-414b-a643-9874cb255bba",
+    "createdAt": "2026-05-20T16:06:41.288Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1120b15a-c679-4f7a-814a-64a003c70e67",
+    "createdAt": "2026-05-20T16:06:50.189Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6a763723-2f85-47c1-8f42-81dd30187c3c",
+    "createdAt": "2026-05-20T16:06:59.095Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "23e3c915-f189-474e-92a0-ca70e1fa5e93",
+    "createdAt": "2026-05-20T16:07:07.750Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "84c978ec-973c-485a-998c-ef1033e20e55",
+    "createdAt": "2026-05-20T16:07:16.846Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e07b8b1a-54fa-4c82-ba0d-9ccd01f49dfc",
+    "createdAt": "2026-05-20T16:07:25.462Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b7b90b6c-4a66-4394-834a-e34a1438886d",
+    "createdAt": "2026-05-20T16:07:34.391Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "244b13b0-054a-475e-ab76-24d775c5cc7b",
+    "createdAt": "2026-05-20T16:07:43.057Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e99637f4-6eec-4d2c-a2e3-53701dae337e",
+    "createdAt": "2026-05-20T16:07:53.262Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4c8cd16a-2a75-47c8-a117-ceaf1f494231",
+    "createdAt": "2026-05-20T16:08:02.814Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f8b6c190-ced8-44d9-b3c4-a4c4335c11d4",
+    "createdAt": "2026-05-20T16:08:13.949Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9048c446-e936-4f43-95b9-b9e006c491c1",
+    "createdAt": "2026-05-20T16:08:23.257Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f28df266-9c99-4589-948e-85d6119e74a6",
+    "createdAt": "2026-05-20T16:08:32.361Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e9b3eb4f-71f5-4a42-af35-5d27a40ee2a0",
+    "createdAt": "2026-05-20T16:08:41.652Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7745f421-da60-4ffa-9acb-cc903124ea2f",
+    "createdAt": "2026-05-20T16:08:50.998Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2517254c-ed00-4813-8c85-20c8dc474926",
+    "createdAt": "2026-05-20T16:09:00.170Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fb90498c-b98b-4e80-a672-aa10023a0b0c",
+    "createdAt": "2026-05-20T16:09:09.565Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "11b9ecf8-30b5-4e64-a440-9d625ef5d125",
+    "createdAt": "2026-05-20T16:09:19.384Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "55bb2f56-0e4a-4389-8ae4-f74c1c67d241",
+    "createdAt": "2026-05-20T16:09:28.948Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "02bcc536-3723-4aa2-abac-95de815d29e3",
+    "createdAt": "2026-05-20T16:09:38.627Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9a466fe4-2a97-49a4-95b1-744d65425018",
+    "createdAt": "2026-05-20T16:09:49.211Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a9e51c6f-3c6a-4921-914a-19c5128ad672",
+    "createdAt": "2026-05-20T16:10:00.049Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0e2b2276-fa99-48ab-bf24-1551b1d79482",
+    "createdAt": "2026-05-20T16:10:10.049Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8109fc44-fa80-459f-90ad-c3d894c51d28",
+    "createdAt": "2026-05-20T16:10:19.517Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3b053120-fb13-4c96-a880-2194c938a853",
+    "createdAt": "2026-05-20T16:10:29.131Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "63db3992-eca3-4cab-b7e2-c5937a0d1c4d",
+    "createdAt": "2026-05-20T16:10:39.036Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "efa3276a-2fcb-4654-9f46-e1819627eddc",
+    "createdAt": "2026-05-20T16:10:48.819Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2e19957f-4758-49f3-9928-5a4aab0608cb",
+    "createdAt": "2026-05-20T16:10:59.425Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "84cbe28a-6890-42c4-83e6-222c56748554",
+    "createdAt": "2026-05-20T16:11:09.251Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a8c16561-6b88-4df2-b403-5f9c0a282fe5",
+    "createdAt": "2026-05-20T16:11:19.326Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "53b27e86-fcbb-41f4-a1e1-12cabd9b8599",
+    "createdAt": "2026-05-20T16:11:29.271Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3341a122-1de2-4d95-a7ce-43ac698de2ce",
+    "createdAt": "2026-05-20T16:11:40.534Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "59da0fa7-bf01-49af-a6d0-c6fc1e205d85",
+    "createdAt": "2026-05-20T16:11:51.591Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f2dd88d9-fb77-44f8-8522-d6a47e0d149b",
+    "createdAt": "2026-05-20T16:12:01.969Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b5c935ac-610b-456c-aec0-1c4a9201f866",
+    "createdAt": "2026-05-20T16:12:11.990Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "df43ab41-0a22-42da-9961-c06dfd4eb622",
+    "createdAt": "2026-05-20T16:12:22.061Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7380b034-071d-4d10-8ad9-766259f3f5f9",
+    "createdAt": "2026-05-20T16:12:31.685Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e28f35c7-f45b-4891-9482-c655a6dca3e6",
+    "createdAt": "2026-05-20T16:12:41.776Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "755acaaa-7d7a-4ef5-92ed-3d87c35cb8bd",
+    "createdAt": "2026-05-20T16:12:51.548Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "563cda32-62f0-4595-af8c-bb12f56964d0",
+    "createdAt": "2026-05-20T16:13:00.919Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "07a8a38d-5d93-4c5b-a49f-1234d9151cab",
+    "createdAt": "2026-05-20T16:13:10.257Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "50d28373-e428-4d6b-a9bd-70d6a48409f9",
+    "createdAt": "2026-05-20T16:13:19.985Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "09207fde-a91a-4601-8580-a1fb4794a0a5",
+    "createdAt": "2026-05-20T16:13:29.518Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9bb6fccf-e529-44fd-bb16-be555798f8b7",
+    "createdAt": "2026-05-20T16:13:39.670Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5989a8d7-1d76-460a-a360-f46a55b16a5f",
+    "createdAt": "2026-05-20T16:13:49.579Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "396be7a0-3856-48c6-ad41-8f594e9f4a04",
+    "createdAt": "2026-05-20T16:13:59.033Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "683792f8-94d5-464b-a59f-af081e79be98",
+    "createdAt": "2026-05-20T16:14:08.583Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1611a3a2-350e-4822-ab47-c1f20bc87294",
+    "createdAt": "2026-05-20T16:14:18.032Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "71fe69e0-9eeb-4821-80f3-bab4835cb14c",
+    "createdAt": "2026-05-20T16:14:27.522Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0ad9bb53-f553-4e1e-be3c-dbda9faa210b",
+    "createdAt": "2026-05-20T16:14:37.466Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5b1cc191-f0cf-4035-b9fc-718732717acf",
+    "createdAt": "2026-05-20T16:14:47.299Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c192d312-0ce3-4eb1-8a5d-21d7c916f6d3",
+    "createdAt": "2026-05-20T16:14:57.263Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9df39b8d-f185-4ccf-8060-85c12632a71e",
+    "createdAt": "2026-05-20T16:15:06.576Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e7557cb0-2336-47a0-b5a7-55812f4596c9",
+    "createdAt": "2026-05-20T16:15:17.068Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7d54077e-d322-44ce-ada8-01417defadf1",
+    "createdAt": "2026-05-20T16:15:26.668Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e1145582-fb23-4055-9481-b14cdef2c611",
+    "createdAt": "2026-05-20T16:15:36.521Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4debd44f-86bf-4a7a-92df-a34cfab65930",
+    "createdAt": "2026-05-20T16:15:47.025Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6d2862e5-c915-43d7-b730-47e012e56353",
+    "createdAt": "2026-05-20T16:15:57.184Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2d2f1f07-dd1b-4589-8244-9d08d8a9f4a0",
+    "createdAt": "2026-05-20T16:16:07.203Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bdd5b657-e1c5-4768-935d-dbd2eb12a56c",
+    "createdAt": "2026-05-20T16:16:17.435Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f4501057-2d03-4dbc-be06-bc6157153a74",
+    "createdAt": "2026-05-20T16:16:27.413Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8bd4c976-9fb3-4dad-aad8-9ac7d0b2d51e",
+    "createdAt": "2026-05-20T16:16:37.629Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5b52b3a7-a86b-4dea-927d-b9a1d18e5891",
+    "createdAt": "2026-05-20T16:16:47.576Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "afbb0459-da18-4bc0-a6d3-f79ff5d73e38",
+    "createdAt": "2026-05-20T16:16:57.959Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "becf307f-9943-4aec-89ce-bb267f505982",
+    "createdAt": "2026-05-20T16:17:08.453Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "62644062-d07b-4e8d-b1ff-c31b0dd7df30",
+    "createdAt": "2026-05-20T16:17:18.690Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "334a1b1d-4bcc-4e2c-a826-19c4b8b4c8c8",
+    "createdAt": "2026-05-20T16:17:28.857Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0253a861-7420-4caf-8205-8b0d1cf3dc2f",
+    "createdAt": "2026-05-20T16:17:39.424Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "07b49f92-7881-422f-9534-e442fbe55287",
+    "createdAt": "2026-05-20T16:17:49.832Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "65566e10-8d0c-4217-8fd7-b3f53b79b63d",
+    "createdAt": "2026-05-20T16:18:00.272Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "56ce10fe-5883-4d3b-ba19-ac7ed5f6554d",
+    "createdAt": "2026-05-20T16:18:10.946Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "06800c7d-9995-42a0-9751-0a930cb20395",
+    "createdAt": "2026-05-20T16:18:21.919Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d2b51e24-7f15-4e58-81a5-a956da3de461",
+    "createdAt": "2026-05-20T16:18:32.267Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "46e75eb2-db20-4590-aeac-6bdafe38bbfd",
+    "createdAt": "2026-05-20T16:18:42.882Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4d3c0baa-47d1-4c7e-9963-4680c6540bbb",
+    "createdAt": "2026-05-20T16:18:53.423Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "37e88660-3a8c-47b2-b3b7-8a3a143d4c99",
+    "createdAt": "2026-05-20T16:19:04.085Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "21463356-4651-49f2-b823-a0fedae53779",
+    "createdAt": "2026-05-20T16:19:14.964Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "cb4d88d5-2866-40bd-b393-b39fb4cfc405",
+    "createdAt": "2026-05-20T16:19:25.920Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a0036321-a5e2-4f4c-ae44-a28006435caa",
+    "createdAt": "2026-05-20T16:19:36.582Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "88143ac0-2820-42f0-9f8f-f23d3c7ebb0b",
+    "createdAt": "2026-05-20T16:19:47.878Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "324c834f-3b1c-42b8-8235-740b9fdd9c4d",
+    "createdAt": "2026-05-20T16:19:58.896Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f79c98ed-89f9-4ce0-888b-b7eda464ed39",
+    "createdAt": "2026-05-20T16:20:09.646Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9754b3c1-86d6-4046-813c-cd88738edaa4",
+    "createdAt": "2026-05-20T16:20:20.492Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2acd386e-a191-4832-8506-ac6406dec714",
+    "createdAt": "2026-05-20T16:20:31.150Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f733aace-0dfa-4615-96d2-6db1fa5451fc",
+    "createdAt": "2026-05-20T16:20:42.290Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1c4f3f2b-6ac7-4ea1-bf32-b2f1c97d0e2b",
+    "createdAt": "2026-05-20T16:20:53.771Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "37fbb825-9f8d-458e-a8fa-7037e28c7f7a",
+    "createdAt": "2026-05-20T16:21:04.747Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bfdb67c5-9ea2-46fc-8406-6ad0fab8ec6e",
+    "createdAt": "2026-05-20T16:21:16.034Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d20292da-ef7f-45ff-ba1c-a8f538a90050",
+    "createdAt": "2026-05-20T16:21:27.078Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "74a01f00-f35b-4052-a033-baab98d0dac0",
+    "createdAt": "2026-05-20T16:21:39.060Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "51ae0ae4-1384-4b34-a8f1-e820a46e5007",
+    "createdAt": "2026-05-20T16:21:50.897Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2fa1535b-71a5-4d20-a506-38d9138ab7c2",
+    "createdAt": "2026-05-20T16:22:01.937Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4830924f-8ab0-4c89-8606-dcf2af981275",
+    "createdAt": "2026-05-20T16:22:13.056Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a136a073-58eb-4cd9-b0d1-d7660fc212ed",
+    "createdAt": "2026-05-20T16:22:24.556Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ef9ba99a-7669-4427-9dcb-70c4afe585b1",
+    "createdAt": "2026-05-20T16:22:36.045Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "dc13fb15-4300-4d29-9247-7efe67402947",
+    "createdAt": "2026-05-20T16:22:47.403Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "eea6cc3f-b273-4602-9b06-c8297f2930cf",
+    "createdAt": "2026-05-20T16:22:58.906Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0edcd7b2-7d9e-4b5c-9778-6295fa274f1c",
+    "createdAt": "2026-05-20T16:23:10.766Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "402440c6-b41f-4fd6-99c5-3645f35d9061",
+    "createdAt": "2026-05-20T16:23:22.480Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "20cc8c32-17da-4fbc-a78f-2496af9e16c5",
+    "createdAt": "2026-05-20T16:23:33.814Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3c665b0e-95a6-494e-b571-8ee057cfbee8",
+    "createdAt": "2026-05-20T16:23:46.298Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "17262a11-8161-4485-856d-8d0b6a7374e6",
+    "createdAt": "2026-05-20T16:23:58.365Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e016c000-1bdf-4881-94d0-0a09740ccaaa",
+    "createdAt": "2026-05-20T16:24:09.452Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "23f6d59d-d58c-40ed-8532-be8b64fc5d21",
+    "createdAt": "2026-05-20T16:24:20.810Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a44f3b43-7658-4a01-b562-4a5ee158cc00",
+    "createdAt": "2026-05-20T16:24:32.711Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6711e305-2169-4013-b4d7-08ce9a8bd5b2",
+    "createdAt": "2026-05-20T16:24:45.278Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6738fc2a-9ac6-4267-9ef2-206db87fa734",
+    "createdAt": "2026-05-20T16:24:57.130Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c875ea05-525f-4604-82c4-2158a557f63e",
+    "createdAt": "2026-05-20T16:25:09.094Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b7e7325d-e8c6-4db9-8ed8-27d434bbc41c",
+    "createdAt": "2026-05-20T16:25:20.269Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0d1de103-0bc0-441a-a2db-35e12b779d7b",
+    "createdAt": "2026-05-20T16:25:31.581Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "19d8174e-ddbf-435c-b729-5483326469cf",
+    "createdAt": "2026-05-20T16:25:43.558Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1d10b3c7-ac9e-46a7-9366-9bca53ef2160",
+    "createdAt": "2026-05-20T16:25:55.744Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c8efdb4f-370e-4880-95fa-0e6f875aaf95",
+    "createdAt": "2026-05-20T16:26:07.926Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b3d702e2-fd4c-40bd-8e85-bb09ff480bd2",
+    "createdAt": "2026-05-20T16:26:19.406Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2579e3fd-d7f1-4465-9ffa-3d9c92a68fd7",
+    "createdAt": "2026-05-20T16:26:31.909Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7c3e71ec-5097-47bd-9e13-350a0bb55f35",
+    "createdAt": "2026-05-20T16:26:44.236Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "22c0765b-a8c1-447d-ba89-5c6ab5b5a861",
+    "createdAt": "2026-05-20T16:26:56.963Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bc4d21c9-f6d9-4c56-b255-c01bb515d3b0",
+    "createdAt": "2026-05-20T16:27:09.243Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2c33da4c-7538-44cd-b08c-96aa1c34fd1b",
+    "createdAt": "2026-05-20T16:27:21.181Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9720010e-8225-4dcf-b8d3-b8fd4a290a32",
+    "createdAt": "2026-05-20T16:27:33.094Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "deafe582-6f6a-4fe7-a2f1-5a02aa66ed86",
+    "createdAt": "2026-05-20T16:27:46.262Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e4063262-6bdc-42ea-954e-95856c0ae28a",
+    "createdAt": "2026-05-20T16:27:58.642Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "268dc9da-d35c-4117-a804-f16ec84d57dc",
+    "createdAt": "2026-05-20T16:28:10.883Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "03232735-af00-44ef-befe-a5a238cd79c4",
+    "createdAt": "2026-05-20T16:28:23.248Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a4abe11e-0bb7-4b10-ad8d-5aa61337ba73",
+    "createdAt": "2026-05-20T16:28:35.345Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e458ae78-f59a-4429-9601-c9cc5d8e87f1",
+    "createdAt": "2026-05-20T16:28:47.715Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "50ad81c2-504f-4f61-9177-5e269f6deaa2",
+    "createdAt": "2026-05-20T16:29:00.378Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0f2d7d86-880c-4f6e-b762-99f027dfc1d8",
+    "createdAt": "2026-05-20T16:29:12.843Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "20a73637-fa04-4d9d-aff5-6bf0e8b39c0c",
+    "createdAt": "2026-05-20T16:29:25.411Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9afa6332-7cc2-4d19-9ca3-37f7364aae5c",
+    "createdAt": "2026-05-20T16:29:37.802Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "97445ec7-4967-4ca1-b23b-8f6e98dbcd26",
+    "createdAt": "2026-05-20T16:29:50.010Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "16d8c07d-e489-4d88-b9c7-160503884f37",
+    "createdAt": "2026-05-20T16:30:02.989Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8837e800-24b7-4bbd-8ecf-121bafdd529a",
+    "createdAt": "2026-05-20T16:30:15.889Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7ec92743-8176-4e2e-b45c-e4e8d02e8b49",
+    "createdAt": "2026-05-20T16:30:28.408Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a9d760a9-0bf1-4ae9-96b4-b6d540c919ca",
+    "createdAt": "2026-05-20T16:30:41.015Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "83a52d6f-a94d-4412-983f-d4e87d1ab3dc",
+    "createdAt": "2026-05-20T16:30:54.151Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "be196df6-10df-4990-923d-a27d2512ad48",
+    "createdAt": "2026-05-20T16:31:06.771Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "35a338fb-d1c6-4c16-88e2-59b91520c874",
+    "createdAt": "2026-05-20T16:31:18.983Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1b027de4-9fc1-4c29-aa19-1d93d8b06946",
+    "createdAt": "2026-05-20T16:31:31.783Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e2b577ba-1761-477a-8232-6e2cd10352ec",
+    "createdAt": "2026-05-20T16:31:45.069Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "746490e9-4b26-43e1-83a5-af4f21638c65",
+    "createdAt": "2026-05-20T16:31:58.302Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a7d1e248-e147-4a08-b886-d269e5c56f21",
+    "createdAt": "2026-05-20T16:32:11.736Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d4d2f958-8b7b-40b4-9b61-ddac4ff482f2",
+    "createdAt": "2026-05-20T16:32:24.871Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3b70d20e-1d6b-473e-840b-d0e1fee1842d",
+    "createdAt": "2026-05-20T16:32:37.828Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "db0dc3bc-8df9-437c-b3f5-282f6f1804c2",
+    "createdAt": "2026-05-20T16:32:50.632Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f6a3755a-ae66-40f5-923b-74cb4e645bf5",
+    "createdAt": "2026-05-20T16:33:03.788Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8fdd4415-0919-488e-90c7-26476e59d483",
+    "createdAt": "2026-05-20T16:33:17.832Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ab8402a7-9664-4464-96d5-3ed74aa5bec1",
+    "createdAt": "2026-05-20T16:33:31.273Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "92fc9192-7a64-4c01-a06c-75929302b3b1",
+    "createdAt": "2026-05-20T16:33:45.476Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c16e85d4-d1fa-4520-aa05-7aceca7b8e35",
+    "createdAt": "2026-05-20T16:33:59.047Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fd3a1d08-fcd1-4abd-b277-ec489b673053",
+    "createdAt": "2026-05-20T16:34:12.312Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e6f0a2a0-1b42-4640-9c3a-a577b71e4cd8",
+    "createdAt": "2026-05-20T16:34:26.290Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e12f3e95-d6b4-4e9b-a81e-1886a00fa3ab",
+    "createdAt": "2026-05-20T16:34:39.561Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fad024c4-28d1-42f3-b457-e3e81f906b56",
+    "createdAt": "2026-05-20T16:34:53.321Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6062d63f-c605-478a-bafc-9801f45fe324",
+    "createdAt": "2026-05-20T16:35:07.220Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e2b30472-b5b6-4760-b6d2-c6a29e4086e5",
+    "createdAt": "2026-05-20T16:35:20.394Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6f85a742-6e34-4962-a8b2-1d860c42d8a2",
+    "createdAt": "2026-05-20T16:35:33.702Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d64377ec-0197-4a42-91ae-4e66c111b734",
+    "createdAt": "2026-05-20T16:35:47.875Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1e38742d-ab3b-47a5-88df-91e6b47e5d80",
+    "createdAt": "2026-05-20T16:36:01.614Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "891c6642-dd15-47d5-b920-615755f9f54f",
+    "createdAt": "2026-05-20T16:36:16.018Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "cac8b331-121d-488c-b0ba-8b59a4a94cdb",
+    "createdAt": "2026-05-20T16:36:29.510Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3bc22b20-8e6b-4dec-b9fb-157a8e4c1f5d",
+    "createdAt": "2026-05-20T16:36:43.240Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fe369bfc-f402-489c-bbb9-e977117da350",
+    "createdAt": "2026-05-20T16:36:57.277Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ad58dd61-7f84-4e77-900c-67f9591b49a3",
+    "createdAt": "2026-05-20T16:37:11.011Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2600b02e-5df4-4514-b4f6-63ba4f1daba5",
+    "createdAt": "2026-05-20T16:37:25.670Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "abc703e3-6c04-4d44-8ee0-ed26a29ee378",
+    "createdAt": "2026-05-20T16:37:39.375Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e40b3b9d-bb93-4453-9f52-c474d93a5a1c",
+    "createdAt": "2026-05-20T16:37:52.963Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b4966a06-4c76-46b6-9664-2fa6a01af73e",
+    "createdAt": "2026-05-20T16:38:07.898Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "40691602-fa14-4d6c-b0bb-76f4f7577ad6",
+    "createdAt": "2026-05-20T16:38:21.481Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8245eced-b631-492a-b03c-1dbf79abdab6",
+    "createdAt": "2026-05-20T16:38:35.614Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9489d63c-1256-414b-8047-3b70d8ab5600",
+    "createdAt": "2026-05-20T16:38:49.499Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6d76339b-1b0f-40c1-a751-b88423eab325",
+    "createdAt": "2026-05-20T16:39:03.256Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6cae7d30-3cb9-4208-ba11-b2df0ed70555",
+    "createdAt": "2026-05-20T16:39:18.467Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1a56bed5-9256-40ba-b259-10b74783e8c0",
+    "createdAt": "2026-05-20T16:39:32.353Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "229fdc7a-a7a3-481c-880b-467edb488269",
+    "createdAt": "2026-05-20T16:39:50.450Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "48c96834-86b0-4fb0-b8df-64b38b9e05a1",
+    "createdAt": "2026-05-20T16:40:05.987Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "277f4875-c985-4278-9234-e13f092a2c73",
+    "createdAt": "2026-05-20T16:40:20.292Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3df5b4da-4721-463f-bded-ccb0bb05611c",
+    "createdAt": "2026-05-20T16:40:34.660Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1d62b61f-3499-40b5-816e-0c8487cd4b89",
+    "createdAt": "2026-05-20T16:40:48.931Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "59dc7ff2-2be8-487e-9d78-8d0604ab54ae",
+    "createdAt": "2026-05-20T16:41:03.161Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b0847347-cbdf-492f-ab0d-24eb0f084602",
+    "createdAt": "2026-05-20T16:41:17.365Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "59fde2d0-1968-4be3-bd62-837f792ca692",
+    "createdAt": "2026-05-20T16:41:31.698Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "43616a34-6d39-480f-81a1-435891c1c6fc",
+    "createdAt": "2026-05-20T16:41:47.039Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8fcce85e-dad9-4b88-a95d-972d7c1ab52c",
+    "createdAt": "2026-05-20T16:42:01.304Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d671c64c-5870-47dc-b312-958d5ef4a466",
+    "createdAt": "2026-05-20T16:42:16.784Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "40658d2f-12f9-4386-a4a7-df50fdc9ebd9",
+    "createdAt": "2026-05-20T16:42:31.100Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e07f588f-12e9-4cb7-a580-b74873bec3b2",
+    "createdAt": "2026-05-20T16:42:46.058Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "86913e87-6e40-4d45-a023-e31c59b92885",
+    "createdAt": "2026-05-20T16:43:00.778Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1f2bb7ac-e5a8-459d-91a9-de46d2483a0b",
+    "createdAt": "2026-05-20T16:43:15.708Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "96f1e1a6-b608-4b38-b88b-2fc451741652",
+    "createdAt": "2026-05-20T16:43:30.563Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2eb69b03-0f8f-4097-a936-b809c236eb29",
+    "createdAt": "2026-05-20T16:43:45.992Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6a706772-9832-4bf3-be41-6777447e7cf4",
+    "createdAt": "2026-05-20T16:44:00.940Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a3fa6287-41a3-4682-9dfb-cf1eb948d1c9",
+    "createdAt": "2026-05-20T16:44:16.238Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "25d994fe-cf6a-4207-9df1-5b48695e79c8",
+    "createdAt": "2026-05-20T16:44:31.434Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a4e4a4f2-f7d3-4ea1-824c-629c7eaead51",
+    "createdAt": "2026-05-20T16:44:47.237Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "96e4988a-bf9b-498b-afba-fd5b733e367d",
+    "createdAt": "2026-05-20T16:45:02.507Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b97dd648-f591-468f-8676-a8c24c19e1a2",
+    "createdAt": "2026-05-20T16:45:19.156Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "0dcf2782-ddec-4028-aada-0e47007365dc",
+    "createdAt": "2026-05-20T16:45:34.354Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c93feed3-7b50-4754-a561-108cdf452905",
+    "createdAt": "2026-05-20T16:45:49.440Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9fc88625-5c7a-4e1a-9b06-1e8b338026cd",
+    "createdAt": "2026-05-20T16:46:04.560Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "04d1f37a-0947-4580-b8ca-9b83bc7e4afd",
+    "createdAt": "2026-05-20T16:46:19.823Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5fca7d47-208f-4757-9941-577801b99c9b",
+    "createdAt": "2026-05-20T16:46:35.594Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b4c6119a-2e67-4e7b-83e4-9203975fdd47",
+    "createdAt": "2026-05-20T16:46:50.295Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "04047c03-657c-44c3-92e1-5d5c38b204d5",
+    "createdAt": "2026-05-20T16:47:05.823Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3fb1d7e5-678c-456e-a38c-240a49a1819d",
+    "createdAt": "2026-05-20T16:47:21.071Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "382735eb-dfd7-4d18-a1f3-a9aa0ed72576",
+    "createdAt": "2026-05-20T16:47:36.787Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e4718b97-8084-42ad-b59b-2c0bebac0e99",
+    "createdAt": "2026-05-20T16:47:51.642Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a06b7350-590b-414a-a234-7ddab8cf9074",
+    "createdAt": "2026-05-20T16:48:07.947Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "643e0119-8373-40c6-8ca6-6e01b85b3d9f",
+    "createdAt": "2026-05-20T16:48:23.156Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3173eeb9-9df9-4fed-849c-51a52c8541d1",
+    "createdAt": "2026-05-20T16:48:38.828Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bd838e9f-d7f9-4475-8288-03dde7bafcd3",
+    "createdAt": "2026-05-20T16:48:53.987Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "47f09d12-0b36-4515-8bde-c5630ec281bd",
+    "createdAt": "2026-05-20T16:49:10.000Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "58c5f6c8-6efb-4d2b-9448-ed2a8ffe3872",
+    "createdAt": "2026-05-20T16:49:25.809Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "59d022a6-a024-45d8-a1ad-472e567a73d2",
+    "createdAt": "2026-05-20T16:49:41.351Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a46a2cec-2826-4871-ac85-d76aa64a129e",
+    "createdAt": "2026-05-20T16:49:58.200Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "4ba5a991-a34c-4e4f-a93b-a11f9e03129c",
+    "createdAt": "2026-05-20T16:50:14.720Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6176c636-16aa-476f-acf6-14674098515d",
+    "createdAt": "2026-05-20T16:50:30.886Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "766219f6-f62b-4462-98b0-76505eacdc88",
+    "createdAt": "2026-05-20T16:50:46.890Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "beffc217-330b-4f5d-9ab3-872b0e236af8",
+    "createdAt": "2026-05-20T16:51:02.129Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "adedebd9-a9dd-4328-867d-642dda996df0",
+    "createdAt": "2026-05-20T16:51:18.074Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "7513026f-5241-46b6-a16b-25ec28916955",
+    "createdAt": "2026-05-20T16:51:34.050Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "29eaa064-0b4f-4642-94ab-b900026311b1",
+    "createdAt": "2026-05-20T16:51:49.714Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fb5634c8-d3c5-4d66-b366-b958c66a8865",
+    "createdAt": "2026-05-20T16:52:06.169Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "588de224-2549-450b-a404-ac3dad65a387",
+    "createdAt": "2026-05-20T16:52:22.075Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8f96671e-5108-4169-be73-9dfb3b17f0bd",
+    "createdAt": "2026-05-20T16:52:38.151Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "6bedf0bb-5b1c-43a6-b904-e1bfb1158245",
+    "createdAt": "2026-05-20T16:52:53.999Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2a500208-7716-475f-95a7-3f4d26546ade",
+    "createdAt": "2026-05-20T16:53:10.646Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d28d057d-c2cc-404c-977e-7296eb7d4adc",
+    "createdAt": "2026-05-20T16:53:27.607Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "24509d24-f4ad-4458-81fb-a685eaf155be",
+    "createdAt": "2026-05-20T16:53:44.099Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "06afb8d7-00f6-4780-aed7-dd527102aff3",
+    "createdAt": "2026-05-20T16:54:01.001Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "b056b7ad-2886-4501-9a7e-185667bdabaa",
+    "createdAt": "2026-05-20T16:54:17.967Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "fc8c7cc3-0a36-43f2-b9bb-f47791e08151",
+    "createdAt": "2026-05-20T16:54:34.600Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "bb5f407d-dc4b-4599-b6e7-8020ef9a0d6e",
+    "createdAt": "2026-05-20T16:54:50.871Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "01eb889c-30ba-41d4-b7ce-9c334fd1eca3",
+    "createdAt": "2026-05-20T16:55:07.727Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "002de61b-a54d-4286-9033-4ad4628a6cc0",
+    "createdAt": "2026-05-20T16:55:23.971Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d9e24227-5618-4281-9dd5-e383c29b9af5",
+    "createdAt": "2026-05-20T16:55:40.790Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "36db3da2-4fb7-41b5-a083-0f84b2b840c2",
+    "createdAt": "2026-05-20T16:55:58.245Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5f695d84-a36a-4eba-a441-2dcca6fa5334",
+    "createdAt": "2026-05-20T16:56:15.589Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "8e5772f8-e776-49de-b534-bb6999951b45",
+    "createdAt": "2026-05-20T16:56:32.528Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "eed9cd1a-c71d-4244-a4ad-da15e0313b13",
+    "createdAt": "2026-05-20T16:56:49.671Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "68ce90d1-59ce-4ca3-bcf1-ddfaa58ba1ab",
+    "createdAt": "2026-05-20T16:57:06.555Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e67dd5a5-ea8d-46f7-a089-4f6c80c412f5",
+    "createdAt": "2026-05-20T16:57:23.073Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "5af09580-9a85-40da-b112-fa36016f036c",
+    "createdAt": "2026-05-20T16:57:40.275Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "83536807-6e5d-41bf-aba1-73061e600858",
+    "createdAt": "2026-05-20T16:57:58.079Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a8c37c2d-9a02-40a8-a791-0a7a9538d1d5",
+    "createdAt": "2026-05-20T16:58:15.723Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "3bd3a489-93b1-4b0f-8368-2da41de41cb2",
+    "createdAt": "2026-05-20T16:58:32.801Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "96d78893-4449-4a17-b83e-7f8733f7c866",
+    "createdAt": "2026-05-20T16:58:49.743Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "42fa33f0-ff49-41cc-aaed-3b3a60c14642",
+    "createdAt": "2026-05-20T16:59:06.912Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "9958f140-7d5e-4bac-a26d-57bbf696ba32",
+    "createdAt": "2026-05-20T16:59:23.956Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "22249f08-b783-4cc6-ad83-35ff72dca6e2",
+    "createdAt": "2026-05-20T16:59:41.283Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "57cfb3ac-697b-4d46-aeca-593ea3836037",
+    "createdAt": "2026-05-20T16:59:59.502Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "a5b4019c-15c4-4144-9d95-e64616296c3e",
+    "createdAt": "2026-05-20T17:00:16.960Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "48b306c6-7750-4681-bda0-8ec35bb200d9",
+    "createdAt": "2026-05-20T17:00:33.924Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "d4c61017-2657-44b8-a984-cea000f34e68",
+    "createdAt": "2026-05-20T17:00:50.861Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "55b79112-6983-4f9b-96e4-748c3c2a0a36",
+    "createdAt": "2026-05-20T17:01:08.480Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f1b35a48-7c98-46f5-9a1f-57ed3e464b22",
+    "createdAt": "2026-05-20T17:01:25.806Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "67289e25-79c2-473b-90c9-60c3a1dda5d1",
+    "createdAt": "2026-05-20T17:01:43.290Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "e4e67fe7-e5bc-46a7-85c2-f57dbd696b34",
+    "createdAt": "2026-05-20T17:02:01.605Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "38105a4b-8880-4b03-8176-accb36158f14",
+    "createdAt": "2026-05-20T17:02:19.994Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "2b6d0297-bc9e-4a3e-a9d3-a4ed97c58e6b",
+    "createdAt": "2026-05-20T17:02:37.874Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ddce42e0-f259-468a-8eec-a67bac07849c",
+    "createdAt": "2026-05-20T17:02:55.520Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "c719517a-b008-4254-b527-c93037daa8ae",
+    "createdAt": "2026-05-20T17:03:13.137Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "42b095ae-153c-4736-b20d-33db9e9c3e08",
+    "createdAt": "2026-05-20T17:03:31.776Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "f98cd3ac-6573-48ff-b612-e74f076ef3e1",
+    "createdAt": "2026-05-20T17:03:50.060Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "ce6b6e82-2b76-4385-be2b-eed9fc1ba262",
+    "createdAt": "2026-05-20T17:04:09.716Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "22f28d26-dda1-46a1-a8ac-395e82987de9",
+    "createdAt": "2026-05-20T19:45:56.912Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
+  },
+  {
+    "id": "1eefe1b8-1c15-4abf-b29d-e80a4b30e614",
+    "createdAt": "2026-05-20T19:46:04.344Z",
+    "category": "decision_heuristic",
+    "title": "Always gate autonomous execution",
+    "lesson": "Policy + rollback gates reduce high-severity deployment risk in autonomous loops.",
+    "confidence": 0.82,
+    "tags": [
+      "policy",
+      "release",
+      "safety"
+    ]
   }
 ]

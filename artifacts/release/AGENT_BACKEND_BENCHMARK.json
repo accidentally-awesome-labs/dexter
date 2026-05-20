@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-05-20T19:46:05.161Z",
+  "weights": {
+    "reliability": 0.25,
+    "patchQuality": 0.2,
+    "latency": 0.15,
+    "modularity": 0.15,
+    "toolingFit": 0.15,
+    "recoverability": 0.1
+  },
+  "selectedDefaultBackend": "cursor-cli",
+  "rows": [
+    {
+      "backend": "cursor-cli",
+      "reliability": 8.6,
+      "patchQuality": 9,
+      "latency": 7.2,
+      "modularity": 8.7,
+      "toolingFit": 9.3,
+      "recoverability": 8.4,
+      "weightedScore": 8.57
+    },
+    {
+      "backend": "shell",
+      "reliability": 7,
+      "patchQuality": 7.4,
+      "latency": 8.2,
+      "modularity": 8,
+      "toolingFit": 8.3,
+      "recoverability": 7.5,
+      "weightedScore": 7.66
+    },
+    {
+      "backend": "scripted",
+      "reliability": 9.5,
+      "patchQuality": 4,
+      "latency": 9.8,
+      "modularity": 8.5,
+      "toolingFit": 5,
+      "recoverability": 8.8,
+      "weightedScore": 7.55
+    }
+  ]
+}

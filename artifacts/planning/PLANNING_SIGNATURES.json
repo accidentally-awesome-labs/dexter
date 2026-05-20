@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-05-20T14:33:56.368Z",
+  "generatedAt": "2026-05-20T19:46:03.802Z",
   "files": [
     {
       "path": "artifacts/planning/PRD.md",
@@ -8,7 +8,7 @@
     },
     {
       "path": "artifacts/planning/TASK_GRAPH.json",
-      "hmacSha256": "27433bb4371eaaf116e5dca481ea16cfb02a13922304bb7ae662305b9b44976d"
+      "hmacSha256": "4c117fd4f9f628ad55cf2a73855e4ec88b66c32f1f006fa2d75e84e140c6db5f"
     },
     {
       "path": "artifacts/planning/ARCHITECTURE_SPEC.md",
