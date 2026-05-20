@@ -1,0 +1,17 @@
+{
+  "runId": "6d81e0b1-b69e-4cb1-b4d6-2ed840aa9409",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/6d81e0b1-b69e-4cb1-b4d6-2ed840aa9409",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-search-index",
+  "idea": {
+    "project": "pilot-search-index",
+    "idea": "Build indexing pipeline with schema evolution support",
+    "constraints": [
+      "data-migration-safe"
+    ],
+    "targetUsers": [
+      "data-team"
+    ]
+  },
+  "now": "2026-05-20T14:33:14.940Z"
+}

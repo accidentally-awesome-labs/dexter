@@ -1,0 +1,30 @@
+[
+  {
+    "taskId": "t1-discovery",
+    "status": "passed",
+    "logs": [
+      "Executed task t1-discovery (AFK)"
+    ],
+    "regressionsGenerated": [
+      "regression-t1-discovery.spec.md"
+    ]
+  },
+  {
+    "taskId": "t2-planning",
+    "status": "passed",
+    "logs": [
+      "Executed task t2-planning (AFK)"
+    ],
+    "regressionsGenerated": [
+      "regression-t2-planning.spec.md"
+    ]
+  },
+  {
+    "taskId": "t3-policy",
+    "status": "passed",
+    "logs": [
+      "Executed task t3-policy (HITL)"
+    ],
+    "regressionsGenerated": []
+  }
+]

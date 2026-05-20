@@ -1,0 +1,13 @@
+{
+  "runId": "ae69f9be-6985-4cda-84b4-1da20e373afa",
+  "project": "sample-app",
+  "startedAt": "2026-05-20T14:13:59.488Z",
+  "durationMs": 945,
+  "verificationPassed": true,
+  "deployed": true,
+  "deploymentMode": "hook",
+  "memoryLessonsRetrieved": 5,
+  "tasksTotal": 3,
+  "tasksPassed": 3,
+  "policyApproved": true
+}

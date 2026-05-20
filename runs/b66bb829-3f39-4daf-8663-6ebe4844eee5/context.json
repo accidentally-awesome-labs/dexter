@@ -1,0 +1,18 @@
+{
+  "runId": "b66bb829-3f39-4daf-8663-6ebe4844eee5",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/b66bb829-3f39-4daf-8663-6ebe4844eee5",
+  "projectDir": "/Users/salar/Projects/dexter/state/dexter-support-assistant",
+  "idea": {
+    "project": "dexter-support-assistant",
+    "idea": "Build a support assistant backend with memory-safe workflows and incident traces.",
+    "constraints": [
+      "self-hosted-first",
+      "memory-guardrails"
+    ],
+    "targetUsers": [
+      "support-platform-team"
+    ]
+  },
+  "now": "2026-05-20T03:31:11.561Z"
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "allowCrossEnvironment": false,
+  "allowedTransitions": [],
+  "controlPlaneByEnvironment": {
+    "production": ["coolify"],
+    "staging": ["coolify", "dokploy", "dokku"],
+    "development": ["coolify", "dokploy", "dokku"]
+  }
+}

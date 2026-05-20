@@ -1,0 +1,44 @@
+{
+  "name": "dexter",
+  "version": "1.0.0",
+  "description": "Dexter v1 autonomous software factory",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "tsx src/index.ts run",
+    "run:sample": "DEXTER_AUTO_APPROVE_HITL=true tsx src/index.ts run --project sample-app --idea \"Build a production-ready internal tools API\"",
+    "deploy:self": "tsx src/index.ts deploy-self --control-plane coolify --app dexter",
+    "dogfood:run": "tsx src/dogfood/run-scenarios.ts",
+    "pilot:run": "tsx src/dogfood/run-pilot-batch.ts",
+    "dogfood:metrics": "tsx src/index.ts dogfood-metrics",
+    "deploy-auth:revoke": "tsx src/index.ts deploy-auth-revoke",
+    "attest:verify": "tsx src/index.ts attest-verify",
+    "provenance:verify": "tsx src/index.ts provenance-verify",
+    "release:decision": "tsx src/release/generate-go-no-go.ts",
+    "readiness:report": "tsx src/index.ts readiness-report",
+    "benchmark": "tsx src/tech-radar/benchmark.ts",
+    "test:unit": "vitest run",
+    "test": "vitest run && npm run run:sample && tsx src/index.ts verify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.1",
+    "dotenv": "^17.4.2",
+    "fs-extra": "^11.3.5",
+    "pino": "^10.3.1",
+    "uuid": "^14.0.0",
+    "yaml": "^2.9.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^25.9.0",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.2",
+  "keyId": "default",
+  "signatureAlg": "hmac-sha256",
+  "generatedAt": "2026-05-20T14:33:57.239Z",
+  "files": [
+    {
+      "path": "artifacts/release/DEPLOYMENT_GUIDE.md",
+      "sha256": "35fd2d647b943d74227925fa256dc7f9f091e870063a502b030ffb0d13d60ceb"
+    },
+    {
+      "path": "artifacts/release/OPERATIONS_RUNBOOK.md",
+      "sha256": "39f998a84ed24e309ef79eff5e108ab1f19e8b1f0470888b89bcfd60a8339af6"
+    },
+    {
+      "path": "artifacts/release/RELEASE_NOTES.md",
+      "sha256": "dd1afd417edd741f6949ead4dbebb5e50c9478699cfeb894ae81244d58823756"
+    },
+    {
+      "path": "artifacts/release/PRODUCTION_READINESS_CHECKLIST.md",
+      "sha256": "5fa3ba445ea2378159900c15994299018919e71b7be3fe7112578a9b9117e5d9"
+    },
+    {
+      "path": "artifacts/release/PROVENANCE.intoto.json",
+      "sha256": "d06c0b5a286ba5ba09e62e9f51f4f4abd2a5d1b3c46cf0654c178a1fa89a6958"
+    },
+    {
+      "path": "artifacts/verification/SBOM_AND_PROVENANCE.md",
+      "sha256": "1b0f48a07a965b7902c68cbad69c974912a4c1fc732c5f77498c3a96a553795f"
+    },
+    {
+      "path": "artifacts/verification/SECURITY_REPORT.md",
+      "sha256": "caa2e73ab1caa92e7931b57a9bf1619fd52c00467ddafab181e3b09b9314899e"
+    }
+  ],
+  "signature": "e9d28165ebaf13c684a2a71d3c9d863bef1b218d00818e9c45130cddfce9990b"
+}

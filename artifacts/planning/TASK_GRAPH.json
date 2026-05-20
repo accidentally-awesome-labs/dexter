@@ -1,0 +1,48 @@
+[
+  {
+    "id": "t1-discovery",
+    "title": "Discovery artifacts",
+    "description": "Generate brief, glossary, market evidence, and risk register.",
+    "mode": "AFK",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "All discovery artifacts written",
+      "Risk levels assigned"
+    ],
+    "nfrTags": [
+      "traceability"
+    ]
+  },
+  {
+    "id": "t2-planning",
+    "title": "Compile PRD and task graph",
+    "description": "Generate PRD, architecture spec, NFR spec, and task graph.",
+    "mode": "AFK",
+    "dependencies": [
+      "t1-discovery"
+    ],
+    "acceptanceCriteria": [
+      "Task graph is acyclic",
+      "All tasks have acceptance criteria"
+    ],
+    "nfrTags": [
+      "reliability",
+      "security"
+    ]
+  },
+  {
+    "id": "t3-policy",
+    "title": "Apply policy gate",
+    "description": "Evaluate safety and rollback constraints before execution.",
+    "mode": "HITL",
+    "dependencies": [
+      "t2-planning"
+    ],
+    "acceptanceCriteria": [
+      "No critical blockers unresolved"
+    ],
+    "nfrTags": [
+      "governance"
+    ]
+  }
+]

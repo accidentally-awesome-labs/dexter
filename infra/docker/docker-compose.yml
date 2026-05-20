@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  dexter:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile
+    command: npm run start -- run --project dexter-compose
+    volumes:
+      - ../../:/app
+    environment:
+      - NODE_ENV=development

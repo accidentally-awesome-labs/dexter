@@ -1,0 +1,17 @@
+{
+  "runId": "d51d4313-0aa4-4a30-8624-cdd210cec49f",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/d51d4313-0aa4-4a30-8624-cdd210cec49f",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-analytics-dash",
+  "idea": {
+    "project": "pilot-analytics-dash",
+    "idea": "Build a SLO-aware analytics dashboard backend",
+    "constraints": [
+      "policy-gated-autonomy"
+    ],
+    "targetUsers": [
+      "ops-engineers"
+    ]
+  },
+  "now": "2026-05-20T14:33:10.959Z"
+}

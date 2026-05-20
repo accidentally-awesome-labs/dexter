@@ -1,0 +1,5 @@
+{
+  "deploymentId": "coolify-pilot-feature-flags-deploy",
+  "status": "ok",
+  "mode": "hook"
+}

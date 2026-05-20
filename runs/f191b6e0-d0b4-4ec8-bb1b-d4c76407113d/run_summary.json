@@ -1,0 +1,13 @@
+{
+  "runId": "f191b6e0-d0b4-4ec8-bb1b-d4c76407113d",
+  "project": "pilot-docs-api",
+  "startedAt": "2026-05-20T14:33:16.625Z",
+  "durationMs": 926,
+  "verificationPassed": true,
+  "deployed": true,
+  "deploymentMode": "hook",
+  "memoryLessonsRetrieved": 5,
+  "tasksTotal": 3,
+  "tasksPassed": 3,
+  "policyApproved": true
+}

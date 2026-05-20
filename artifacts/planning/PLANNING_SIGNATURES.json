@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-20T14:33:56.368Z",
+  "files": [
+    {
+      "path": "artifacts/planning/PRD.md",
+      "hmacSha256": "9765886fa6342f7d488f35bb838b3b0c89c97a525cbb2a04f6315616abf81a51"
+    },
+    {
+      "path": "artifacts/planning/TASK_GRAPH.json",
+      "hmacSha256": "27433bb4371eaaf116e5dca481ea16cfb02a13922304bb7ae662305b9b44976d"
+    },
+    {
+      "path": "artifacts/planning/ARCHITECTURE_SPEC.md",
+      "hmacSha256": "e2542cb2ea6044d0ed385a821e6aea6d6660a8a5e72059319ef1c325c828510c"
+    },
+    {
+      "path": "artifacts/planning/NFR_SPEC.md",
+      "hmacSha256": "bd9093603319c1aa7131791b429b0fc154faa5ce3378d814d89a56ff53d7a61b"
+    },
+    {
+      "path": "artifacts/planning/TEST_STRATEGY.md",
+      "hmacSha256": "4dbab8d1ae5f73c84c8beba9820d79babeb9445dc208be2d81ee2cfd708f335b"
+    }
+  ]
+}

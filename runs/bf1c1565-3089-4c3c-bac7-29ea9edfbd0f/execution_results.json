@@ -1,0 +1,40 @@
+[
+  {
+    "taskId": "t1-discovery",
+    "status": "passed",
+    "logs": [
+      "Executed task t1-discovery (AFK)",
+      "Runner mode: container",
+      "Command: docker run --rm alpine:3.20 sh -lc \"echo running t1-discovery\"",
+      "Stdout: running t1-discovery",
+      "Stderr: Unable to find image 'alpine:3.20' locally\n3.20: Pulling from library/alpine\n3f26bc2dec0b: Pulling fs layer\n3f26bc2dec0b: Verifying Checksum\n3f26bc2dec0b: Download complete\n3f26bc2dec0b: Pull complete\nDigest: sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc\nStatus: Downloaded newer image for alpine:3.20"
+    ],
+    "regressionsGenerated": [
+      "/Users/salar/Projects/dexter/runs/bf1c1565-3089-4c3c-bac7-29ea9edfbd0f/regressions/regression-t1-discovery.spec.md"
+    ]
+  },
+  {
+    "taskId": "t2-planning",
+    "status": "passed",
+    "logs": [
+      "Executed task t2-planning (AFK)",
+      "Runner mode: container",
+      "Command: docker run --rm alpine:3.20 sh -lc \"echo running t2-planning\"",
+      "Stdout: running t2-planning"
+    ],
+    "regressionsGenerated": [
+      "/Users/salar/Projects/dexter/runs/bf1c1565-3089-4c3c-bac7-29ea9edfbd0f/regressions/regression-t2-planning.spec.md"
+    ]
+  },
+  {
+    "taskId": "t3-policy",
+    "status": "passed",
+    "logs": [
+      "Executed task t3-policy (HITL)",
+      "Runner mode: container",
+      "Command: docker run --rm alpine:3.20 sh -lc \"echo running t3-policy\"",
+      "Stdout: running t3-policy"
+    ],
+    "regressionsGenerated": []
+  }
+]

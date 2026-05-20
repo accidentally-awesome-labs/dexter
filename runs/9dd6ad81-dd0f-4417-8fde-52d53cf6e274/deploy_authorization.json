@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.1",
+  "appName": "dexter-support-assistant",
+  "audience": "control-plane",
+  "environment": "production",
+  "controlPlane": "coolify",
+  "tenantId": "e7edd8c6-cb5c-43d7-a9c0-910547160e1f",
+  "nonce": "b843508a-0313-4816-b265-3a19f2d49d77",
+  "planningDigest": "ceade99f05b3830a1197c570eba3bc3ba2b888961aee6b111d539e63e9455ccf",
+  "supplyChainDigest": "4a5ccec5ecfd836aa98de77d98d9398bf7aa51e4096f471b191d2db393c371f8",
+  "approvedBy": "dexter-orchestrator",
+  "issuedAt": "2026-05-20T14:14:05.136Z",
+  "expiresAt": "2026-05-20T14:44:05.136Z",
+  "signature": "5e949b6696a60b1e2f1b047b452f50925f5ef2a84347ba8a2bf3ec76f0b20807"
+}

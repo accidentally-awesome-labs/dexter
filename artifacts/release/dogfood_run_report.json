@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-05-20T14:24:09.834Z",
+  "scenariosRun": 3,
+  "results": [
+    {
+      "project": "dexter-crm-api",
+      "runId": "1eb421ac-0358-4d7b-b0bf-530a3b9bf897",
+      "verificationPassed": true,
+      "durationMs": 831,
+      "memoryLessonsRetrieved": 5
+    },
+    {
+      "project": "dexter-analytics-dashboard",
+      "runId": "3f0ad621-bb09-4a51-b6b3-52cb20779a5a",
+      "verificationPassed": true,
+      "durationMs": 892,
+      "memoryLessonsRetrieved": 5
+    },
+    {
+      "project": "dexter-support-assistant",
+      "runId": "a49e6185-d3a6-431c-8247-837b314fb40b",
+      "verificationPassed": true,
+      "durationMs": 901,
+      "memoryLessonsRetrieved": 5
+    }
+  ],
+  "metricsPath": "/Users/salar/Projects/dexter/artifacts/release/dogfood_metrics.json",
+  "metrics": {
+    "generatedAt": "2026-05-20T14:24:09.833Z",
+    "totalRuns": 49,
+    "readinessPassRate": 1,
+    "memoryHitRate": 1,
+    "repeatedFailureRate": 0,
+    "avgTimeToReadyMs": 959,
+    "projects": [
+      "dexter-analytics-dashboard",
+      "dexter-crm-api",
+      "dexter-support-assistant",
+      "sample-app"
+    ]
+  }
+}

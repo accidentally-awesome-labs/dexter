@@ -1,0 +1,13 @@
+{
+  "runId": "ebb67228-06cb-4987-bb8a-b66304920d42",
+  "project": "dexter-support-assistant",
+  "startedAt": "2026-05-20T03:56:19.919Z",
+  "durationMs": 867,
+  "verificationPassed": true,
+  "deployed": true,
+  "deploymentMode": "hook",
+  "memoryLessonsRetrieved": 5,
+  "tasksTotal": 3,
+  "tasksPassed": 3,
+  "policyApproved": true
+}

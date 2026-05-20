@@ -1,0 +1,17 @@
+{
+  "runId": "da382c5b-5366-4f11-9ee4-18176c440609",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/da382c5b-5366-4f11-9ee4-18176c440609",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-feature-flags",
+  "idea": {
+    "project": "pilot-feature-flags",
+    "idea": "Build feature flag backend with auditability and rollback",
+    "constraints": [
+      "rollback-required"
+    ],
+    "targetUsers": [
+      "application-team"
+    ]
+  },
+  "now": "2026-05-20T14:33:19.240Z"
+}

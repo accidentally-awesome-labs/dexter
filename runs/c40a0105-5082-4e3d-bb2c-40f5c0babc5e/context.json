@@ -1,0 +1,17 @@
+{
+  "runId": "c40a0105-5082-4e3d-bb2c-40f5c0babc5e",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/c40a0105-5082-4e3d-bb2c-40f5c0babc5e",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-auth-service",
+  "idea": {
+    "project": "pilot-auth-service",
+    "idea": "Build authentication service with policy enforcement hooks",
+    "constraints": [
+      "security-first"
+    ],
+    "targetUsers": [
+      "security-team"
+    ]
+  },
+  "now": "2026-05-20T14:33:15.743Z"
+}

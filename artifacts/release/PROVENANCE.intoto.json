@@ -1,0 +1,73 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "subject": [
+    {
+      "name": "artifacts/release/DEPLOYMENT_GUIDE.md",
+      "digest": {
+        "sha256": "35fd2d647b943d74227925fa256dc7f9f091e870063a502b030ffb0d13d60ceb"
+      }
+    },
+    {
+      "name": "artifacts/release/OPERATIONS_RUNBOOK.md",
+      "digest": {
+        "sha256": "39f998a84ed24e309ef79eff5e108ab1f19e8b1f0470888b89bcfd60a8339af6"
+      }
+    },
+    {
+      "name": "artifacts/release/RELEASE_NOTES.md",
+      "digest": {
+        "sha256": "dd1afd417edd741f6949ead4dbebb5e50c9478699cfeb894ae81244d58823756"
+      }
+    },
+    {
+      "name": "artifacts/release/PRODUCTION_READINESS_CHECKLIST.md",
+      "digest": {
+        "sha256": "5fa3ba445ea2378159900c15994299018919e71b7be3fe7112578a9b9117e5d9"
+      }
+    },
+    {
+      "name": "artifacts/verification/SBOM_AND_PROVENANCE.md",
+      "digest": {
+        "sha256": "1b0f48a07a965b7902c68cbad69c974912a4c1fc732c5f77498c3a96a553795f"
+      }
+    },
+    {
+      "name": "artifacts/verification/SECURITY_REPORT.md",
+      "digest": {
+        "sha256": "caa2e73ab1caa92e7931b57a9bf1619fd52c00467ddafab181e3b09b9314899e"
+      }
+    }
+  ],
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "dexter/autonomous-factory/v1",
+      "externalParameters": {
+        "project": "sample-app",
+        "runId": "013b9b98-b9ce-4e92-839a-5259f1ea6111"
+      },
+      "internalParameters": {
+        "pipelineStages": [
+          "discovery",
+          "planning",
+          "policyGate",
+          "provisioning",
+          "execution",
+          "verification",
+          "release"
+        ]
+      },
+      "resolvedDependencies": []
+    },
+    "runDetails": {
+      "builder": {
+        "id": "dexter-core"
+      },
+      "metadata": {
+        "invocationId": "013b9b98-b9ce-4e92-839a-5259f1ea6111",
+        "startedOn": "2026-05-20T14:33:57.238Z",
+        "finishedOn": "2026-05-20T14:33:57.238Z"
+      }
+    }
+  }
+}

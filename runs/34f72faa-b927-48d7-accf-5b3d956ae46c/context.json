@@ -1,0 +1,19 @@
+{
+  "runId": "34f72faa-b927-48d7-accf-5b3d956ae46c",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/34f72faa-b927-48d7-accf-5b3d956ae46c",
+  "projectDir": "/Users/salar/Projects/dexter/state/sample-app",
+  "idea": {
+    "project": "sample-app",
+    "idea": "Build a production-ready internal tools API",
+    "constraints": [
+      "Self-hosted first",
+      "managed later"
+    ],
+    "targetUsers": [
+      "engineering-teams",
+      "founders"
+    ]
+  },
+  "now": "2026-05-20T03:36:49.519Z"
+}

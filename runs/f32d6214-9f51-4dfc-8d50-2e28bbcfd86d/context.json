@@ -1,0 +1,18 @@
+{
+  "runId": "f32d6214-9f51-4dfc-8d50-2e28bbcfd86d",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/f32d6214-9f51-4dfc-8d50-2e28bbcfd86d",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-crm-api",
+  "idea": {
+    "project": "pilot-crm-api",
+    "idea": "Build a production CRM API with audit trails and role-based access",
+    "constraints": [
+      "self-hosted-first",
+      "rollback-required"
+    ],
+    "targetUsers": [
+      "platform-team"
+    ]
+  },
+  "now": "2026-05-20T14:33:10.090Z"
+}

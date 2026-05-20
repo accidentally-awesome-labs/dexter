@@ -1,0 +1,18 @@
+{
+  "runId": "49e21faf-ecd4-4cb7-b5f6-b412404a41ff",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/49e21faf-ecd4-4cb7-b5f6-b412404a41ff",
+  "projectDir": "/Users/salar/Projects/dexter/state/dexter-analytics-dashboard",
+  "idea": {
+    "project": "dexter-analytics-dashboard",
+    "idea": "Build a metrics dashboard service with SLO alerts and release gating.",
+    "constraints": [
+      "self-hosted-first",
+      "policy-gated-autonomy"
+    ],
+    "targetUsers": [
+      "ops-engineers"
+    ]
+  },
+  "now": "2026-05-20T03:18:01.133Z"
+}

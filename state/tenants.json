@@ -1,0 +1,98 @@
+[
+  {
+    "tenantId": "ee1fab73-ae4d-4a02-a005-ff1c39baeae5",
+    "name": "sample-app-default-tenant",
+    "createdAt": "2026-05-20T01:19:26.790Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "87a839a4-673b-4c98-b7be-37ba94d8e52f",
+    "name": "dexter-crm-api-default-tenant",
+    "createdAt": "2026-05-20T02:02:07.399Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "695fc057-cd59-46e3-b1f9-68dd20092781",
+    "name": "dexter-analytics-dashboard-default-tenant",
+    "createdAt": "2026-05-20T02:02:08.602Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "e7edd8c6-cb5c-43d7-a9c0-910547160e1f",
+    "name": "dexter-support-assistant-default-tenant",
+    "createdAt": "2026-05-20T02:02:09.714Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "73e4c36b-f38a-468a-9e00-4210eb4c0748",
+    "name": "pilot-crm-api-default-tenant",
+    "createdAt": "2026-05-20T14:33:10.105Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "a4ca0f60-7497-4f93-8158-cd1b5cf61a51",
+    "name": "pilot-analytics-dash-default-tenant",
+    "createdAt": "2026-05-20T14:33:10.966Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "117e36c6-39c5-440c-b97e-ac39aeafe3c5",
+    "name": "pilot-support-agent-default-tenant",
+    "createdAt": "2026-05-20T14:33:11.886Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "22f4dd12-ad66-4cb9-973a-a04cf09eade1",
+    "name": "pilot-billing-core-default-tenant",
+    "createdAt": "2026-05-20T14:33:12.830Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "9302827e-0bad-4532-93fb-c015ca125f27",
+    "name": "pilot-notifications-default-tenant",
+    "createdAt": "2026-05-20T14:33:13.993Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "049389e7-1eac-423a-aa34-d43977c3de34",
+    "name": "pilot-search-index-default-tenant",
+    "createdAt": "2026-05-20T14:33:14.950Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "599c79e1-f938-4118-80e0-bc47a7b6dc8f",
+    "name": "pilot-auth-service-default-tenant",
+    "createdAt": "2026-05-20T14:33:15.749Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "2a7437b7-ef85-47ba-9a24-545b5e2eaf54",
+    "name": "pilot-docs-api-default-tenant",
+    "createdAt": "2026-05-20T14:33:16.639Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "7eb121b1-4919-4f24-ab55-d27446a6b409",
+    "name": "pilot-rules-engine-default-tenant",
+    "createdAt": "2026-05-20T14:33:17.559Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "b9bac924-55d3-43ea-a350-ac36f7a68abc",
+    "name": "pilot-webhook-hub-default-tenant",
+    "createdAt": "2026-05-20T14:33:18.384Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "4491d86f-7ec7-49d3-a91c-9c3fb13021b4",
+    "name": "pilot-feature-flags-default-tenant",
+    "createdAt": "2026-05-20T14:33:19.252Z",
+    "policyProfile": "default"
+  },
+  {
+    "tenantId": "81f36419-e23f-41be-9b2c-f1fb637bb616",
+    "name": "pilot-internal-chatops-default-tenant",
+    "createdAt": "2026-05-20T14:33:20.085Z",
+    "policyProfile": "default"
+  }
+]

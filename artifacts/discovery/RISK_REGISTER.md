@@ -1,0 +1,6 @@
+- [high] Scope drift can kill deterministic execution.
+  - Mitigation: Require task graph with AFK/HITL labels and acceptance criteria for each task.
+- [critical] Global memory may propagate stale or incorrect lessons.
+  - Mitigation: Confidence scoring, contradiction resolution, and decay-based expiry.
+- [medium] Control-plane lock-in can slow future managed-platform evolution for sample-app.
+  - Mitigation: Maintain adapter contracts and benchmark-driven selection cadence.

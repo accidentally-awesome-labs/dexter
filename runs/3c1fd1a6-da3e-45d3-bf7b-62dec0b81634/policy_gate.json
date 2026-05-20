@@ -1,0 +1,9 @@
+{
+  "approved": true,
+  "blockers": [],
+  "requiredRollbackChecks": [
+    "Rollback hook file exists",
+    "HITL approval present when required",
+    "Disallowed constraints absent"
+  ]
+}

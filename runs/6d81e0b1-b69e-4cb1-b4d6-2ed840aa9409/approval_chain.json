@@ -1,0 +1,13 @@
+{
+  "planningDigest": "de926f81c851dd64cfce5da07ca1d2fa763c112d69ed17783fe7af3e637851fc",
+  "approvalRecord": {
+    "hitlApproved": true,
+    "token": "e9af3686-a9d1-4215-a60f-59685fb5b1b5",
+    "expiresAt": "2026-05-20T16:33:14.947Z",
+    "approvedBy": "dexter-auto-env",
+    "planDigest": "de926f81c851dd64cfce5da07ca1d2fa763c112d69ed17783fe7af3e637851fc",
+    "signature": "57cdab316134d305f7e2de88967f44c87285e76203f50bd7d123d3f0c8163ed3",
+    "source": "auto-env"
+  },
+  "bound": true
+}

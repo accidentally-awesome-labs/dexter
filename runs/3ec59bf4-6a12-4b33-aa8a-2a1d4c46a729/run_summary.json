@@ -1,0 +1,13 @@
+{
+  "runId": "3ec59bf4-6a12-4b33-aa8a-2a1d4c46a729",
+  "project": "pilot-notifications",
+  "startedAt": "2026-05-20T14:33:13.981Z",
+  "durationMs": 959,
+  "verificationPassed": true,
+  "deployed": true,
+  "deploymentMode": "hook",
+  "memoryLessonsRetrieved": 5,
+  "tasksTotal": 3,
+  "tasksPassed": 3,
+  "policyApproved": true
+}

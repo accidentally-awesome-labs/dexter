@@ -1,0 +1,12 @@
+{
+  "profile": {
+    "containerRuntime": "docker",
+    "controlPlane": "coolify",
+    "rootless": false
+  },
+  "createdAt": "2026-05-20T01:47:12.140Z",
+  "reproducibility": {
+    "pinnedImages": true,
+    "replaySupported": true
+  }
+}

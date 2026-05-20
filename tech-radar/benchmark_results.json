@@ -1,0 +1,42 @@
+[
+  {
+    "category": "control-plane",
+    "candidate": "coolify",
+    "performance": 8.4,
+    "reliability": 8.3,
+    "integrationEffort": 8.7,
+    "securityPosture": 8.1,
+    "costEfficiency": 8.6,
+    "weightedScore": 8.39
+  },
+  {
+    "category": "control-plane",
+    "candidate": "dokploy",
+    "performance": 8.6,
+    "reliability": 8.4,
+    "integrationEffort": 7.8,
+    "securityPosture": 8,
+    "costEfficiency": 8.3,
+    "weightedScore": 8.27
+  },
+  {
+    "category": "memory",
+    "candidate": "graph+vector-hybrid",
+    "performance": 8,
+    "reliability": 7.8,
+    "integrationEffort": 6.9,
+    "securityPosture": 8.1,
+    "costEfficiency": 7.4,
+    "weightedScore": 7.72
+  },
+  {
+    "category": "memory",
+    "candidate": "vector-only",
+    "performance": 7.4,
+    "reliability": 8.2,
+    "integrationEffort": 8.9,
+    "securityPosture": 8,
+    "costEfficiency": 8.2,
+    "weightedScore": 8.06
+  }
+]

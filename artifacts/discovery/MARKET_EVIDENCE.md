@@ -1,0 +1,3 @@
+- Reference architecture trend: autonomous loops perform better with explicit artifact state.
+- Operational trend: production trust requires rollback-first deployment contracts.
+- Product trend: hybrid graph+vector memory improves retrieval diversity for long-lived agents.

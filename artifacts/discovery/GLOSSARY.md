@@ -1,0 +1,4 @@
+- **Dexter**: Autonomous software factory for planning, building, verification, and release readiness.
+- **AFK**: Task executable end-to-end without human intervention.
+- **HITL**: Task requiring explicit human decision or approval.
+- **PolicyGate**: Non-bypassable safety and governance approval checkpoint.

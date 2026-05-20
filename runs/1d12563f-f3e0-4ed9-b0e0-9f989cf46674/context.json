@@ -1,0 +1,18 @@
+{
+  "runId": "1d12563f-f3e0-4ed9-b0e0-9f989cf46674",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/1d12563f-f3e0-4ed9-b0e0-9f989cf46674",
+  "projectDir": "/Users/salar/Projects/dexter/state/dexter-crm-api",
+  "idea": {
+    "project": "dexter-crm-api",
+    "idea": "Build a production-ready CRM API with audit trails and role-based access.",
+    "constraints": [
+      "self-hosted-first",
+      "rollback-required"
+    ],
+    "targetUsers": [
+      "internal-platform-team"
+    ]
+  },
+  "now": "2026-05-20T14:14:02.615Z"
+}

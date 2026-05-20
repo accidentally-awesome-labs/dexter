@@ -1,0 +1,13 @@
+{
+  "runId": "7b05db71-130a-47ea-8123-ce3a9febd78f",
+  "project": "pilot-support-agent",
+  "startedAt": "2026-05-20T14:33:11.873Z",
+  "durationMs": 940,
+  "verificationPassed": true,
+  "deployed": true,
+  "deploymentMode": "hook",
+  "memoryLessonsRetrieved": 5,
+  "tasksTotal": 3,
+  "tasksPassed": 3,
+  "policyApproved": true
+}

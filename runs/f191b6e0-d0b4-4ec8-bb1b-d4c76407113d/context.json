@@ -1,0 +1,17 @@
+{
+  "runId": "f191b6e0-d0b4-4ec8-bb1b-d4c76407113d",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/f191b6e0-d0b4-4ec8-bb1b-d4c76407113d",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-docs-api",
+  "idea": {
+    "project": "pilot-docs-api",
+    "idea": "Build docs ingestion API with provenance traceability",
+    "constraints": [
+      "supply-chain-gated"
+    ],
+    "targetUsers": [
+      "devrel-team"
+    ]
+  },
+  "now": "2026-05-20T14:33:16.625Z"
+}

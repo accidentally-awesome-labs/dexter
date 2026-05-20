@@ -1,0 +1,9 @@
+{
+  "hitlApproved": true,
+  "token": "b2f2c841-b8e0-4bbb-941f-d376ee251841",
+  "expiresAt": "2026-05-20T16:33:17.555Z",
+  "approvedBy": "dexter-auto-env",
+  "planDigest": "4c4fab0c41a2a5b716f7a2a09e8afd9fb3dd26dd9f47fcf156c45e09ebf0481c",
+  "signature": "9c7ae32d85b703338b3599ac1c3e2e26d4268440bad0175d46e26d013371df26",
+  "source": "auto-env"
+}

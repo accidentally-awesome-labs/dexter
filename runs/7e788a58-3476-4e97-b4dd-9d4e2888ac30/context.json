@@ -1,0 +1,17 @@
+{
+  "runId": "7e788a58-3476-4e97-b4dd-9d4e2888ac30",
+  "rootDir": "/Users/salar/Projects/dexter",
+  "runDir": "/Users/salar/Projects/dexter/runs/7e788a58-3476-4e97-b4dd-9d4e2888ac30",
+  "projectDir": "/Users/salar/Projects/dexter/state/pilot-internal-chatops",
+  "idea": {
+    "project": "pilot-internal-chatops",
+    "idea": "Build chatops command API with policy approvals",
+    "constraints": [
+      "hitl-required"
+    ],
+    "targetUsers": [
+      "infra-team"
+    ]
+  },
+  "now": "2026-05-20T14:33:20.078Z"
+}

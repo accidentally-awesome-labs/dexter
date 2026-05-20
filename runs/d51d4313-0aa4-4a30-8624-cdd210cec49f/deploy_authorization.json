@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.2",
+  "appName": "pilot-analytics-dash",
+  "audience": "control-plane",
+  "environment": "production",
+  "sourceEnvironment": "production",
+  "controlPlane": "coolify",
+  "tenantId": "a4ca0f60-7497-4f93-8158-cd1b5cf61a51",
+  "nonce": "09b864af-cfd4-4ecc-9edb-1b03bb97ebce",
+  "policyVersion": "1.0",
+  "policyDigest": "041ca7ccc1f17db495ed0b7de76367e15838be0ae1014f41c24ad58114fee957",
+  "planningDigest": "fbe19de6a1e9ccac5012f239f1b5d33ddcd80888d502b11ed787083a7cbd7ae4",
+  "supplyChainDigest": "4a5ccec5ecfd836aa98de77d98d9398bf7aa51e4096f471b191d2db393c371f8",
+  "approvedBy": "dexter-orchestrator",
+  "issuedAt": "2026-05-20T14:33:11.853Z",
+  "expiresAt": "2026-05-20T15:03:11.853Z",
+  "signature": "ef15693fd0eb02fc624e4c73fce624558543c4bd5d5708f49ae91c0168311e7a"
+}

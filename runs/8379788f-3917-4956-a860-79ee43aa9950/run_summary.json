@@ -1,0 +1,13 @@
+{
+  "runId": "8379788f-3917-4956-a860-79ee43aa9950",
+  "project": "dexter-crm-api",
+  "startedAt": "2026-05-20T03:33:03.812Z",
+  "durationMs": 812,
+  "verificationPassed": true,
+  "deployed": true,
+  "deploymentMode": "hook",
+  "memoryLessonsRetrieved": 5,
+  "tasksTotal": 3,
+  "tasksPassed": 3,
+  "policyApproved": true
+}
