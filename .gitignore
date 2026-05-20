@@ -1,5 +1,26 @@
 node_modules/
 dist/
 .env
-runs/*/logs/
 *.log
+
+# Runtime/session churn
+runs/**
+!runs/README.md
+state/*
+!state/README.md
+.dexter-agent/
+generated/
+
+# Local terminal/tooling output
+*.log
+
+# Generated reports (non-readiness-critical)
+artifacts/release/local_api_drill_report.json
+artifacts/release/self_deploy_result.json
+artifacts/release/readiness_report.json
+artifacts/release/dogfood_metrics.json
+artifacts/release/dogfood_run_report.json
+artifacts/release/pilot_batch_report.json
+artifacts/release/GO_NO_GO.md
+artifacts/verification/TRUST_GATES_REPORT.json
+artifacts/verification/TRUST_GATES_REPORT.md

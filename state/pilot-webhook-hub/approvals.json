@@ -1,9 +1,0 @@
-{
-  "hitlApproved": true,
-  "token": "4b6c9ca6-472c-4fa8-891f-9ac92acd52af",
-  "expiresAt": "2026-05-20T16:33:18.381Z",
-  "approvedBy": "dexter-auto-env",
-  "planDigest": "2e746f5367d85679738af38698a71a2067dc5395fb1e2aa0183153fe34a09e70",
-  "signature": "f6c5b18c838cbd2bf062b571e35295698d01fc60c414140c61f22d2e9265f321",
-  "source": "auto-env"
-}
