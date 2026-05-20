@@ -18,6 +18,10 @@ export async function provisionIsolatedEnvironment(rootDir: string, profile: Pro
       pinnedImages: true,
       replaySupported: true,
     },
+    isolation: {
+      defaultWorkspaceStrategy: "git-worktree",
+      fallbackWorkspaceStrategy: "copy",
+    },
   };
 
   await fs.writeJson(path.join(runtimeDir, "provisioning.json"), metadata, { spaces: 2 });

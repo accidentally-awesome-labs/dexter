@@ -38,11 +38,25 @@ export async function runTask(
   _rootDir: string,
   runtime: RuntimeMode,
   task: TaskSpec,
+  workspacePath: string,
+  shellCommand?: string,
 ): Promise<ContainerRunResult> {
+  const taskCommand = shellCommand ?? `echo running ${task.id}`;
   const available = await commandExists(runtime);
   if (available) {
-    const cmd = `${runtime} run --rm alpine:3.20 sh -lc "echo running ${task.id}"`;
-    const result = await run(runtime, ["run", "--rm", "alpine:3.20", "sh", "-lc", `echo running ${task.id}`]);
+    const cmd = `${runtime} run --rm -v "${workspacePath}:/workspace" -w /workspace alpine:3.20 sh -lc "${taskCommand}"`;
+    const result = await run(runtime, [
+      "run",
+      "--rm",
+      "-v",
+      `${workspacePath}:/workspace`,
+      "-w",
+      "/workspace",
+      "alpine:3.20",
+      "sh",
+      "-lc",
+      taskCommand,
+    ]);
     return {
       ok: result.code === 0,
       mode: "container",
@@ -52,8 +66,19 @@ export async function runTask(
     };
   }
 
-  const fallbackCmd = `sh -lc "echo local-fallback ${task.id}"`;
-  const result = await run("sh", ["-lc", `echo local-fallback ${task.id}`]);
+  const fallbackCmd = `sh -lc "${taskCommand}"`;
+  const result = await new Promise<{ code: number; stdout: string; stderr: string }>((resolve) => {
+    const child = spawn("sh", ["-lc", taskCommand], { cwd: workspacePath, stdio: ["ignore", "pipe", "pipe"] });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.on("data", (chunk) => {
+      stdout += chunk.toString();
+    });
+    child.stderr.on("data", (chunk) => {
+      stderr += chunk.toString();
+    });
+    child.on("close", (code) => resolve({ code: code ?? 1, stdout, stderr }));
+  });
   return {
     ok: result.code === 0,
     mode: "local-fallback",

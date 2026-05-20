@@ -5,6 +5,12 @@
 - Fallbacks: Python worker adapters; polyglot executor split
 - Pivot trigger: sustained concurrency or latency failures in orchestrator tier
 
+## Autonomous Coding Backend
+- Selection method: weighted benchmark (`npm run benchmark:backend`) producing `artifacts/release/AGENT_BACKEND_BENCHMARK.json`
+- Default candidate: `cursor-cli` (selected by weighted score and tooling fit)
+- Fallbacks: `shell`, `scripted` backends through pluggable provider interface (`src/providers/agents/*`)
+- Pivot trigger: sustained reliability drop, degraded patch quality, or better benchmark score from a new adapter
+
 ## Memory and Knowledge
 - Default: Hybrid temporal graph + vector retrieval + project memory
 - Fallbacks: vector-only mode; project-only memory mode

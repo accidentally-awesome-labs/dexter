@@ -24,11 +24,19 @@ jobs:
         run: npm run run:sample
       - name: Run benchmark harness
         run: npm run benchmark
+      - name: Run backend benchmark harness
+        run: npm run benchmark:backend
       - name: Generate readiness report
         run: npm run readiness:report
       - name: Verify provenance gate
         run: npm run provenance:verify
       - name: Verify attestation gate
         run: npm run attest:verify
+      - name: Run trust gates failure-injection drill
+        run: npm run trust:gates
+      - name: Run local API-mode deploy drill
+        run: npm run deploy:drill:api:local
+      - name: Record soak cycle status
+        run: npm run soak:cycle -- --target-streak 1 --enforce-gate false
       - name: Verify readiness
         run: npm test

@@ -21,6 +21,12 @@ npm test
 - `npm run start` - run Dexter with CLI args
 - `npm run run:sample` - execute a full sample run
 - `npm run deploy:self` - execute self-deploy through control-plane adapter (Coolify default)
+- `npm run deploy:drill` - run deploy -> rollback -> redeploy validation drill
+- `npm run deploy:drill:api` - same drill but hard-fails unless deploy/rollback use API mode
+- `npm run deploy:drill:api:local` - run API-only drill against built-in local mock control-plane + health server
+- `npm run trust:gates` - run failure-injection trust gate matrix and write report artifacts
+- `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`)
+- `npm run benchmark:backend` - benchmark pluggable coding backends and select default
 - `npm run dogfood:run` - run multi-scenario dogfood benchmark
 - `npm run dogfood:metrics` - regenerate aggregated run metrics
 - `npm run provenance:verify` - verify in-toto/SLSA provenance linkage
@@ -31,8 +37,15 @@ npm test
 ## Production Integration Env Vars
 
 - `DEXTER_APPROVAL_SIGNING_KEY` - HMAC key for signed HITL approvals
-- `DEXTER_CONTROL_PLANE_ENDPOINT` - optional deployment API base URL (expects `/deploy` and `/rollback`)
-- `DEXTER_CONTROL_PLANE_TOKEN` - bearer token for deployment API calls
+- `DEXTER_COOLIFY_API_URL` / `DEXTER_COOLIFY_TOKEN` - Coolify deployment API endpoint + token
+- `DEXTER_DOKPLOY_API_URL` / `DEXTER_DOKPLOY_TOKEN` - Dokploy deployment API endpoint + token
+- `DEXTER_DOKKU_API_URL` / `DEXTER_DOKKU_TOKEN` - Dokku deployment API endpoint + token
+- `DEXTER_CONTROL_PLANE_ENDPOINT` / `DEXTER_CONTROL_PLANE_TOKEN` - backward-compatible Coolify fallback vars
+- `DEXTER_COOLIFY_DEPLOY_PATH`, `DEXTER_COOLIFY_ROLLBACK_PATH` - optional endpoint path overrides (provider-specific variants also supported for Dokploy/Dokku)
+- `DEXTER_DEPLOY_HEALTH_URL` / `DEXTER_DEPLOY_HEALTH_URLS` - comma-separated health endpoints checked immediately after deploy
+- `DEXTER_DEPLOY_HEALTH_TIMEOUT_MS` - timeout per health endpoint (default `5000`)
+- `DEXTER_SOAK_TARGET_STREAK` - consecutive successful soak cycles required before release gate is satisfied (default `10`)
+- `DEXTER_AGENT_BACKEND` - active coding backend adapter (`cursor-cli`, `shell`, or `scripted`)
 - `DEXTER_RESEARCH_API_URL` - optional live research API endpoint
 - `DEXTER_RESEARCH_API_KEY` - optional bearer token for research API
 - `DEXTER_PLAN_SIGNING_KEY` - key for planning artifact signature integrity gate

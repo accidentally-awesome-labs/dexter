@@ -32,7 +32,7 @@ class BaseAdapter implements ControlPlaneAdapter {
     appName: string,
     authorizationToken?: string,
   ): Promise<string | null> {
-    const provider = createDeploymentProvider();
+    const provider = createDeploymentProvider(this.id);
     if (!provider) {
       return null;
     }

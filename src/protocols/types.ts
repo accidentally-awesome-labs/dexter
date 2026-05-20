@@ -1,5 +1,7 @@
 export type RiskLevel = "low" | "medium" | "high" | "critical";
 export type TaskMode = "AFK" | "HITL";
+export type WorkspaceStrategy = "git-worktree" | "copy" | "shared";
+export type AcceptanceCheckType = "shell" | "file-exists";
 export type RunStage =
   | "discovery"
   | "planning"
@@ -36,6 +38,23 @@ export interface TaskSpec {
   dependencies: string[];
   acceptanceCriteria: string[];
   nfrTags: string[];
+  backendHint?: string;
+  maxAttempts?: number;
+  workspaceStrategy?: WorkspaceStrategy;
+  commands?: TaskCommand[];
+  acceptanceChecks?: AcceptanceCheck[];
+}
+
+export interface TaskCommand {
+  type: "shell" | "agent";
+  command?: string;
+  prompt?: string;
+}
+
+export interface AcceptanceCheck {
+  type: AcceptanceCheckType;
+  command?: string;
+  path?: string;
 }
 
 export interface PlanArtifact {
@@ -57,6 +76,9 @@ export interface ExecutionResult {
   status: "passed" | "failed";
   logs: string[];
   regressionsGenerated: string[];
+  attempts?: number;
+  workspacePath?: string;
+  acceptancePassed?: boolean;
 }
 
 export interface VerificationReport {

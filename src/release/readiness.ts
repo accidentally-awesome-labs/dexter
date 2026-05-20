@@ -36,6 +36,8 @@ export const requiredReadinessPaths = [
   "artifacts/release/PRODUCTION_READINESS_CHECKLIST.md",
   "artifacts/release/ATTESTATION.json",
   "artifacts/release/PROVENANCE.intoto.json",
+  "artifacts/release/AGENT_BACKEND_BENCHMARK.json",
+  "artifacts/release/SOAK_STATUS.json",
   "tech-radar/RADAR.md",
   "tech-radar/BENCHMARK_SCORES.md",
   "tech-radar/UPGRADE_DECISIONS.md",

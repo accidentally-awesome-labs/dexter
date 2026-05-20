@@ -26,6 +26,7 @@ import {
   verifyPlanningSignatures,
 } from "../planning/signature.js";
 import { generateDeployAuthorization } from "../deploy/authorization.js";
+import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 
 async function writePlanningArtifacts(rootDir: string, plan: ReturnType<typeof compilePlan>) {
   const dir = path.join(rootDir, "artifacts", "planning");
@@ -188,7 +189,10 @@ export async function runDexter(rootDir: string, rawInput: IdeaInput) {
   );
 
   logger.info({ stage: "planning" }, "Compiling plan artifacts");
-  const plan = compilePlan(discovery);
+  const plan = compilePlan(discovery, {
+    project: idea.project,
+    priorLessons: priorLessons.map((item) => item.lesson),
+  });
   await writePlanningArtifacts(rootDir, plan);
   await generatePlanningSignatures(rootDir);
 
@@ -247,6 +251,7 @@ export async function runDexter(rootDir: string, rawInput: IdeaInput) {
     rootDir,
     runtime: provisioning.profile.containerRuntime,
     runDir: ctx.runDir,
+    agentBackend: process.env.DEXTER_AGENT_BACKEND,
   });
   await fs.writeJson(path.join(ctx.runDir, "execution_results.json"), execution, { spaces: 2 });
 
@@ -302,7 +307,23 @@ export async function runDexter(rootDir: string, rawInput: IdeaInput) {
     environment: process.env.DEXTER_DEPLOY_ENV ?? "production",
     tenantId: tenant.tenantId,
   });
+  const healthUrls = [
+    ...(process.env.DEXTER_DEPLOY_HEALTH_URLS ?? "").split(","),
+    process.env.DEXTER_DEPLOY_HEALTH_URL ?? "",
+  ]
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const healthTimeoutMs = Number(process.env.DEXTER_DEPLOY_HEALTH_TIMEOUT_MS ?? "5000");
+  const deploymentHealth = await runDeploymentHealthChecks({
+    urls: healthUrls,
+    timeoutMs: Number.isFinite(healthTimeoutMs) ? healthTimeoutMs : 5000,
+  });
+  if (!deploymentHealth.passed) {
+    await controlPlane.rollback(idea.project);
+    throw new Error("Deployment health checks failed. Rollback has been triggered.");
+  }
   await fs.writeJson(path.join(ctx.runDir, "deployment.json"), deployment, { spaces: 2 });
+  await fs.writeJson(path.join(ctx.runDir, "deployment_health.json"), deploymentHealth, { spaces: 2 });
 
   await addLearning(rootDir, {
     category: "decision_heuristic",
