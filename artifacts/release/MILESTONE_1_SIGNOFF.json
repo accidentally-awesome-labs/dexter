@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0",
+  "milestone": "M1",
+  "generatedAt": "2026-05-21T17:19:56.686Z",
+  "passed": true,
+  "gates": [
+    {
+      "id": "promotion_policy_doc",
+      "description": "Deploy promotion policy documented",
+      "passed": true,
+      "detail": "DEPLOY_PROMOTION_POLICY.md present"
+    },
+    {
+      "id": "rbac_policy",
+      "description": "RBAC policy for approvals and waivers",
+      "passed": true,
+      "detail": "RBAC_POLICY.json present"
+    },
+    {
+      "id": "audit_log",
+      "description": "Append-only audit log active",
+      "passed": true,
+      "detail": "AUDIT_LOG.jsonl present"
+    },
+    {
+      "id": "three_staged_promotions",
+      "description": "Three successful staged promotions",
+      "passed": true,
+      "detail": "3 promotions archived"
+    },
+    {
+      "id": "canary_rollback_drill",
+      "description": "Forced canary SLO rollback drill",
+      "passed": true,
+      "detail": "Canary rollback drill passed"
+    },
+    {
+      "id": "slo_rollback_artifact",
+      "description": "SLO rollback captured in release artifacts",
+      "passed": true,
+      "detail": "SLO_ROLLBACK_RESULT.json present"
+    },
+    {
+      "id": "promotion_repeatability",
+      "description": "Promotion gate behavior is repeatable",
+      "passed": true,
+      "detail": "Repeatability checks passed"
+    },
+    {
+      "id": "governance_consistency",
+      "description": "Governance policy consistency across promotions",
+      "passed": true,
+      "detail": "Governance verification passed"
+    },
+    {
+      "id": "waiver_metadata",
+      "description": "100% waivers include required metadata",
+      "passed": true,
+      "detail": "No waived escalations requiring metadata validation."
+    },
+    {
+      "id": "release_decision_go",
+      "description": "Release decision is GO with no unresolved escalations",
+      "passed": true,
+      "detail": "decision=GO, unresolved=0"
+    }
+  ]
+}

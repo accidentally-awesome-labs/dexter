@@ -16,6 +16,7 @@ export async function resolveEscalationsWorkflow(options: {
     expiresAt: string;
     scope: string;
   };
+  actor?: string;
 }): Promise<{
   selectedKeys: string[];
   updatedKeys: string[];
@@ -64,6 +65,8 @@ export async function resolveEscalationsWorkflow(options: {
         status: options.status,
         note: options.note,
         waiver: options.status === "waived" ? options.waiver : undefined,
+        actor: options.actor,
+        runId: options.runId,
       });
       updatedKeys.push(key);
     }

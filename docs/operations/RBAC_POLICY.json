@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-05-21",
+  "description": "Role-based access policy for promotion approvals and escalation waivers.",
+  "roles": {
+    "operator": {
+      "canApprovePromotion": [
+        "dev",
+        "staging"
+      ],
+      "canApproveRollback": true,
+      "canResolveEscalations": true,
+      "canWaiveEscalations": true,
+      "waiverScopeLimit": [
+        "run"
+      ],
+      "maxWaiverTtlHours": 24
+    },
+    "release-manager": {
+      "canApprovePromotion": [
+        "dev",
+        "staging",
+        "canary",
+        "prod"
+      ],
+      "canApproveRollback": true,
+      "canResolveEscalations": true,
+      "canWaiveEscalations": true,
+      "waiverScopeLimit": [
+        "run",
+        "service"
+      ],
+      "maxWaiverTtlHours": 72
+    },
+    "security": {
+      "canApprovePromotion": [
+        "dev",
+        "staging",
+        "canary",
+        "prod"
+      ],
+      "canApproveRollback": true,
+      "canResolveEscalations": true,
+      "canWaiveEscalations": true,
+      "waiverScopeLimit": [
+        "run",
+        "service",
+        "environment"
+      ],
+      "maxWaiverTtlHours": 168
+    },
+    "observer": {
+      "canApprovePromotion": [],
+      "canApproveRollback": false,
+      "canResolveEscalations": false,
+      "canWaiveEscalations": false,
+      "waiverScopeLimit": [],
+      "maxWaiverTtlHours": 0
+    }
+  },
+  "promotionApprovalPolicy": {
+    "dev": {
+      "requiredApprovers": [
+        "operator"
+      ],
+      "minimumCount": 1
+    },
+    "staging": {
+      "requiredApprovers": [
+        "operator"
+      ],
+      "minimumCount": 1
+    },
+    "canary": {
+      "requiredApprovers": [
+        "release-manager"
+      ],
+      "minimumCount": 1
+    },
+    "prod": {
+      "requiredApprovers": [
+        "release-manager",
+        "security"
+      ],
+      "minimumCount": 2
+    }
+  },
+  "constraints": {
+    "waiverMetadataRequired": [
+      "approvedBy",
+      "reason",
+      "scope",
+      "expiresAt"
+    ],
+    "disallowExpiredWaivers": true,
+    "disallowOutOfScopeWaivers": true
+  }
+}

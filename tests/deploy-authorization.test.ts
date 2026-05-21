@@ -86,6 +86,30 @@ describe("deploy authorization", () => {
     await expect(isDeployAuthorizationRevoked(rootDir, auth)).resolves.toBe(true);
   });
 
+  it("allows dev to staging transition when policy permits", async () => {
+    const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-deploy-auth-staging-"));
+    await seed(rootDir);
+    await fs.ensureDir(path.join(rootDir, "docs", "specs"));
+    await fs.writeJson(path.join(rootDir, "docs", "specs", "DEPLOY_AUTH_POLICY.json"), {
+      schemaVersion: "1.0",
+      allowCrossEnvironment: true,
+      allowedTransitions: [{ from: "dev", to: "staging" }],
+      controlPlaneByEnvironment: {
+        staging: ["coolify", "dokploy", "dokku"],
+      },
+    });
+    const auth = await generateDeployAuthorization(rootDir, "dexter-app", {
+      environment: "staging",
+      sourceEnvironment: "dev",
+      controlPlane: "coolify",
+      tenantId: "tenant-a",
+    });
+    if (!auth) {
+      throw new Error("expected authorization");
+    }
+    await expect(verifyDeployAuthorizationPolicy(rootDir, auth, "staging")).resolves.toBe(true);
+  });
+
   it("rejects cross-environment policy mismatch by default", async () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-deploy-auth5-"));
     await seed(rootDir);

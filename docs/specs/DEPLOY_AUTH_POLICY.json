@@ -1,10 +1,19 @@
 {
   "schemaVersion": "1.0",
-  "allowCrossEnvironment": false,
-  "allowedTransitions": [],
+  "allowCrossEnvironment": true,
+  "allowedTransitions": [
+    { "from": "dev", "to": "staging" },
+    { "from": "development", "to": "staging" },
+    { "from": "staging", "to": "canary" },
+    { "from": "canary", "to": "prod" },
+    { "from": "canary", "to": "production" }
+  ],
   "controlPlaneByEnvironment": {
-    "production": ["coolify"],
+    "dev": ["coolify", "dokploy", "dokku"],
+    "development": ["coolify", "dokploy", "dokku"],
     "staging": ["coolify", "dokploy", "dokku"],
-    "development": ["coolify", "dokploy", "dokku"]
+    "canary": ["coolify"],
+    "prod": ["coolify"],
+    "production": ["coolify"]
   }
 }

@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-05-21",
+  "description": "Default SLO thresholds for canary promotion gates.",
+  "thresholds": {
+    "errorRate5xxMax": 0.02,
+    "p95LatencyMsMax": 1200,
+    "errorBudgetBurnMultipleMax": 2
+  },
+  "evaluationWindowMinutes": {
+    "errorRate": 5,
+    "latency": 10,
+    "errorBudget": 30
+  },
+  "artifactTtlHours": 24
+}

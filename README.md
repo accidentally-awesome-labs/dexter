@@ -24,6 +24,17 @@ npm test
 - `npm run deploy:drill` - run deploy -> rollback -> redeploy validation drill
 - `npm run deploy:drill:api` - same drill but hard-fails unless deploy/rollback use API mode
 - `npm run deploy:drill:api:local` - run API-only drill against built-in local mock control-plane + health server
+- `npm run promotion:pipeline` - run staged `dev -> staging -> canary -> prod` promotion with governance checks
+- `npm run promotion:pipeline:local` - local mock promotion #1 (`dexter`)
+- `npm run promotion:pipeline:local:2` - local mock promotion #2 (`dexter-ops-api`)
+- `npm run promotion:pipeline:local:3` - local mock promotion #3 (`dexter-worker`)
+- `npm run governance:verify` - verify waiver metadata and promotion policy consistency
+- `npm run promotion:repeatability` - verify repeated promotions use the same gate behavior
+- `npm run operator:readiness` - summarize operator workflow readiness from ops + release artifacts
+- `npm run canary:rollback:drill` - force canary SLO breach and verify automatic rollback + audit capture
+- `npm run milestone:m1:signoff` - verify Milestone 1 acceptance gates and write signoff artifact
+- `npm run ops:status` - write consolidated operator status dashboard artifacts
+- `npm run resume:check` - inspect resume readiness for a run (`--latest true` supported)
 - `npm run trust:gates` - run failure-injection trust gate matrix and write report artifacts
 - `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`)
 - `npm run benchmark:backend` - benchmark pluggable coding backends and select default
