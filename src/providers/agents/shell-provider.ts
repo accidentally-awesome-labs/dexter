@@ -19,6 +19,10 @@ function run(command: string, cwd: string): Promise<{ code: number; stdout: stri
 export class ShellAgentProvider implements AgentProvider {
   readonly id = "shell";
 
+  isReady(): { ready: boolean } {
+    return { ready: true };
+  }
+
   async execute(input: AgentExecutionInput): Promise<AgentExecutionOutput> {
     const command = input.prompt.trim();
     const result = await run(command, input.workspaceDir);

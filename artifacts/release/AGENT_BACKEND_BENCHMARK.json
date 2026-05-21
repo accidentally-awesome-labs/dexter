@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T19:46:05.161Z",
+  "generatedAt": "2026-05-21T00:55:53.393Z",
   "weights": {
     "reliability": 0.25,
     "patchQuality": 0.2,
@@ -8,18 +8,8 @@
     "toolingFit": 0.15,
     "recoverability": 0.1
   },
-  "selectedDefaultBackend": "cursor-cli",
+  "selectedDefaultBackend": "shell",
   "rows": [
-    {
-      "backend": "cursor-cli",
-      "reliability": 8.6,
-      "patchQuality": 9,
-      "latency": 7.2,
-      "modularity": 8.7,
-      "toolingFit": 9.3,
-      "recoverability": 8.4,
-      "weightedScore": 8.57
-    },
     {
       "backend": "shell",
       "reliability": 7,
@@ -39,6 +29,16 @@
       "toolingFit": 5,
       "recoverability": 8.8,
       "weightedScore": 7.55
+    },
+    {
+      "backend": "cursor-cli",
+      "reliability": 5.8,
+      "patchQuality": 5.6,
+      "latency": 6.8,
+      "modularity": 8.7,
+      "toolingFit": 6,
+      "recoverability": 5.9,
+      "weightedScore": 6.38
     }
   ]
 }

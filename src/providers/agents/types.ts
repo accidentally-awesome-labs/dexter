@@ -15,5 +15,6 @@ export interface AgentExecutionOutput {
 
 export interface AgentProvider {
   id: string;
+  isReady(): { ready: boolean; reason?: string };
   execute(input: AgentExecutionInput): Promise<AgentExecutionOutput>;
 }

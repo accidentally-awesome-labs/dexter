@@ -71,9 +71,26 @@ export interface PolicyDecision {
   requiredRollbackChecks: string[];
 }
 
+export type ExecutionFailureReason =
+  | "dependency_blocked"
+  | "command_failed"
+  | "acceptance_failed"
+  | "cleanup_failed"
+  | "backend_unavailable";
+
+export interface ExecutionEscalation {
+  required: boolean;
+  target: "none" | "operator" | "planner";
+  reason: string;
+  action: string;
+}
+
 export interface ExecutionResult {
   taskId: string;
-  status: "passed" | "failed";
+  status: "passed" | "failed" | "skipped";
+  failureReason?: ExecutionFailureReason;
+  blockedBy?: string[];
+  escalation?: ExecutionEscalation;
   logs: string[];
   regressionsGenerated: string[];
   attempts?: number;

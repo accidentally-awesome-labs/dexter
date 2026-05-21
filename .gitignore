@@ -22,5 +22,13 @@ artifacts/release/dogfood_metrics.json
 artifacts/release/dogfood_run_report.json
 artifacts/release/pilot_batch_report.json
 artifacts/release/GO_NO_GO.md
+artifacts/execution/ESCALATIONS.json
+artifacts/execution/ESCALATIONS.md
+artifacts/execution/SUPERVISOR_ACTIONS.json
+artifacts/execution/SUPERVISOR_ACTIONS.md
+artifacts/execution/ESCALATION_STATE.json
+artifacts/execution/ESCALATION_STATE.md
+artifacts/execution/OPS_STATUS.json
+artifacts/execution/OPS_STATUS.md
 artifacts/verification/TRUST_GATES_REPORT.json
 artifacts/verification/TRUST_GATES_REPORT.md
