@@ -67,7 +67,7 @@ export interface PilotBatchEvaluation {
 export interface PilotBatchReport {
   schemaVersion: "1.0";
   generatedAt: string;
-  batch: "m2-day9";
+  batch: "m2-day9" | "m2-day10" | "m2-full";
   requestsTotal: number;
   evaluation: PilotBatchEvaluation;
   results: PilotRequestResult[];
@@ -314,7 +314,9 @@ export async function runIntakePilotBatch(
   const report: PilotBatchReport = {
     schemaVersion: "1.0",
     generatedAt: new Date().toISOString(),
-    batch: options?.batchId ?? (offset === 0 && selected.length <= 5 ? "m2-day9" : "m2-day10"),
+    batch:
+      (options?.batchId as PilotBatchReport["batch"] | undefined) ??
+      (selected.length > 5 ? "m2-full" : offset >= 5 ? "m2-day10" : "m2-day9"),
     requestsTotal: results.length,
     evaluation,
     results,
