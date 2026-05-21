@@ -91,7 +91,11 @@ async function startMockHealthServer(): Promise<{ port: number; close: () => Pro
   };
 }
 
-async function runDeployDrillWithEnv(rootDir: string, env: NodeJS.ProcessEnv): Promise<{ code: number | null }> {
+async function runDeployDrillWithEnv(
+  rootDir: string,
+  env: NodeJS.ProcessEnv,
+  extraArgs: string[] = [],
+): Promise<{ code: number | null }> {
   return new Promise((resolve, reject) => {
     const child = spawn(
       "npx",
@@ -103,12 +107,11 @@ async function runDeployDrillWithEnv(rootDir: string, env: NodeJS.ProcessEnv): P
         "coolify",
         "--app",
         "dexter",
-        "--rollback-drill",
-        "true",
         "--require-real",
         "true",
         "--require-api",
         "true",
+        ...extraArgs,
       ],
       {
         cwd: rootDir,
@@ -134,21 +137,53 @@ async function main() {
       DEXTER_COOLIFY_TOKEN: CONTROL_PLANE_TOKEN,
       DEXTER_DEPLOY_HEALTH_URL: `http://127.0.0.1:${health.port}/health`,
     };
-    const { code } = await runDeployDrillWithEnv(rootDir, env);
+    const rollbackDrill = await runDeployDrillWithEnv(rootDir, env, [
+      "--rollback-drill",
+      "true",
+      "--environment",
+      "staging",
+      "--source-environment",
+      "dev",
+      "--approver-role",
+      "operator",
+    ]);
+    if (rollbackDrill.code !== 0) {
+      throw new Error(`Rollback drill failed with exit code ${rollbackDrill.code ?? "null"}.`);
+    }
+
+    const callsBeforeSlo = calls.length;
+    const sloBreachDrill = await runDeployDrillWithEnv(rootDir, env, [
+      "--environment",
+      "staging",
+      "--source-environment",
+      "dev",
+      "--approver-role",
+      "operator",
+      "--simulate-slo-breach",
+      "error-rate",
+    ]);
+    const sloRollbackCalls = calls.slice(callsBeforeSlo).filter((item) => item.action === "rollback");
+    const sloRollbackArtifactPath = path.join(rootDir, "artifacts", "release", "SLO_ROLLBACK_RESULT.json");
+    const sloRollbackArtifactPresent = await fs.pathExists(sloRollbackArtifactPath);
+
     const outputPath = path.join(rootDir, "artifacts", "release", "local_api_drill_report.json");
     await fs.ensureDir(path.dirname(outputPath));
+    const sloBreachPassed = sloBreachDrill.code !== 0 && sloRollbackCalls.length > 0 && sloRollbackArtifactPresent;
     await fs.writeJson(
       outputPath,
       {
         generatedAt: new Date().toISOString(),
-        passed: code === 0,
-        commandExitCode: code,
+        passed: rollbackDrill.code === 0 && sloBreachPassed,
+        rollbackDrillExitCode: rollbackDrill.code,
+        sloBreachDrillExitCode: sloBreachDrill.code,
+        sloRollbackCalls,
+        sloRollbackArtifactPresent,
         calls,
       },
       { spaces: 2 },
     );
-    if (code !== 0) {
-      throw new Error(`Local API drill failed with exit code ${code ?? "null"}.`);
+    if (!sloBreachPassed) {
+      throw new Error("SLO breach drill did not trigger rollback with artifact capture.");
     }
     console.log(
       JSON.stringify(
@@ -160,6 +195,7 @@ async function main() {
             deploy: calls.filter((item) => item.action === "deploy").length,
             rollback: calls.filter((item) => item.action === "rollback").length,
           },
+          sloRollbackArtifactPath,
         },
         null,
         2,

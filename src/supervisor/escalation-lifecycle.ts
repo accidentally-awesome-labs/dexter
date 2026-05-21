@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "fs-extra";
+import { appendAuditLogEvent } from "../operations/audit-log.js";
 
 type EscalationStatus = "open" | "in_progress" | "resolved" | "waived";
 type RunStatus = "healthy" | "degraded" | "blocked";
@@ -222,6 +223,8 @@ export async function updateEscalationLifecycleStatus(options: {
   status: EscalationStatus;
   note?: string;
   waiver?: EscalationWaiver;
+  actor?: string;
+  runId?: string;
 }): Promise<
   EscalationLifecycleSummary & {
     updated: boolean;
@@ -271,6 +274,20 @@ export async function updateEscalationLifecycleStatus(options: {
   const status = deriveRunStatus(state);
   await fs.writeJson(statePath, state, { spaces: 2 });
   await fs.writeFile(markdownPath, toMarkdown(state, status.runStatus, status.unresolvedRequired, status.unresolvedOperatorHigh));
+  await appendAuditLogEvent(options.rootDir, {
+    actor: options.actor ?? options.waiver?.approvedBy ?? "dexter-system",
+    action: "escalation_status_update",
+    scope: options.waiver?.scope ?? "run",
+    reason: options.note ?? options.waiver?.reason ?? `status:${options.status}`,
+    runId: options.runId,
+    metadata: {
+      key: options.key,
+      previousStatus,
+      newStatus: options.status,
+      target: state.items[idx]!.target,
+      priority: state.items[idx]!.priority,
+    },
+  });
   return {
     statePath,
     markdownPath,

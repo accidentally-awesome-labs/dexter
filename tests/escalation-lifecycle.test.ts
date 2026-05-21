@@ -80,6 +80,8 @@ describe("escalation lifecycle", () => {
       key,
       status: "in_progress",
       note: "triaging",
+      actor: "dexter-ops",
+      runId: "run-1",
     });
     expect(updated.updated).toBe(true);
     expect(updated.newStatus).toBe("in_progress");
@@ -97,6 +99,16 @@ describe("escalation lifecycle", () => {
     });
     expect(all.total).toBe(1);
     expect(all.unresolved).toBe(1);
+    const auditPath = path.join(rootDir, "artifacts", "operations", "AUDIT_LOG.jsonl");
+    expect(await fs.pathExists(auditPath)).toBe(true);
+    const lines = (await fs.readFile(auditPath, "utf8"))
+      .trim()
+      .split("\n")
+      .filter(Boolean);
+    expect(lines.length).toBeGreaterThan(0);
+    const latest = JSON.parse(lines[lines.length - 1] ?? "{}") as { action?: string; actor?: string };
+    expect(latest.action).toBe("escalation_status_update");
+    expect(latest.actor).toBe("dexter-ops");
     await fs.remove(rootDir);
   });
 

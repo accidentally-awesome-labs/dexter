@@ -15,6 +15,39 @@ import { runDeploymentHealthChecks } from "./runtime/deployment-health.js";
 import { routeEscalations } from "./supervisor/route-escalations.js";
 import { listEscalationLifecycle, updateEscalationLifecycleStatus } from "./supervisor/escalation-lifecycle.js";
 import { resolveEscalationsWorkflow } from "./supervisor/escalation-workflow.js";
+import { appendAuditLogEvent } from "./operations/audit-log.js";
+import { assertPromotionAllowed } from "./operations/promotion-gate.js";
+import {
+  evaluateCanaryGate,
+  resolveCanaryMetrics,
+  writeCanaryGateArtifact,
+} from "./operations/canary-gate.js";
+import {
+  evaluateSloRollbackTriggers,
+  executePromotionRollback,
+  loadSloThresholds,
+  simulatedBreachMetrics,
+  writeSloRollbackArtifact,
+  type SloBreachKind,
+  type SloRollbackExecution,
+} from "./operations/slo-rollback.js";
+import { runPromotionPipeline } from "./operations/run-promotion-pipeline.js";
+import { verifyGovernance } from "./operations/governance-verify.js";
+import { verifyPromotionRepeatability } from "./operations/promotion-repeatability.js";
+import { writeOperatorWorkflowReadiness } from "./operations/operator-workflow-readiness.js";
+import { generateMilestone1Signoff } from "./operations/milestone-signoff.js";
+import { githubIssueAdapter } from "./intake/adapters/issue.js";
+import { cliPromptAdapter } from "./intake/adapters/cli-prompt.js";
+import { templateAdapter } from "./intake/adapters/template.js";
+import { attachIntakeAmbiguityFromPolicyFile } from "./intake/ambiguity.js";
+import { attachIntakeRiskPriority } from "./intake/risk-priority.js";
+import { loadIntakeRiskPriorityPolicy } from "./intake/risk-priority-policy.js";
+import { runClarificationGate } from "./intake/clarification-gate.js";
+import { processIntakeBrief } from "./intake/process-intake.js";
+import { compilePlan } from "./skills/planning/compiler.js";
+import { planFromIntakeArtifacts } from "./intake/plan-from-intake.js";
+import { readIntakeArtifact, writeIntakeArtifact } from "./intake/write-artifact.js";
+import type { IntakeSourceType } from "./intake/schema.js";
 
 dotenv.config();
 
@@ -146,18 +179,30 @@ async function main() {
   }
 
   if (command === "resume-check") {
+    const latest = parseBoolArg("--latest", false);
     const latestBlocked = parseBoolArg("--latest-blocked", false);
     const latestDegraded = parseBoolArg("--latest-degraded", false);
-    if (latestBlocked && latestDegraded) {
-      throw new Error("Use only one of --latest-blocked or --latest-degraded.");
+    const modeCount = [latest, latestBlocked, latestDegraded].filter(Boolean).length;
+    if (modeCount > 1) {
+      throw new Error("Use only one of --latest, --latest-blocked, or --latest-degraded.");
     }
     const runId = latestBlocked
       ? await findLatestBlockedRunId(rootDir)
       : latestDegraded
         ? await findLatestDegradedRunId(rootDir)
-        : parseArg("--run-id");
+        : latest
+          ? await findLatestRunId(rootDir)
+          : parseArg("--run-id");
     if (!runId) {
-      throw new Error(latestBlocked ? "No blocked run found." : latestDegraded ? "No degraded run found." : "Missing --run-id");
+      throw new Error(
+        latestBlocked
+          ? "No blocked run found."
+          : latestDegraded
+            ? "No degraded run found."
+            : latest
+              ? "No run found."
+              : "Missing --run-id",
+      );
     }
     const result = await buildResumeCheck(rootDir, runId);
     const output = (parseArg("--output", "json") as "json" | "table");
@@ -283,6 +328,9 @@ async function main() {
     const controlPlane = (parseArg("--control-plane", "coolify") as "coolify" | "dokploy" | "dokku");
     const appName = parseArg("--app", "dexter");
     const environment = parseArg("--environment", process.env.DEXTER_DEPLOY_ENV ?? "production");
+    const sourceEnvironment = parseArg("--source-environment", process.env.DEXTER_DEPLOY_SOURCE_ENV ?? "");
+    const approverRole = parseArg("--approver-role", process.env.DEXTER_DEPLOY_APPROVER_ROLE ?? "");
+    const approvedBy = process.env.DEXTER_DEPLOY_APPROVER ?? "deploy-self";
     const tenantId = parseArg("--tenant", process.env.DEXTER_DEPLOY_TENANT ?? "default-tenant");
     const rollbackDrill = parseBoolArg("--rollback-drill", false);
     const requireRealMode = parseBoolArg("--require-real", true);
@@ -293,17 +341,48 @@ async function main() {
       .map((item) => item.trim())
       .filter(Boolean);
     const healthTimeoutMs = Number(parseArg("--health-timeout-ms", process.env.DEXTER_DEPLOY_HEALTH_TIMEOUT_MS ?? "5000"));
+    const canaryMetricsSnapshot = parseArg("--canary-metrics", process.env.DEXTER_CANARY_METRICS_SNAPSHOT ?? "");
+    const simulateSloBreach = parseArg("--simulate-slo-breach", process.env.DEXTER_SIMULATE_SLO_BREACH ?? "") as
+      | SloBreachKind
+      | "";
+    const promotion = await assertPromotionAllowed({
+      rootDir,
+      targetEnvironment: environment,
+      sourceEnvironment: sourceEnvironment || undefined,
+      controlPlane,
+      approvedBy,
+      approverRole: approverRole || undefined,
+      tenantId,
+    });
+
     const adapter = createControlPlaneAdapter(rootDir, controlPlane);
     const auth = await generateDeployAuthorization(rootDir, appName, {
-      approvedBy: process.env.DEXTER_DEPLOY_APPROVER ?? "deploy-self",
-      environment,
+      approvedBy,
+      environment: promotion.targetEnvironment,
+      sourceEnvironment: promotion.sourceEnvironment,
       controlPlane,
       tenantId,
     });
     if (!auth) {
       throw new Error("Unable to generate deployment authorization. Ensure planning and supply-chain artifacts exist.");
     }
-    const result = await adapter.deploy(appName, auth, { environment, tenantId });
+    const result = await adapter.deploy(appName, auth, {
+      environment: promotion.targetEnvironment,
+      tenantId,
+    });
+    await appendAuditLogEvent(rootDir, {
+      actor: auth.approvedBy,
+      action: "promotion_deploy",
+      scope: promotion.targetEnvironment,
+      reason: `control-plane:${controlPlane}`,
+      metadata: {
+        appName,
+        sourceEnvironment: promotion.sourceEnvironment,
+        approverRole: promotion.approverRole,
+        deploymentMode: result.mode,
+        deploymentId: result.deploymentId,
+      },
+    });
     if (requireRealMode && result.mode === "simulated") {
       throw new Error("Deploy-self blocked: simulated deployment mode is not allowed when --require-real is enabled.");
     }
@@ -315,19 +394,80 @@ async function main() {
       urls: healthUrls,
       timeoutMs: Number.isFinite(healthTimeoutMs) ? healthTimeoutMs : 5000,
     });
-    let autoRollback:
-      | { triggered: true; rollbackId: string; rollbackMode: "api" | "hook" | "simulated" }
-      | { triggered: false } = { triggered: false };
-    if (!healthValidation.passed) {
-      const rollbackResult = await adapter.rollback(appName);
-      autoRollback = {
-        triggered: true,
-        rollbackId: rollbackResult.rollbackId,
-        rollbackMode: rollbackResult.mode,
+
+    let canaryGate: {
+      jsonPath: string;
+      markdownPath: string;
+      passed: boolean;
+      prodPromotionAllowed: boolean;
+      burnState: "healthy" | "warn" | "breach";
+    } | null = null;
+
+    if (promotion.targetEnvironment === "canary") {
+      const metrics = await resolveCanaryMetrics({
+        rootDir,
+        healthValidation,
+        snapshotPath: canaryMetricsSnapshot || undefined,
+      });
+      const gateResult = await evaluateCanaryGate(rootDir, metrics, healthValidation);
+      const artifact = await writeCanaryGateArtifact(rootDir, gateResult);
+      canaryGate = {
+        jsonPath: artifact.jsonPath,
+        markdownPath: artifact.markdownPath,
+        passed: gateResult.passed,
+        prodPromotionAllowed: gateResult.prodPromotionAllowed,
+        burnState: gateResult.burnState,
       };
-      if (requireApiMode && rollbackResult.mode !== "api") {
-        throw new Error("Deploy-self health rollback failed API requirement: rollback mode is not API.");
-      }
+      await appendAuditLogEvent(rootDir, {
+        actor: auth.approvedBy,
+        action: "canary_gate_evaluated",
+        scope: "canary",
+        reason: gateResult.passed ? "canary_gate_passed" : "canary_gate_failed",
+        metadata: {
+          appName,
+          burnState: gateResult.burnState,
+          prodPromotionAllowed: gateResult.prodPromotionAllowed,
+          checks: gateResult.checks,
+        },
+      });
+    }
+
+    const sloPolicy = await loadSloThresholds(rootDir);
+    let sloMetrics = await resolveCanaryMetrics({
+      rootDir,
+      healthValidation,
+      snapshotPath: canaryMetricsSnapshot || undefined,
+    });
+    if (simulateSloBreach === "error-rate" || simulateSloBreach === "latency" || simulateSloBreach === "burn") {
+      sloMetrics = simulatedBreachMetrics(simulateSloBreach);
+    }
+    const sloEvaluation = evaluateSloRollbackTriggers(sloMetrics, sloPolicy, healthValidation);
+    const canaryGateFailed = canaryGate !== null && !canaryGate.passed;
+
+    let sloRollback: SloRollbackExecution | { triggered: false } = { triggered: false };
+    let sloRollbackArtifact: { jsonPath: string; markdownPath: string } | null = null;
+
+    if (sloEvaluation.triggered || canaryGateFailed) {
+      const reason = canaryGateFailed
+        ? "canary_gate_failed"
+        : sloEvaluation.triggers[0]?.trigger ?? "slo_breach";
+      sloRollback = await executePromotionRollback({
+        rootDir,
+        adapter,
+        appName,
+        environment: promotion.targetEnvironment,
+        actor: auth.approvedBy,
+        reason,
+        triggers: sloEvaluation.triggers,
+        requireApiMode: requireApiMode,
+      });
+      sloRollbackArtifact = await writeSloRollbackArtifact(rootDir, {
+        generatedAt: new Date().toISOString(),
+        environment: promotion.targetEnvironment,
+        appName,
+        execution: sloRollback,
+        evaluation: sloEvaluation,
+      });
     }
 
     let rollbackValidation:
@@ -343,16 +483,42 @@ async function main() {
 
     if (rollbackDrill) {
       const rollbackResult = await adapter.rollback(appName);
+      await appendAuditLogEvent(rootDir, {
+        actor: auth.approvedBy,
+        action: "promotion_rollback",
+        scope: promotion.targetEnvironment,
+        reason: "rollback_drill",
+        metadata: {
+          appName,
+          rollbackMode: rollbackResult.mode,
+          rollbackId: rollbackResult.rollbackId,
+        },
+      });
       const redeployAuth = await generateDeployAuthorization(rootDir, appName, {
         approvedBy: process.env.DEXTER_DEPLOY_APPROVER ?? "deploy-self-rollback-drill",
-        environment,
+        environment: promotion.targetEnvironment,
+        sourceEnvironment: promotion.sourceEnvironment,
         controlPlane,
         tenantId,
       });
       if (!redeployAuth) {
         throw new Error("Rollback drill failed: unable to generate redeploy authorization.");
       }
-      const redeployResult = await adapter.deploy(appName, redeployAuth, { environment, tenantId });
+      const redeployResult = await adapter.deploy(appName, redeployAuth, {
+        environment: promotion.targetEnvironment,
+        tenantId,
+      });
+      await appendAuditLogEvent(rootDir, {
+        actor: redeployAuth.approvedBy,
+        action: "promotion_deploy",
+        scope: promotion.targetEnvironment,
+        reason: "rollback_drill_redeploy",
+        metadata: {
+          appName,
+          deploymentMode: redeployResult.mode,
+          deploymentId: redeployResult.deploymentId,
+        },
+      });
 
       const passed = rollbackResult.status === "ok" && redeployResult.status === "ok";
       if (requireRealMode && (rollbackResult.mode === "simulated" || redeployResult.mode === "simulated")) {
@@ -379,11 +545,16 @@ async function main() {
       {
         controlPlane,
         appName,
+        environment: promotion.targetEnvironment,
+        sourceEnvironment: promotion.sourceEnvironment,
         requireRealMode,
         requireApiMode,
         rollbackDrill,
         healthValidation,
-        autoRollback,
+        canaryGate: canaryGate ?? { enabled: false },
+        sloEvaluation,
+        sloRollback,
+        sloRollbackArtifact,
         authorization: auth,
         ...result,
         rollbackValidation,
@@ -396,17 +567,426 @@ async function main() {
           outputPath,
           deploymentMode: result.mode,
           deploymentId: result.deploymentId,
+          environment: promotion.targetEnvironment,
           healthValidation,
-          autoRollback,
+          canaryGate: canaryGate ?? { enabled: false },
+          sloEvaluation: {
+            triggered: sloEvaluation.triggered,
+            triggers: sloEvaluation.triggers,
+          },
+          sloRollback,
+          sloRollbackArtifact,
           rollbackValidation,
         },
         null,
         2,
       ),
     );
-    if (!healthValidation.passed) {
-      throw new Error("Deployment health checks failed and rollback was triggered.");
+    if (sloRollback.triggered) {
+      const triggerNames = sloEvaluation.triggers.map((item) => item.trigger).join(", ");
+      throw new Error(`SLO rollback triggered (${triggerNames}). Rollback captured in release artifacts.`);
     }
+    return;
+  }
+
+  if (command === "intake-normalize") {
+    const adapter = (parseArg("--adapter", "cli-prompt") || parseArg("--source-type", "cli-prompt")) as IntakeSourceType;
+    if (!["cli-prompt", "issue", "template"].includes(adapter)) {
+      throw new Error("Invalid --adapter. Use cli-prompt|issue|template");
+    }
+
+    const project = parseArg("--project", "dexter-sample");
+    const constraints = parseListArg("--constraints", []);
+    const targetUsers = parseListArg("--target-users", ["engineering-teams", "founders"]);
+
+    let brief;
+    if (adapter === "issue") {
+      const issueFile = parseArg("--issue-file", "");
+      if (issueFile) {
+        const payload = await fs.readJson(path.resolve(rootDir, issueFile));
+        brief = githubIssueAdapter.normalize(payload);
+      } else {
+        const title = parseArg("--issue-title", "");
+        const body = parseArg("--issue-body", "");
+        if (!title || !body) {
+          throw new Error("Issue adapter requires --issue-file or both --issue-title and --issue-body");
+        }
+        brief = githubIssueAdapter.normalize({
+          project,
+          title,
+          body,
+          number: Number(parseArg("--issue-number", "0")) || undefined,
+          labels: parseListArg("--issue-labels", []),
+          constraints,
+          targetUsers,
+        });
+      }
+    } else if (adapter === "template") {
+      const templateId = parseArg("--template-id", "");
+      if (!templateId) {
+        throw new Error("Template adapter requires --template-id");
+      }
+      const varsRaw = parseArg("--template-vars", "{}");
+      let variables: Record<string, string> = {};
+      try {
+        variables = JSON.parse(varsRaw) as Record<string, string>;
+      } catch {
+        throw new Error("Invalid --template-vars JSON object");
+      }
+      brief = templateAdapter.normalize({
+        project,
+        templateId,
+        variables,
+        constraints,
+        targetUsers,
+      });
+    } else {
+      const idea = parseArg("--idea", "Build a production-ready autonomous coding factory.");
+      brief = cliPromptAdapter.normalize({
+        project,
+        idea,
+        constraints,
+        targetUsers,
+        externalId: parseArg("--external-id", "") || undefined,
+      });
+    }
+
+    const skipClarificationGate = parseBoolArg("--skip-clarification-gate", false);
+    const processed = await processIntakeBrief(rootDir, brief);
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: processed.brief.intakeId,
+          project: processed.brief.project,
+          title: processed.brief.title,
+          ambiguityScore: processed.brief.ambiguity.score,
+          ambiguityLevel: processed.brief.ambiguity.level,
+          clarificationRequired: processed.brief.ambiguity.clarificationRequired,
+          clarificationPassed: processed.clarification.passed,
+          clarificationLogPath: processed.clarification.logPath,
+          riskScore: processed.brief.riskPriority.riskScore,
+          priorityScore: processed.brief.riskPriority.priorityScore,
+          highRisk: processed.brief.riskPriority.highRisk,
+          jsonPath: processed.jsonPath,
+          markdownPath: processed.markdownPath,
+        },
+        null,
+        2,
+      ),
+    );
+    if (!processed.clarification.passed && !skipClarificationGate) {
+      throw new Error(
+        `Clarification gate blocked intake (score ${processed.brief.ambiguity.score} >= ${processed.brief.ambiguity.threshold}). See ${processed.clarification.logPath}`,
+      );
+    }
+    return;
+  }
+
+  if (command === "intake-clarify") {
+    const existing = await readIntakeArtifact(rootDir);
+    if (!existing) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const gate = await runClarificationGate(rootDir, existing);
+    console.log(
+      JSON.stringify(
+        {
+          passed: gate.passed,
+          clarificationRequired: gate.clarificationRequired,
+          questionCount: gate.cycle?.questions.length ?? 0,
+          logPath: gate.logPath,
+          jsonPath: gate.jsonPath,
+        },
+        null,
+        2,
+      ),
+    );
+    if (!gate.passed) {
+      throw new Error(`Clarification required. See ${gate.logPath}`);
+    }
+    return;
+  }
+
+  if (command === "intake-score") {
+    const existing = await readIntakeArtifact(rootDir);
+    if (!existing) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const { ambiguity: _a, riskPriority: _r, ...core } = existing;
+    const withAmbiguity = await attachIntakeAmbiguityFromPolicyFile(rootDir, core);
+    const riskPolicy = await loadIntakeRiskPriorityPolicy(rootDir);
+    const scored = attachIntakeRiskPriority(withAmbiguity, riskPolicy);
+    const result = await writeIntakeArtifact(rootDir, scored);
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: scored.intakeId,
+          ambiguityScore: scored.ambiguity.score,
+          ambiguityLevel: scored.ambiguity.level,
+          clarificationRequired: scored.ambiguity.clarificationRequired,
+          threshold: scored.ambiguity.threshold,
+          signalCount: scored.ambiguity.signals.length,
+          riskScore: scored.riskPriority.riskScore,
+          priorityScore: scored.riskPriority.priorityScore,
+          highRisk: scored.riskPriority.highRisk,
+          jsonPath: result.jsonPath,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "intake-pilot-batch") {
+    const { runIntakePilotBatch } = await import("./intake/pilot-batch.js");
+    const fullRun = parseBoolArg("--full-run", false);
+    const skipClarificationGate =
+      parseBoolArg("--skip-clarification-gate", false) ||
+      process.env.DEXTER_SKIP_CLARIFICATION_GATE === "true";
+    if (fullRun) {
+      process.env.DEXTER_AUTO_APPROVE_HITL = "true";
+      const hooksDir = path.join(rootDir, "infra", "coolify", "hooks");
+      await fs.ensureDir(hooksDir);
+      await fs.writeFile(path.join(hooksDir, "deploy.sh"), "#!/usr/bin/env sh\necho deploy\n");
+      await fs.writeFile(path.join(hooksDir, "rollback.sh"), "#!/usr/bin/env sh\necho rollback\n");
+    }
+    const { reportPath, markdownPath, report } = await runIntakePilotBatch(rootDir, {
+      fullRun,
+      skipClarificationGate,
+    });
+    console.log(
+      JSON.stringify(
+        {
+          reportPath,
+          markdownPath,
+          passed: report.evaluation.passed,
+          autoDecompositionRate: report.evaluation.autoDecompositionRate,
+          highRiskHitlPassed: report.evaluation.highRiskHitlPassed,
+        },
+        null,
+        2,
+      ),
+    );
+    if (!report.evaluation.passed) {
+      throw new Error("Intake pilot batch failed acceptance gates.");
+    }
+    return;
+  }
+
+  if (command === "intake-run") {
+    const { runDexterFromIntakeArtifacts } = await import("./intake/run-from-intake.js");
+    const result = await runDexterFromIntakeArtifacts(rootDir, {
+      skipClarificationGate: parseBoolArg("--skip-clarification-gate", false) ||
+        process.env.DEXTER_SKIP_CLARIFICATION_GATE === "true",
+    });
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "intake-plan") {
+    const brief = await readIntakeArtifact(rootDir);
+    if (!brief) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const planned = await planFromIntakeArtifacts(
+      rootDir,
+      {
+        brief: brief.summary,
+        glossary: {},
+        marketEvidence: [],
+        risks: [],
+      },
+      brief,
+      { project: brief.project },
+    );
+    const planningDir = path.join(rootDir, "artifacts", "planning");
+    await fs.ensureDir(planningDir);
+    await fs.writeFile(path.join(planningDir, "PRD.md"), planned.plan.prd);
+    await fs.writeFile(path.join(planningDir, "ARCHITECTURE_SPEC.md"), planned.plan.architecture);
+    await fs.writeFile(path.join(planningDir, "NFR_SPEC.md"), planned.plan.nfrSpec);
+    await fs.writeFile(path.join(planningDir, "TEST_STRATEGY.md"), planned.plan.testStrategy);
+    await fs.writeJson(path.join(planningDir, "TASK_GRAPH.json"), planned.plan.tasks, { spaces: 2 });
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: brief.intakeId,
+          manifestPath: planned.manifestPath,
+          taskCount: planned.manifest.taskCount,
+          tasksWithRiskPriority: planned.manifest.tasksWithRiskPriority,
+          tasksRoutedToHitl: planned.manifest.tasksRoutedToHitl,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "intake-route-preview") {
+    const brief = await readIntakeArtifact(rootDir);
+    if (!brief) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const plan = compilePlan(
+      {
+        brief: brief.summary,
+        glossary: {},
+        marketEvidence: [],
+        risks: [],
+      },
+      { project: brief.project, intakeBrief: brief },
+    );
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: brief.intakeId,
+          highRisk: brief.riskPriority.highRisk,
+          tasks: plan.tasks.map((task) => ({
+            id: task.id,
+            mode: task.mode,
+            routedMode: task.routing?.routedMode ?? task.mode,
+            reason: task.routing?.reason ?? "none",
+            afkEligible: task.routing?.routedMode === "AFK",
+          })),
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "milestone-signoff") {
+    const milestone = parseArg("--milestone", "1");
+    if (milestone !== "1") {
+      throw new Error("Only milestone 1 signoff is implemented.");
+    }
+    const report = await generateMilestone1Signoff(rootDir);
+    if (!report.passed) {
+      const failed = report.gates.filter((gate) => !gate.passed).map((gate) => gate.id);
+      throw new Error(`Milestone 1 signoff failed: ${failed.join(", ")}`);
+    }
+    console.log(
+      JSON.stringify(
+        {
+          passed: report.passed,
+          milestone: report.milestone,
+          gates: report.gates.length,
+          reportPath: path.join(rootDir, "artifacts", "release", "MILESTONE_1_SIGNOFF.json"),
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "operator-readiness") {
+    const readiness = await writeOperatorWorkflowReadiness(rootDir);
+    if (!readiness.ready) {
+      throw new Error("Operator workflow is not ready.");
+    }
+    console.log(
+      JSON.stringify(
+        {
+          ready: readiness.ready,
+          reportPath: path.join(rootDir, "artifacts", "release", "OPERATOR_WORKFLOW_READINESS.json"),
+          promotionCount: readiness.promotionCount,
+          resumeAllowed: readiness.resumeAllowed,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "promotion-repeatability") {
+    const minimumPromotions = Number(parseArg("--minimum-promotions", "3"));
+    const report = await verifyPromotionRepeatability(
+      rootDir,
+      Number.isFinite(minimumPromotions) ? minimumPromotions : 3,
+    );
+    if (!report.passed) {
+      throw new Error("Promotion repeatability verification failed.");
+    }
+    console.log(
+      JSON.stringify(
+        {
+          passed: report.passed,
+          promotionCount: report.promotionCount,
+          reportPath: path.join(rootDir, "artifacts", "release", "PROMOTION_REPEATABILITY.json"),
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "governance-verify") {
+    const minimumPromotions = Number(parseArg("--minimum-promotions", "1"));
+    const report = await verifyGovernance({
+      rootDir,
+      minimumPromotions: Number.isFinite(minimumPromotions) ? minimumPromotions : 1,
+    });
+    if (!report.passed) {
+      throw new Error("Governance verification failed.");
+    }
+    console.log(
+      JSON.stringify(
+        {
+          passed: report.passed,
+          reportPath: path.join(rootDir, "artifacts", "release", "GOVERNANCE_VERIFICATION.json"),
+          checks: report.checks.length,
+          failedChecks: report.checks.filter((check) => !check.passed).map((check) => check.name),
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "promotion-pipeline") {
+    const appName = parseArg("--app", "dexter");
+    const controlPlane = (parseArg("--control-plane", "coolify") as "coolify" | "dokploy" | "dokku");
+    const targetService = parseArg("--target-service", appName);
+    const promotionId = parseArg("--promotion-id", "");
+    const minimumPromotions = Number(parseArg("--minimum-promotions", "1"));
+    const requireApi = parseBoolArg("--require-api", true);
+    const healthUrl =
+      parseArg("--health-url", process.env.DEXTER_DEPLOY_HEALTH_URL ?? "") ||
+      (process.env.DEXTER_DEPLOY_HEALTH_URLS ?? "").split(",").map((item) => item.trim()).find(Boolean) ||
+      "";
+    const manifest = await runPromotionPipeline({
+      rootDir,
+      appName,
+      controlPlane,
+      targetService,
+      promotionId: promotionId || undefined,
+      requireApi,
+      healthUrl: healthUrl || undefined,
+      minimumPromotionsForGovernance: Number.isFinite(minimumPromotions) ? minimumPromotions : 1,
+    });
+    console.log(
+      JSON.stringify(
+        {
+          passed: manifest.passed,
+          promotionId: manifest.promotionId,
+          manifestPath: path.join(rootDir, "artifacts", "release", "PROMOTION_PIPELINE_MANIFEST.json"),
+          stages: manifest.stages.map((stage) => ({
+            environment: stage.environment,
+            exitCode: stage.exitCode,
+            deploymentId: stage.deploymentId,
+          })),
+          auditEventsDelta: manifest.audit.eventsDelta,
+        },
+        null,
+        2,
+      ),
+    );
     return;
   }
 
@@ -443,6 +1023,7 @@ async function main() {
     const waiverReason = parseArg("--waiver-reason");
     const waiverExpiresAt = parseArg("--waiver-expires-at");
     const waiverScope = parseArg("--waiver-scope");
+    const runId = parseArg("--run-id");
     if (!key) {
       throw new Error("Missing --key");
     }
@@ -453,7 +1034,9 @@ async function main() {
       rootDir,
       key,
       status,
-      note,
+      note: note || undefined,
+      actor: waiverApprovedBy || "dexter-operator",
+      runId: runId || undefined,
       waiver:
         status === "waived"
           ? {
@@ -502,8 +1085,9 @@ async function main() {
       allUnresolved,
       target,
       dryRun,
-      note,
+      note: note || undefined,
       runId: runId || undefined,
+      actor: waiverApprovedBy || "dexter-operator",
       waiver:
         status === "waived"
           ? {

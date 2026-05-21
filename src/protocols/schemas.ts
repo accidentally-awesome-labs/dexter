@@ -63,6 +63,39 @@ export const taskSpecSchema = z
   workspaceStrategy: z.enum(["git-worktree", "copy", "shared"]).optional(),
   commands: z.array(taskCommandSchema).optional(),
   acceptanceChecks: z.array(acceptanceCheckSchema).optional(),
+  riskPriority: z
+    .object({
+      riskScore: z.number().int().min(0).max(100),
+      priorityScore: z.number().int().min(0).max(100),
+      riskLevel: z.enum(["low", "medium", "high", "critical"]),
+      priorityLevel: z.enum(["low", "medium", "high", "critical"]),
+      highRisk: z.boolean(),
+      threshold: z.number().int().min(0).max(100),
+      dimensions: z.object({
+        security: z.number(),
+        blastRadius: z.number(),
+        complexity: z.number(),
+        urgency: z.number(),
+      }),
+      signals: z.array(
+        z.object({
+          id: z.string(),
+          dimension: z.enum(["security", "blastRadius", "complexity", "urgency"]),
+          weight: z.number().int().min(0),
+          reason: z.string(),
+          hits: z.number().int().min(1).optional(),
+        }),
+      ),
+    })
+    .optional(),
+  routing: z
+    .object({
+      originalMode: z.enum(["AFK", "HITL"]),
+      routedMode: z.enum(["AFK", "HITL"]),
+      reason: z.string().min(3),
+      policyVersion: z.string().min(1),
+    })
+    .optional(),
 })
   .superRefine((task, ctx) => {
     if (task.mode !== "AFK") {

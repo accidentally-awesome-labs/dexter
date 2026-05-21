@@ -1,5 +1,7 @@
 import path from "node:path";
 import fs from "fs-extra";
+import { readCanaryGateStatus } from "../operations/canary-gate.js";
+import { readSloRollbackStatus } from "../operations/slo-rollback.js";
 
 type EscalationStatus = "open" | "in_progress" | "resolved" | "waived";
 type EscalationTarget = "operator" | "planner";
@@ -46,8 +48,35 @@ export async function writeOpsStatusArtifact(options: {
   await fs.ensureDir(executionDir);
 
   const runSummaryPath = path.join(runDir, "run_summary.json");
-  const runSummary: RunSummary | null = (await fs.pathExists(runSummaryPath))
-    ? ((await fs.readJson(runSummaryPath)) as RunSummary)
+  const runSummary: (RunSummary & {
+    intake?: {
+      intakeId?: string;
+      riskScore?: number;
+      highRisk?: boolean;
+      tasksRoutedToHitl?: number;
+      tasksRoutedToAfk?: number;
+    };
+    intakeExecutionCoherent?: boolean;
+  }) | null = (await fs.pathExists(runSummaryPath))
+    ? ((await fs.readJson(runSummaryPath)) as RunSummary & {
+        intake?: {
+          intakeId?: string;
+          riskScore?: number;
+          highRisk?: boolean;
+          tasksRoutedToHitl?: number;
+          tasksRoutedToAfk?: number;
+        };
+        intakeExecutionCoherent?: boolean;
+      })
+    : null;
+
+  const intakeManifestPath = path.join(runDir, "intake_execution_manifest.json");
+  const intakeManifest = (await fs.pathExists(intakeManifestPath))
+    ? ((await fs.readJson(intakeManifestPath)) as {
+        coherence?: { passed?: boolean };
+        routing?: { routedToHitl?: number; routedToAfk?: number };
+        intake?: { riskScore?: number; highRisk?: boolean };
+      })
     : null;
 
   const escalationStatePath = path.join(executionDir, "ESCALATION_STATE.json");
@@ -65,6 +94,8 @@ export async function writeOpsStatusArtifact(options: {
 
   const replanPath = path.join(runDir, "replan_waves_summary.json");
   const replan = (await fs.pathExists(replanPath)) ? ((await fs.readJson(replanPath)) as ReplanSummary) : null;
+  const canaryGate = await readCanaryGateStatus(rootDir);
+  const sloRollback = await readSloRollbackStatus(rootDir);
 
   const runStatus = (runSummary?.runStatus as RunStatus | undefined) ?? "unknown";
   const resumeAllowed = unresolved.length === 0 && runStatus === "healthy";
@@ -106,6 +137,33 @@ export async function writeOpsStatusArtifact(options: {
           attemptedWaves: replan.waves?.length ?? 0,
         }
       : null,
+    intake: runSummary?.intake
+      ? {
+          intakeId: runSummary.intake.intakeId ?? null,
+          riskScore: runSummary.intake.riskScore ?? intakeManifest?.intake?.riskScore ?? null,
+          highRisk: runSummary.intake.highRisk ?? intakeManifest?.intake?.highRisk ?? null,
+          tasksRoutedToHitl:
+            runSummary.intake.tasksRoutedToHitl ?? intakeManifest?.routing?.routedToHitl ?? null,
+          tasksRoutedToAfk: runSummary.intake.tasksRoutedToAfk ?? intakeManifest?.routing?.routedToAfk ?? null,
+          executionCoherent: runSummary.intakeExecutionCoherent ?? intakeManifest?.coherence?.passed ?? null,
+        }
+      : null,
+    promotion: {
+      canaryGate: {
+        present: canaryGate.present,
+        passed: canaryGate.passed,
+        prodPromotionAllowed: canaryGate.prodPromotionAllowed,
+        expired: canaryGate.expired,
+        burnState: canaryGate.burnState ?? null,
+        generatedAt: canaryGate.generatedAt ?? null,
+        artifactPath: path.join(rootDir, "artifacts", "release", "CANARY_GATE_RESULT.json"),
+      },
+      sloRollback: {
+        present: sloRollback.present,
+        triggered: sloRollback.triggered,
+        artifactPath: sloRollback.artifactPath,
+      },
+    },
     resume: {
       allowed: resumeAllowed,
       reason: resumeAllowed ? "Run is healthy with no unresolved escalations." : "Resolve unresolved escalations before resuming.",
@@ -126,6 +184,18 @@ export async function writeOpsStatusArtifact(options: {
       `Run status: ${payload.runStatus}`,
       `Production ready: ${payload.productionReady}`,
       "",
+      "## Intake Execution",
+      ...(payload.intake
+        ? [
+            `- Intake ID: ${payload.intake.intakeId ?? "unknown"}`,
+            `- Risk score: ${payload.intake.riskScore ?? "unknown"}`,
+            `- High risk: ${payload.intake.highRisk ?? "unknown"}`,
+            `- Routed to HITL: ${payload.intake.tasksRoutedToHitl ?? "unknown"}`,
+            `- AFK eligible: ${payload.intake.tasksRoutedToAfk ?? "unknown"}`,
+            `- Execution coherent: ${payload.intake.executionCoherent ?? "unknown"}`,
+          ]
+        : ["- No intake execution metadata for this run"]),
+      "",
       "## Unresolved Escalations",
       `- Count: ${payload.unresolved.count}`,
       `- Operator high: ${payload.unresolved.operatorHigh}`,
@@ -140,6 +210,18 @@ export async function writeOpsStatusArtifact(options: {
             `- Attempted waves: ${payload.replan.attemptedWaves}`,
           ]
         : ["- No replan data for this run"]),
+      "",
+      "## Canary Gate",
+      `- Present: ${payload.promotion.canaryGate.present}`,
+      `- Passed: ${payload.promotion.canaryGate.passed}`,
+      `- Prod promotion allowed: ${payload.promotion.canaryGate.prodPromotionAllowed}`,
+      `- Expired: ${payload.promotion.canaryGate.expired}`,
+      `- Burn state: ${payload.promotion.canaryGate.burnState ?? "unknown"}`,
+      "",
+      "## SLO Rollback",
+      `- Present: ${payload.promotion.sloRollback.present}`,
+      `- Triggered: ${payload.promotion.sloRollback.triggered}`,
+      `- Artifact: ${payload.promotion.sloRollback.artifactPath}`,
       "",
       "## Resume Readiness",
       `- Allowed: ${payload.resume.allowed}`,

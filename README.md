@@ -24,6 +24,29 @@ npm test
 - `npm run deploy:drill` - run deploy -> rollback -> redeploy validation drill
 - `npm run deploy:drill:api` - same drill but hard-fails unless deploy/rollback use API mode
 - `npm run deploy:drill:api:local` - run API-only drill against built-in local mock control-plane + health server
+- `npm run promotion:pipeline` - run staged `dev -> staging -> canary -> prod` promotion with governance checks
+- `npm run promotion:pipeline:local` - local mock promotion #1 (`dexter`)
+- `npm run promotion:pipeline:local:2` - local mock promotion #2 (`dexter-ops-api`)
+- `npm run promotion:pipeline:local:3` - local mock promotion #3 (`dexter-worker`)
+- `npm run governance:verify` - verify waiver metadata and promotion policy consistency
+- `npm run promotion:repeatability` - verify repeated promotions use the same gate behavior
+- `npm run operator:readiness` - summarize operator workflow readiness from ops + release artifacts
+- `npm run canary:rollback:drill` - force canary SLO breach and verify automatic rollback + audit capture
+- `npm run milestone:m1:signoff` - verify Milestone 1 acceptance gates and write signoff artifact
+- `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
+- `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
+- `npm run intake:normalize:template` - normalize a template-driven request into intake brief
+- `npm run intake:score` - re-score ambiguity on the latest intake brief using policy file
+- `npm run intake:clarify` - run clarification gate against latest intake brief
+- `npm run intake:normalize:ambiguous` - sample ambiguous intake that triggers clarification log
+- `npm run intake:normalize:high-risk` - sample high-risk intake with elevated risk/priority scores
+- `npm run intake:route-preview` - preview AFK/HITL routing for latest intake brief
+- `npm run intake:plan` - compile planning artifacts from latest intake brief
+- `npm run intake:run` - execute full Dexter run starting from latest intake brief
+- `npm run intake:pilot:batch` - run Milestone 2 Day 9 five-request intake pilot batch
+- `npm run intake:pilot:batch:full` - same pilot batch with full orchestrator runs
+- `npm run ops:status` - write consolidated operator status dashboard artifacts
+- `npm run resume:check` - inspect resume readiness for a run (`--latest true` supported)
 - `npm run trust:gates` - run failure-injection trust gate matrix and write report artifacts
 - `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`)
 - `npm run benchmark:backend` - benchmark pluggable coding backends and select default

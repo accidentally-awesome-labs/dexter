@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-05-21T17:19:12.549Z",
+  "passed": true,
+  "environment": "canary",
+  "breachExitCode": 1,
+  "deployCalls": 1,
+  "rollbackCalls": 1,
+  "sloRollbackArtifactPath": "/Users/salar/Projects/dexter/artifacts/release/SLO_ROLLBACK_RESULT.json",
+  "sloRollbackTriggered": true,
+  "auditRollbackRecorded": true,
+  "calls": [
+    {
+      "action": "deploy",
+      "timestamp": "2026-05-21T17:19:12.503Z"
+    },
+    {
+      "action": "rollback",
+      "timestamp": "2026-05-21T17:19:12.515Z"
+    }
+  ]
+}
