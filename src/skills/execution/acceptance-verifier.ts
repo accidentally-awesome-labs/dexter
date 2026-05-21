@@ -44,9 +44,15 @@ export async function verifyTaskAcceptance(
 ): Promise<{ passed: boolean; details: string[] }> {
   const checks = task.acceptanceChecks ?? [];
   if (checks.length === 0) {
+    if (task.mode === "AFK") {
+      return {
+        passed: false,
+        details: ["AFK task missing structured acceptance checks."],
+      };
+    }
     return {
       passed: true,
-      details: ["No structured acceptance checks defined; defaulting to pass."],
+      details: ["No structured acceptance checks defined for HITL task; defaulting to pass."],
     };
   }
   const details: string[] = [];

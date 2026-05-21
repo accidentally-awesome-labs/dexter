@@ -18,6 +18,23 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Fresh-state gate (detached worktree)
+        run: |
+          set -euo pipefail
+          fresh_dir="$(mktemp -d)"
+          git worktree add --detach "${fresh_dir}" HEAD
+          cleanup() {
+            git worktree remove --force "${fresh_dir}" || true
+          }
+          trap cleanup EXIT
+          cd "${fresh_dir}"
+          npm ci
+          npm run typecheck
+          npm run test:unit
+          npm run run:sample
+          npm run benchmark:backend
+          npm run soak:cycle -- --target-streak 1 --enforce-gate false
+          npm exec tsx src/index.ts verify
       - name: Typecheck
         run: npm run typecheck
       - name: Run sample pipeline
@@ -38,5 +55,7 @@ jobs:
         run: npm run deploy:drill:api:local
       - name: Record soak cycle status
         run: npm run soak:cycle -- --target-streak 1 --enforce-gate false
+      - name: Evaluate release decision gates
+        run: npm run release:decision
       - name: Verify readiness
         run: npm test

@@ -44,7 +44,7 @@
       "buildType": "dexter/autonomous-factory/v1",
       "externalParameters": {
         "project": "sample-app",
-        "runId": "1f3231a2-3e41-451f-b8d5-fa655b6c3ec8"
+        "runId": "cc724b25-0cf1-4899-8ee9-085e21a4f254"
       },
       "internalParameters": {
         "pipelineStages": [
@@ -64,9 +64,9 @@
         "id": "dexter-core"
       },
       "metadata": {
-        "invocationId": "1f3231a2-3e41-451f-b8d5-fa655b6c3ec8",
-        "startedOn": "2026-05-20T19:46:04.320Z",
-        "finishedOn": "2026-05-20T19:46:04.320Z"
+        "invocationId": "cc724b25-0cf1-4899-8ee9-085e21a4f254",
+        "startedOn": "2026-05-21T00:55:52.933Z",
+        "finishedOn": "2026-05-21T00:55:52.933Z"
       }
     }
   }

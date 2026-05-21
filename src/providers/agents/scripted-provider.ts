@@ -5,6 +5,10 @@ import type { AgentExecutionInput, AgentExecutionOutput, AgentProvider } from ".
 export class ScriptedAgentProvider implements AgentProvider {
   readonly id = "scripted";
 
+  isReady(): { ready: boolean } {
+    return { ready: true };
+  }
+
   async execute(input: AgentExecutionInput): Promise<AgentExecutionOutput> {
     const outputDir = path.join(input.workspaceDir, ".dexter-agent");
     await fs.ensureDir(outputDir);

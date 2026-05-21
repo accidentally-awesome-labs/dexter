@@ -1,1063 +1,13 @@
 {
   "schemaVersion": "1.0",
-  "targetStreak": 1,
-  "currentStreak": 389,
-  "longestStreak": 389,
-  "totalCycles": 391,
+  "targetStreak": 10,
+  "currentStreak": 431,
+  "longestStreak": 431,
+  "totalCycles": 433,
   "gateSatisfied": true,
-  "lastCycleAt": "2026-05-20T19:46:05.588Z",
+  "lastCycleAt": "2026-05-21T00:55:53.720Z",
   "lastCyclePassed": true,
   "history": [
-    {
-      "at": "2026-05-20T17:06:12.262Z",
-      "passed": true,
-      "durationMs": 2837779,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 917
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1812
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2835048
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:12.712Z",
-      "passed": true,
-      "durationMs": 2848684,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 953
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1914
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2845813
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:13.193Z",
-      "passed": true,
-      "durationMs": 2859818,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 814
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1955
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2857047
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:13.642Z",
-      "passed": true,
-      "durationMs": 2870630,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 881
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1764
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2867983
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:14.098Z",
-      "passed": true,
-      "durationMs": 2882084,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 888
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 2259
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2878935
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:14.697Z",
-      "passed": true,
-      "durationMs": 2893396,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 1015
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1942
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2890437
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:15.291Z",
-      "passed": true,
-      "durationMs": 2904211,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 990
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1797
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2901423
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:15.774Z",
-      "passed": true,
-      "durationMs": 2915298,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 861
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1955
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2912480
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:16.247Z",
-      "passed": true,
-      "durationMs": 2926269,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 1097
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1730
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2923439
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:16.679Z",
-      "passed": true,
-      "durationMs": 2936825,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 855
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1894
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2934074
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:17.104Z",
-      "passed": true,
-      "durationMs": 2947595,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 883
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1873
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2944837
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:17.553Z",
-      "passed": true,
-      "durationMs": 2958553,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 877
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1914
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2955760
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:17.988Z",
-      "passed": true,
-      "durationMs": 2969245,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 819
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1714
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2966710
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:18.425Z",
-      "passed": true,
-      "durationMs": 2979764,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 856
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1673
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2977233
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:18.879Z",
-      "passed": true,
-      "durationMs": 2990410,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 865
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1702
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2987842
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:19.322Z",
-      "passed": true,
-      "durationMs": 3000852,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 978
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1703
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 2998169
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:19.748Z",
-      "passed": true,
-      "durationMs": 3011507,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 835
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1810
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3008860
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:20.197Z",
-      "passed": true,
-      "durationMs": 3021946,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 851
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1701
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3019389
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:20.691Z",
-      "passed": true,
-      "durationMs": 3032614,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 819
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1691
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3030099
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:21.295Z",
-      "passed": true,
-      "durationMs": 3043582,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 794
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1843
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3040938
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:22.175Z",
-      "passed": true,
-      "durationMs": 3054464,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 944
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1722
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3051788
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:22.736Z",
-      "passed": true,
-      "durationMs": 3064663,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 900
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1682
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3062073
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:23.281Z",
-      "passed": true,
-      "durationMs": 3075574,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 815
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1727
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3073025
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:23.856Z",
-      "passed": true,
-      "durationMs": 3085551,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 831
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1687
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3083027
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:24.398Z",
-      "passed": true,
-      "durationMs": 3096064,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 790
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1684
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3093584
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:24.943Z",
-      "passed": true,
-      "durationMs": 3106454,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 831
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1729
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3103888
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:25.528Z",
-      "passed": true,
-      "durationMs": 3116933,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 773
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1659
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3114494
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:26.158Z",
-      "passed": true,
-      "durationMs": 3126915,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 790
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1658
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3124460
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:26.794Z",
-      "passed": true,
-      "durationMs": 3137155,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 800
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1684
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3134665
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:27.368Z",
-      "passed": true,
-      "durationMs": 3147273,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 874
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1689
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3144703
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:27.905Z",
-      "passed": true,
-      "durationMs": 3157297,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 779
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1744
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3154766
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:28.455Z",
-      "passed": true,
-      "durationMs": 3167688,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 966
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1762
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3164952
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:29.019Z",
-      "passed": true,
-      "durationMs": 3178441,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 776
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1872
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3175786
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:29.579Z",
-      "passed": true,
-      "durationMs": 3188430,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 771
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1970
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3185681
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:30.128Z",
-      "passed": true,
-      "durationMs": 3198814,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 963
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1980
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3195864
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:30.784Z",
-      "passed": true,
-      "durationMs": 3208713,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 796
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1679
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3206230
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:31.350Z",
-      "passed": true,
-      "durationMs": 3218800,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 1061
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1615
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3216117
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:32.008Z",
-      "passed": true,
-      "durationMs": 3229169,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 834
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 2016
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3226312
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:32.577Z",
-      "passed": true,
-      "durationMs": 3239766,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 995
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1833
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3236932
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:33.110Z",
-      "passed": true,
-      "durationMs": 3249931,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 816
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1729
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3247379
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:33.647Z",
-      "passed": true,
-      "durationMs": 3260522,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 991
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1972
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3257553
-        }
-      ]
-    },
-    {
-      "at": "2026-05-20T17:06:34.219Z",
-      "passed": true,
-      "durationMs": 3270967,
-      "steps": [
-        {
-          "name": "trust-gates",
-          "command": "npm run -s trust:gates",
-          "exitCode": 0,
-          "durationMs": 859
-        },
-        {
-          "name": "api-drill-local",
-          "command": "npm run -s deploy:drill:api:local",
-          "exitCode": 0,
-          "durationMs": 1803
-        },
-        {
-          "name": "tests",
-          "command": "npm run -s test",
-          "exitCode": 0,
-          "durationMs": 3268297
-        }
-      ]
-    },
     {
       "at": "2026-05-20T17:06:34.793Z",
       "passed": true,
@@ -5023,6 +3973,1812 @@
           "command": "tsx src/index.ts verify",
           "exitCode": 0,
           "durationMs": 397
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T21:38:39.731Z",
+      "passed": true,
+      "durationMs": 6256,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 491
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1298
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2478
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1233
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 411
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 344
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T21:38:48.553Z",
+      "passed": true,
+      "durationMs": 6532,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 1108
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1127
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2240
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1089
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 494
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 473
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T22:15:25.954Z",
+      "passed": true,
+      "durationMs": 5464,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 466
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1058
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2194
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 995
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 439
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 312
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T22:15:34.005Z",
+      "passed": true,
+      "durationMs": 5795,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 461
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1076
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2309
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1213
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 425
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 311
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T22:21:05.052Z",
+      "passed": true,
+      "durationMs": 6163,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 462
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1285
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2592
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1077
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 438
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 308
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T22:21:13.045Z",
+      "passed": true,
+      "durationMs": 5776,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 463
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1077
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2481
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1034
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 416
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 305
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T22:23:22.882Z",
+      "passed": true,
+      "durationMs": 5929,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 464
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1179
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2408
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1016
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 419
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 442
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T22:23:30.783Z",
+      "passed": true,
+      "durationMs": 5693,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 464
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1060
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2303
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1044
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 514
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 307
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:09:50.374Z",
+      "passed": true,
+      "durationMs": 5499,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 446
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1213
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2169
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 953
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 417
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 299
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:09:57.885Z",
+      "passed": true,
+      "durationMs": 5235,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 424
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 991
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2100
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 989
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 422
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 308
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:11:56.849Z",
+      "passed": true,
+      "durationMs": 5510,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 541
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1125
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2139
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 995
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 401
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 307
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:12:05.147Z",
+      "passed": true,
+      "durationMs": 6126,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 443
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1074
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2826
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1045
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 431
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 306
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:13:42.526Z",
+      "passed": true,
+      "durationMs": 5584,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 456
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1079
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2272
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1040
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 435
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 301
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:13:50.582Z",
+      "passed": true,
+      "durationMs": 5882,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 459
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1049
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2622
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1024
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 415
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 312
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:16:54.146Z",
+      "passed": true,
+      "durationMs": 5866,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 490
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1338
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2317
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 994
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 414
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 312
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:17:02.288Z",
+      "passed": true,
+      "durationMs": 5790,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 470
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1067
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2476
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1046
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 417
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 312
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:19:44.958Z",
+      "passed": true,
+      "durationMs": 5911,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 459
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1191
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2381
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1122
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 440
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 317
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:19:52.759Z",
+      "passed": true,
+      "durationMs": 5622,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 453
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1051
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2354
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1032
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 418
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 313
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:26:19.202Z",
+      "passed": true,
+      "durationMs": 6097,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 457
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1341
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2488
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1053
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 436
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 321
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:26:27.311Z",
+      "passed": true,
+      "durationMs": 5919,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 465
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1095
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2450
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1011
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 543
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 354
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:29:09.656Z",
+      "passed": true,
+      "durationMs": 6310,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 458
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1190
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2833
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1074
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 435
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 319
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:29:18.297Z",
+      "passed": true,
+      "durationMs": 6298,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 532
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1238
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2708
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1054
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 443
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 322
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:31:07.525Z",
+      "passed": true,
+      "durationMs": 7984,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 455
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1377
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3969
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1434
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 420
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 328
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:31:15.925Z",
+      "passed": true,
+      "durationMs": 6105,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 455
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1066
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2767
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1061
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 440
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 314
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:35:30.324Z",
+      "passed": true,
+      "durationMs": 8550,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 619
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1950
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 4074
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1165
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 413
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 327
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:35:40.386Z",
+      "passed": true,
+      "durationMs": 7691,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 548
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1394
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3615
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1402
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 411
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 320
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:37:08.805Z",
+      "passed": true,
+      "durationMs": 6773,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 467
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1290
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3075
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1064
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 551
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 326
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:37:17.525Z",
+      "passed": true,
+      "durationMs": 6335,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 468
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1088
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2815
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1052
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 458
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 453
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:40:14.632Z",
+      "passed": true,
+      "durationMs": 6752,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 462
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1241
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3082
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1088
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 427
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 452
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:40:23.176Z",
+      "passed": true,
+      "durationMs": 6237,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 456
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1078
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2884
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1065
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 442
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 311
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:43:31.145Z",
+      "passed": true,
+      "durationMs": 6791,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 483
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1178
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3296
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1071
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 447
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 315
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:43:39.740Z",
+      "passed": true,
+      "durationMs": 6247,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 561
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1067
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2866
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1007
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 427
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 318
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:58:23.469Z",
+      "passed": true,
+      "durationMs": 6602,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 463
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1298
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3043
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1060
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 429
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 308
+        }
+      ]
+    },
+    {
+      "at": "2026-05-20T23:58:32.677Z",
+      "passed": true,
+      "durationMs": 6712,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 471
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1074
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3265
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1104
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 463
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 327
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:13:34.791Z",
+      "passed": true,
+      "durationMs": 6735,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 480
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1215
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3075
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1214
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 431
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 319
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:13:44.270Z",
+      "passed": true,
+      "durationMs": 7058,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 458
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1193
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3492
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1166
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 425
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 323
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:24:26.167Z",
+      "passed": true,
+      "durationMs": 6596,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 509
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1252
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3045
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1023
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 442
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 325
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:24:35.257Z",
+      "passed": true,
+      "durationMs": 6802,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 686
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1123
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3077
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1164
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 435
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 316
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:26:07.750Z",
+      "passed": true,
+      "durationMs": 7100,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 521
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1211
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3389
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1152
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 446
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 380
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:26:16.561Z",
+      "passed": true,
+      "durationMs": 6344,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 619
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1096
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2794
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1043
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 475
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 316
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:55:45.302Z",
+      "passed": true,
+      "durationMs": 6701,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 459
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1342
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 3083
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1082
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 419
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 315
+        }
+      ]
+    },
+    {
+      "at": "2026-05-21T00:55:53.720Z",
+      "passed": true,
+      "durationMs": 6116,
+      "steps": [
+        {
+          "name": "trust-gates",
+          "command": "npm run -s trust:gates",
+          "exitCode": 0,
+          "durationMs": 483
+        },
+        {
+          "name": "api-drill-local",
+          "command": "npm run -s deploy:drill:api:local",
+          "exitCode": 0,
+          "durationMs": 1058
+        },
+        {
+          "name": "unit-tests",
+          "command": "npm run -s test:unit",
+          "exitCode": 0,
+          "durationMs": 2804
+        },
+        {
+          "name": "sample-run",
+          "command": "npm run -s run:sample",
+          "exitCode": 0,
+          "durationMs": 1042
+        },
+        {
+          "name": "backend-benchmark",
+          "command": "npm run -s benchmark:backend",
+          "exitCode": 0,
+          "durationMs": 415
+        },
+        {
+          "name": "verify-readiness",
+          "command": "tsx src/index.ts verify",
+          "exitCode": 0,
+          "durationMs": 313
         }
       ]
     }

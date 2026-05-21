@@ -89,7 +89,14 @@ export async function cleanupTaskWorkspace(rootDir: string, workspace: Workspace
     return;
   }
   if (workspace.strategy === "git-worktree") {
-    await run("git", ["-C", rootDir, "worktree", "remove", "--force", workspace.path]);
+    const removeCode = await run("git", ["-C", rootDir, "worktree", "remove", "--force", workspace.path]);
+    if (removeCode !== 0) {
+      await run("git", ["-C", rootDir, "worktree", "prune"]);
+      const retryCode = await run("git", ["-C", rootDir, "worktree", "remove", "--force", workspace.path]);
+      if (retryCode !== 0) {
+        throw new Error(`Failed to clean git worktree at ${workspace.path}`);
+      }
+    }
   }
   await fs.remove(workspace.path);
 }

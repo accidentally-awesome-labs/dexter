@@ -1,7 +1,9 @@
 import path from "node:path";
 import fs from "fs-extra";
 import dotenv from "dotenv";
-import { runDexter } from "./core/orchestrator.js";
+import { runDexter, resumeDexterRun } from "./core/orchestrator.js";
+import { buildResumeCheck, findLatestBlockedRunId, findLatestDegradedRunId, findLatestRunId } from "./core/run-selector.js";
+import { writeOpsStatusArtifact } from "./core/ops-status.js";
 import { evaluateReadiness } from "./release/readiness.js";
 import { createControlPlaneAdapter } from "./runtime/control-plane.js";
 import { buildMetricsReport } from "./metrics/aggregator.js";
@@ -10,6 +12,9 @@ import { verifyProvenance } from "./release/provenance.js";
 import { generateDeployAuthorization } from "./deploy/authorization.js";
 import { revokeDeployAuthorizationNonce } from "./deploy/authorization.js";
 import { runDeploymentHealthChecks } from "./runtime/deployment-health.js";
+import { routeEscalations } from "./supervisor/route-escalations.js";
+import { listEscalationLifecycle, updateEscalationLifecycleStatus } from "./supervisor/escalation-lifecycle.js";
+import { resolveEscalationsWorkflow } from "./supervisor/escalation-workflow.js";
 
 dotenv.config();
 
@@ -40,6 +45,23 @@ function parseListArg(flag: string, fallback: string[]): string[] {
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function formatTable(headers: string[], rows: string[][]): string {
+  const widths = headers.map((header, idx) =>
+    Math.max(header.length, ...rows.map((row) => (row[idx] ?? "").length)),
+  );
+  const renderRow = (cols: string[]) => cols.map((col, idx) => col.padEnd(widths[idx]!)).join(" | ");
+  const divider = widths.map((width) => "-".repeat(width)).join("-|-");
+  return [renderRow(headers), divider, ...rows.map((row) => renderRow(row))].join("\n");
+}
+
+function printOutput(result: unknown, output: "json" | "table", tableRenderer: () => string): void {
+  if (output === "table") {
+    console.log(tableRenderer());
+    return;
+  }
+  console.log(JSON.stringify(result, null, 2));
 }
 
 async function verifyProject(rootDir: string) {
@@ -83,14 +105,153 @@ async function main() {
     const idea = parseArg("--idea", "Build a production-ready autonomous coding factory.");
     const constraintsRaw = parseArg("--constraints", "Self-hosted first, managed later");
     const constraints = constraintsRaw.split(",").map((item) => item.trim());
-
+    const replanMaxWavesRaw = parseArg("--replan-max-waves", "");
+    let replanMaxWaves: number | undefined;
+    if (replanMaxWavesRaw) {
+      const parsed = Number(replanMaxWavesRaw);
+      if (!Number.isFinite(parsed) || parsed <= 0) {
+        throw new Error("Invalid --replan-max-waves. Must be a positive number.");
+      }
+      replanMaxWaves = parsed;
+    }
     const result = await runDexter(rootDir, {
       project,
       idea,
       constraints,
       targetUsers: ["engineering-teams", "founders"],
+    }, {
+      replanMaxWaves,
     });
     console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "run-resume") {
+    const latestBlocked = parseBoolArg("--latest-blocked", false);
+    const latestDegraded = parseBoolArg("--latest-degraded", false);
+    if (latestBlocked && latestDegraded) {
+      throw new Error("Use only one of --latest-blocked or --latest-degraded.");
+    }
+    const runId = latestBlocked
+      ? await findLatestBlockedRunId(rootDir)
+      : latestDegraded
+        ? await findLatestDegradedRunId(rootDir)
+        : parseArg("--run-id");
+    if (!runId) {
+      throw new Error(latestBlocked ? "No blocked run found." : latestDegraded ? "No degraded run found." : "Missing --run-id");
+    }
+    const result = await resumeDexterRun(rootDir, runId);
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "resume-check") {
+    const latestBlocked = parseBoolArg("--latest-blocked", false);
+    const latestDegraded = parseBoolArg("--latest-degraded", false);
+    if (latestBlocked && latestDegraded) {
+      throw new Error("Use only one of --latest-blocked or --latest-degraded.");
+    }
+    const runId = latestBlocked
+      ? await findLatestBlockedRunId(rootDir)
+      : latestDegraded
+        ? await findLatestDegradedRunId(rootDir)
+        : parseArg("--run-id");
+    if (!runId) {
+      throw new Error(latestBlocked ? "No blocked run found." : latestDegraded ? "No degraded run found." : "Missing --run-id");
+    }
+    const result = await buildResumeCheck(rootDir, runId);
+    const output = (parseArg("--output", "json") as "json" | "table");
+    if (!["json", "table"].includes(output)) {
+      throw new Error("Invalid --output. Use json|table");
+    }
+    printOutput(result, output, () =>
+      [
+        formatTable(
+          ["runId", "runStatus", "resumeAllowed", "unresolvedCount"],
+          [[result.runId, result.runStatus, String(result.resumeAllowed), String(result.unresolvedEscalations.length)]],
+        ),
+        "",
+        "Reasons:",
+        ...(result.reasons.length === 0 ? ["- none"] : result.reasons.map((reason) => `- ${reason}`)),
+        "",
+        "Unresolved Escalations:",
+        ...(result.unresolvedEscalations.length === 0
+          ? ["- none"]
+          : result.unresolvedEscalations.map(
+              (item) => `- ${item.key} (${item.target}/${item.status}/${item.reason})`,
+            )),
+        "",
+        "Suggested Commands:",
+        ...result.suggestedCommands.map((cmd) => `- ${cmd}`),
+      ].join("\n"),
+    );
+    return;
+  }
+
+  if (command === "ops-status") {
+    const latest = parseBoolArg("--latest", false);
+    const latestBlocked = parseBoolArg("--latest-blocked", false);
+    const latestDegraded = parseBoolArg("--latest-degraded", false);
+    const modeCount = [latest, latestBlocked, latestDegraded].filter(Boolean).length;
+    if (modeCount > 1) {
+      throw new Error("Use only one of --latest, --latest-blocked, or --latest-degraded.");
+    }
+    const runId = latestBlocked
+      ? await findLatestBlockedRunId(rootDir)
+      : latestDegraded
+        ? await findLatestDegradedRunId(rootDir)
+        : latest
+          ? await findLatestRunId(rootDir)
+          : parseArg("--run-id");
+    if (!runId) {
+      throw new Error(
+        latestBlocked
+          ? "No blocked run found."
+          : latestDegraded
+            ? "No degraded run found."
+            : latest
+              ? "No runs found."
+              : "Missing --run-id",
+      );
+    }
+    const runDir = path.join(rootDir, "runs", runId);
+    const result = await writeOpsStatusArtifact({
+      rootDir,
+      runDir,
+      runId,
+    });
+    const dashboard = await fs.readJson(result.jsonPath);
+    const output = (parseArg("--output", "json") as "json" | "table");
+    if (!["json", "table"].includes(output)) {
+      throw new Error("Invalid --output. Use json|table");
+    }
+    printOutput(
+      {
+        ...dashboard,
+        jsonPath: result.jsonPath,
+        markdownPath: result.markdownPath,
+      },
+      output,
+      () =>
+        [
+          formatTable(
+            ["runId", "runStatus", "productionReady", "resumeAllowed", "unresolved"],
+            [[
+              String(dashboard.runId),
+              String(dashboard.runStatus),
+              String(dashboard.productionReady),
+              String(dashboard.resume?.allowed ?? false),
+              String(dashboard.unresolved?.count ?? 0),
+            ]],
+          ),
+          "",
+          "Next Commands:",
+          ...((dashboard.nextCommands as string[] | undefined)?.map((cmd) => `- ${cmd}`) ?? ["- none"]),
+          "",
+          `jsonPath: ${result.jsonPath}`,
+          `markdownPath: ${result.markdownPath}`,
+        ].join("\n"),
+    );
     return;
   }
 
@@ -265,6 +426,121 @@ async function main() {
     const expiresAt = new Date(Date.now() + ttlMinutes * 60 * 1000).toISOString();
     await revokeDeployAuthorizationNonce(rootDir, nonce, reason, expiresAt);
     console.log(JSON.stringify({ nonce, reason, expiresAt }, null, 2));
+    return;
+  }
+
+  if (command === "supervisor-route") {
+    const result = await routeEscalations(rootDir);
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "escalation-update") {
+    const key = parseArg("--key");
+    const status = parseArg("--status") as "open" | "in_progress" | "resolved" | "waived";
+    const note = parseArg("--note");
+    const waiverApprovedBy = parseArg("--waiver-approved-by");
+    const waiverReason = parseArg("--waiver-reason");
+    const waiverExpiresAt = parseArg("--waiver-expires-at");
+    const waiverScope = parseArg("--waiver-scope");
+    if (!key) {
+      throw new Error("Missing --key");
+    }
+    if (!["open", "in_progress", "resolved", "waived"].includes(status)) {
+      throw new Error("Invalid --status. Use open|in_progress|resolved|waived");
+    }
+    const result = await updateEscalationLifecycleStatus({
+      rootDir,
+      key,
+      status,
+      note,
+      waiver:
+        status === "waived"
+          ? {
+              approvedBy: waiverApprovedBy,
+              reason: waiverReason,
+              expiresAt: waiverExpiresAt,
+              scope: waiverScope || "run",
+            }
+          : undefined,
+    });
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "escalation-resolve") {
+    const key = parseArg("--key");
+    const keys = parseArg("--keys")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+    const selectedKeys = [key, ...keys].filter(Boolean);
+    const allUnresolved = parseBoolArg("--all-unresolved", false);
+    const targetRaw = parseArg("--target", "");
+    const target = targetRaw ? (targetRaw as "operator" | "planner") : undefined;
+    if (target && !["operator", "planner"].includes(target)) {
+      throw new Error("Invalid --target. Use operator|planner");
+    }
+    if (!allUnresolved && selectedKeys.length === 0) {
+      throw new Error("Missing --key or --keys (or pass --all-unresolved true)");
+    }
+    const status = (parseArg("--status", "resolved") as "resolved" | "waived");
+    if (!["resolved", "waived"].includes(status)) {
+      throw new Error("Invalid --status. Use resolved|waived");
+    }
+    const note = parseArg("--note");
+    const runId = parseArg("--run-id");
+    const dryRun = parseBoolArg("--dry-run", false);
+    const waiverApprovedBy = parseArg("--waiver-approved-by");
+    const waiverReason = parseArg("--waiver-reason");
+    const waiverExpiresAt = parseArg("--waiver-expires-at");
+    const waiverScope = parseArg("--waiver-scope");
+    const result = await resolveEscalationsWorkflow({
+      rootDir,
+      keys: selectedKeys,
+      status,
+      allUnresolved,
+      target,
+      dryRun,
+      note,
+      runId: runId || undefined,
+      waiver:
+        status === "waived"
+          ? {
+              approvedBy: waiverApprovedBy,
+              reason: waiverReason,
+              expiresAt: waiverExpiresAt,
+              scope: waiverScope || "run",
+            }
+          : undefined,
+    });
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "escalation-list") {
+    const unresolvedOnly = parseBoolArg("--unresolved-only", false);
+    const result = await listEscalationLifecycle({
+      rootDir,
+      unresolvedOnly,
+    });
+    const output = (parseArg("--output", "json") as "json" | "table");
+    if (!["json", "table"].includes(output)) {
+      throw new Error("Invalid --output. Use json|table");
+    }
+    printOutput(result, output, () =>
+      [
+        formatTable(
+          ["statePath", "total", "unresolved"],
+          [[result.statePath, String(result.total), String(result.unresolved)]],
+        ),
+        "",
+        formatTable(
+          ["key", "status", "target", "priority", "reason", "lastRunId"],
+          result.items.map((item) => [item.key, item.status, item.target, item.priority, item.reason, item.lastRunId]),
+        ),
+      ].join("\n"),
+    );
     return;
   }
 

@@ -25,7 +25,7 @@ const weights = {
 const baselineScores: Record<string, Omit<BackendBenchmarkRow, "backend" | "weightedScore">> = {
   scripted: { reliability: 9.5, patchQuality: 4.0, latency: 9.8, modularity: 8.5, toolingFit: 5.0, recoverability: 8.8 },
   shell: { reliability: 7.0, patchQuality: 7.4, latency: 8.2, modularity: 8.0, toolingFit: 8.3, recoverability: 7.5 },
-  "cursor-cli": { reliability: 8.6, patchQuality: 9.0, latency: 7.2, modularity: 8.7, toolingFit: 9.3, recoverability: 8.4 },
+  "cursor-cli": { reliability: 5.8, patchQuality: 5.6, latency: 6.8, modularity: 8.7, toolingFit: 6.0, recoverability: 5.9 },
 };
 
 function scoreRow(row: Omit<BackendBenchmarkRow, "weightedScore">): number {
@@ -56,6 +56,7 @@ function buildMarkdown(rows: BackendBenchmarkRow[], selected: string): string {
     "",
     "## Selection Rationale",
     "- Default backend selected by weighted score with priority on reliability and patch quality.",
+    "- `cursor-cli` score is intentionally conservative until runtime command-template configuration is present.",
     "- Pluggable provider interface remains available for future backend swaps.",
     "",
   ].join("\n");

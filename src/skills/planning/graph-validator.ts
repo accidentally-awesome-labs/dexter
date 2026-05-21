@@ -1,4 +1,5 @@
 import type { TaskSpec } from "../../protocols/types.js";
+import { taskSpecSchema } from "../../protocols/schemas.js";
 
 export interface GraphValidationResult {
   valid: boolean;
@@ -9,6 +10,12 @@ export function validateTaskGraph(tasks: TaskSpec[]): GraphValidationResult {
   const errors: string[] = [];
   const idSet = new Set<string>();
   for (const task of tasks) {
+    const parsed = taskSpecSchema.safeParse(task);
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) {
+        errors.push(`Task ${task.id} schema violation: ${issue.message}`);
+      }
+    }
     if (idSet.has(task.id)) {
       errors.push(`Duplicate task id: ${task.id}`);
     }

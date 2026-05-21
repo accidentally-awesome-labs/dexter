@@ -9,6 +9,10 @@ import { synthesizeResearch } from "../skills/discovery/research.js";
 import { compilePlan } from "../skills/planning/compiler.js";
 import { provisionIsolatedEnvironment } from "../runtime/provisioner.js";
 import { executeTasks } from "../skills/execution/task-executor.js";
+import { writeEscalationReport } from "../skills/execution/escalation-report.js";
+import { routeEscalations } from "../supervisor/route-escalations.js";
+import { runPlannerReplanWave } from "../supervisor/auto-replan.js";
+import { listEscalationLifecycle, syncEscalationLifecycle } from "../supervisor/escalation-lifecycle.js";
 import { runVerification } from "../verification/verification-gate.js";
 import { createReleaseBundle } from "../skills/release/release-packager.js";
 import { addLearning, retrieveLessons } from "../memory/global-learning-graph.js";
@@ -27,6 +31,7 @@ import {
 } from "../planning/signature.js";
 import { generateDeployAuthorization } from "../deploy/authorization.js";
 import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
+import { writeOpsStatusArtifact } from "./ops-status.js";
 
 async function writePlanningArtifacts(rootDir: string, plan: ReturnType<typeof compilePlan>) {
   const dir = path.join(rootDir, "artifacts", "planning");
@@ -165,7 +170,13 @@ async function writeReleaseArtifacts(rootDir: string) {
   );
 }
 
-export async function runDexter(rootDir: string, rawInput: IdeaInput) {
+export async function runDexter(
+  rootDir: string,
+  rawInput: IdeaInput,
+  options?: {
+    replanMaxWaves?: number;
+  },
+) {
   const startedAtMs = Date.now();
   const idea = ideaInputSchema.parse(rawInput);
   const ctx = await createRunContext(rootDir, idea);
@@ -247,13 +258,181 @@ export async function runDexter(rootDir: string, rawInput: IdeaInput) {
   await fs.writeJson(path.join(ctx.runDir, "provisioning.json"), provisioning, { spaces: 2 });
 
   logger.info({ stage: "execution" }, "Executing task graph");
-  const execution = await executeTasks(plan.tasks, {
+  let execution = await executeTasks(plan.tasks, {
     rootDir,
     runtime: provisioning.profile.containerRuntime,
     runDir: ctx.runDir,
     agentBackend: process.env.DEXTER_AGENT_BACKEND,
   });
   await fs.writeJson(path.join(ctx.runDir, "execution_results.json"), execution, { spaces: 2 });
+  let escalationReport = await writeEscalationReport(rootDir, ctx.runDir, execution);
+  await fs.writeJson(path.join(ctx.runDir, "execution_escalations_summary.json"), escalationReport, { spaces: 2 });
+  let supervisorActions = await routeEscalations(rootDir);
+  await fs.writeJson(path.join(ctx.runDir, "supervisor_actions_summary.json"), supervisorActions, { spaces: 2 });
+  let escalationLifecycle = await syncEscalationLifecycle(rootDir, ctx.runDir, ctx.runId);
+  await fs.writeJson(
+    path.join(ctx.runDir, "execution_escalation_gate.json"),
+    {
+      runStatus: escalationLifecycle.runStatus,
+      requiredEscalations: escalationLifecycle.unresolvedRequired,
+      operatorHighCount: escalationLifecycle.unresolvedOperatorHigh,
+      passed: escalationLifecycle.runStatus !== "blocked",
+    },
+    { spaces: 2 },
+  );
+  if (escalationLifecycle.runStatus === "blocked") {
+    const durationMs = Date.now() - startedAtMs;
+    await fs.writeJson(
+      path.join(ctx.runDir, "run_summary.json"),
+      {
+        runId: ctx.runId,
+        project: idea.project,
+        startedAt: ctx.now,
+        durationMs,
+        verificationPassed: false,
+        deployed: false,
+        deploymentMode: "not_started",
+        memoryLessonsRetrieved: priorLessons.length,
+        tasksTotal: plan.tasks.length,
+        tasksPassed: execution.filter((item) => item.status === "passed").length,
+        policyApproved: policy.approved,
+        runStatus: escalationLifecycle.runStatus,
+        requiredEscalations: escalationLifecycle.unresolvedRequired,
+        operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+        productionReady: false,
+      },
+      { spaces: 2 },
+    );
+    await writeOpsStatusArtifact({
+      rootDir,
+      runDir: ctx.runDir,
+      runId: ctx.runId,
+    });
+    throw new Error("Execution escalation gate blocked run: required high-priority operator escalations detected.");
+  }
+  if (escalationLifecycle.runStatus === "degraded" && escalationLifecycle.unresolvedRequired > 0) {
+    const maxReplanWaves = Math.max(
+      1,
+      Number(
+        options?.replanMaxWaves ??
+          (process.env.DEXTER_REPLAN_MAX_WAVES ? Number(process.env.DEXTER_REPLAN_MAX_WAVES) : 3),
+      ),
+    );
+    const replanWaves: Array<{
+      wave: number;
+      attempted: boolean;
+      stalled: boolean;
+      stalledReason?: string;
+      runStatusAfterWave: string;
+      unresolvedAfterWave: number;
+      plannerEscalationKeys: string[];
+    }> = [];
+    let previousPlannerSignature: string | undefined;
+    for (let wave = 1; wave <= maxReplanWaves; wave += 1) {
+      const replan = await runPlannerReplanWave({
+        rootDir,
+        runDir: ctx.runDir,
+        runtime: provisioning.profile.containerRuntime,
+        agentBackend: process.env.DEXTER_AGENT_BACKEND,
+        tasks: plan.tasks,
+        currentExecution: execution,
+        wave,
+        previousPlannerSignature,
+      });
+      previousPlannerSignature = replan.plannerSignature ?? previousPlannerSignature;
+      if (replan.attempted) {
+        execution = replan.mergedExecution;
+        await fs.writeJson(path.join(ctx.runDir, "execution_results.json"), execution, { spaces: 2 });
+      }
+      escalationReport = await writeEscalationReport(rootDir, ctx.runDir, execution);
+      await fs.writeJson(path.join(ctx.runDir, "execution_escalations_summary.json"), escalationReport, { spaces: 2 });
+      supervisorActions = await routeEscalations(rootDir);
+      await fs.writeJson(path.join(ctx.runDir, "supervisor_actions_summary.json"), supervisorActions, { spaces: 2 });
+      escalationLifecycle = await syncEscalationLifecycle(rootDir, ctx.runDir, ctx.runId);
+      await fs.writeJson(
+        path.join(ctx.runDir, "execution_escalation_gate.json"),
+        {
+          runStatus: escalationLifecycle.runStatus,
+          requiredEscalations: escalationLifecycle.unresolvedRequired,
+          operatorHighCount: escalationLifecycle.unresolvedOperatorHigh,
+          passed: escalationLifecycle.runStatus !== "blocked",
+          replanAttempted: true,
+          replanWave: wave,
+        },
+        { spaces: 2 },
+      );
+      replanWaves.push({
+        wave,
+        attempted: replan.attempted,
+        stalled: replan.stalled,
+        stalledReason: replan.stallReason,
+        runStatusAfterWave: escalationLifecycle.runStatus,
+        unresolvedAfterWave: escalationLifecycle.unresolvedRequired,
+        plannerEscalationKeys: replan.plannerEscalationKeys,
+      });
+      await fs.writeJson(path.join(ctx.runDir, `replan_wave_${wave}_summary.json`), replan, { spaces: 2 });
+
+      if (escalationLifecycle.runStatus === "blocked") {
+        const durationMs = Date.now() - startedAtMs;
+        await fs.writeJson(
+          path.join(ctx.runDir, "run_summary.json"),
+          {
+            runId: ctx.runId,
+            project: idea.project,
+            startedAt: ctx.now,
+            durationMs,
+            verificationPassed: false,
+            deployed: false,
+            deploymentMode: "not_started",
+            memoryLessonsRetrieved: priorLessons.length,
+            tasksTotal: plan.tasks.length,
+            tasksPassed: execution.filter((item) => item.status === "passed").length,
+            policyApproved: policy.approved,
+            runStatus: escalationLifecycle.runStatus,
+            requiredEscalations: escalationLifecycle.unresolvedRequired,
+            operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+            productionReady: false,
+            replanAttempted: true,
+            replanWaves: replanWaves.length,
+          },
+          { spaces: 2 },
+        );
+        await fs.writeJson(
+          path.join(ctx.runDir, "replan_waves_summary.json"),
+          { maxWaves: maxReplanWaves, waves: replanWaves, stoppedReason: "blocked" },
+          { spaces: 2 },
+        );
+        await writeOpsStatusArtifact({
+          rootDir,
+          runDir: ctx.runDir,
+          runId: ctx.runId,
+        });
+        throw new Error("Execution escalation gate blocked run after auto-replan wave.");
+      }
+      if (escalationLifecycle.runStatus === "healthy" || escalationLifecycle.unresolvedRequired === 0) {
+        break;
+      }
+      if (replan.stalled || !replan.attempted) {
+        break;
+      }
+    }
+    await fs.writeJson(
+      path.join(ctx.runDir, "replan_waves_summary.json"),
+      {
+        maxWaves: maxReplanWaves,
+        waves: replanWaves,
+        stoppedReason:
+          escalationLifecycle.runStatus === "healthy"
+            ? "healthy"
+            : replanWaves.some((wave) => wave.stalled)
+              ? "stalled"
+              : replanWaves.length >= maxReplanWaves
+                ? "max_waves"
+                : "no_planner_actions",
+      },
+      { spaces: 2 },
+    );
+  }
 
   logger.info({ stage: "verification" }, "Running verification gate");
   const verification = await runVerification(rootDir, execution);
@@ -347,8 +526,17 @@ export async function runDexter(rootDir: string, rawInput: IdeaInput) {
     tasksTotal: plan.tasks.length,
     tasksPassed: execution.filter((item) => item.status === "passed").length,
     policyApproved: policy.approved,
+    runStatus: escalationLifecycle.runStatus,
+    requiredEscalations: escalationLifecycle.unresolvedRequired,
+    operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+    productionReady: verification.passed && escalationLifecycle.unresolvedRequired === 0,
   };
   await fs.writeJson(path.join(ctx.runDir, "run_summary.json"), summary, { spaces: 2 });
+  await writeOpsStatusArtifact({
+    rootDir,
+    runDir: ctx.runDir,
+    runId: ctx.runId,
+  });
 
   return {
     runId: ctx.runId,
@@ -357,5 +545,148 @@ export async function runDexter(rootDir: string, rawInput: IdeaInput) {
     durationMs,
     memoryLessonsRetrieved: priorLessons.length,
     deploymentMode: deployment.mode,
+    runStatus: escalationLifecycle.runStatus,
+    productionReady: verification.passed && escalationLifecycle.unresolvedRequired === 0,
+  };
+}
+
+export async function resumeDexterRun(rootDir: string, runId: string) {
+  const resumedAtMs = Date.now();
+  const runDir = path.join(rootDir, "runs", runId);
+  const contextPath = path.join(runDir, "context.json");
+  const executionPath = path.join(runDir, "execution_results.json");
+  const policyPath = path.join(runDir, "policy_gate.json");
+  const tenantPath = path.join(runDir, "tenant.json");
+  if (!(await fs.pathExists(contextPath)) || !(await fs.pathExists(executionPath))) {
+    throw new Error(`Resume failed: missing run artifacts for ${runId}`);
+  }
+
+  const context = await fs.readJson(contextPath);
+  const idea = context.idea as IdeaInput;
+  const execution = (await fs.readJson(executionPath)) as Awaited<ReturnType<typeof executeTasks>>;
+  const policy = (await fs.pathExists(policyPath))
+    ? ((await fs.readJson(policyPath)) as PolicyDecision)
+    : { approved: true, blockers: [], requiredRollbackChecks: [] };
+  const tenant = (await fs.pathExists(tenantPath))
+    ? await fs.readJson(tenantPath)
+    : { tenantId: `${idea.project}-default-tenant` };
+
+  const escalationReport = await writeEscalationReport(rootDir, runDir, execution);
+  await fs.writeJson(path.join(runDir, "execution_escalations_summary.json"), escalationReport, { spaces: 2 });
+  const supervisorActions = await routeEscalations(rootDir);
+  await fs.writeJson(path.join(runDir, "supervisor_actions_summary.json"), supervisorActions, { spaces: 2 });
+  const lifecycle = await syncEscalationLifecycle(rootDir, runDir, runId);
+  const unresolved = await listEscalationLifecycle({
+    rootDir,
+    unresolvedOnly: true,
+  });
+  const unresolvedKeys = unresolved.items.map((item) => item.key);
+  await fs.writeJson(
+    path.join(runDir, "execution_escalation_gate.json"),
+    {
+      runStatus: lifecycle.runStatus,
+      requiredEscalations: lifecycle.unresolvedRequired,
+      operatorHighCount: lifecycle.unresolvedOperatorHigh,
+      passed: lifecycle.runStatus !== "blocked",
+      resumed: true,
+    },
+    { spaces: 2 },
+  );
+  await writeOpsStatusArtifact({
+    rootDir,
+    runDir,
+    runId,
+  });
+
+  if (lifecycle.runStatus === "blocked") {
+    throw new Error(
+      `Resume blocked: unresolved high-priority operator escalations remain. Keys: ${unresolvedKeys.join(", ") || "none"}`,
+    );
+  }
+  if (lifecycle.unresolvedRequired > 0) {
+    throw new Error(
+      `Resume blocked: unresolved required escalations remain (degraded). Keys: ${unresolvedKeys.join(", ") || "none"}`,
+    );
+  }
+
+  const verification = await runVerification(rootDir, execution);
+  await writeVerificationArtifacts(rootDir, verification);
+  if (!verification.passed) {
+    throw new Error("Resume failed: verification did not pass.");
+  }
+
+  await createReleaseBundle(rootDir);
+  await writeReleaseArtifacts(rootDir);
+  await generateProvenance(rootDir, { runId, project: idea.project });
+  await generateAttestation(rootDir);
+  await writeOpsArtifacts(rootDir);
+  await writeTechRadarArtifacts(rootDir);
+  await writeGlobalMemoryArtifacts(rootDir);
+
+  const controlPlane = createControlPlaneAdapter(rootDir, "coolify");
+  const deployAuth = await generateDeployAuthorization(rootDir, idea.project, {
+    approvedBy: process.env.DEXTER_DEPLOY_APPROVER ?? "dexter-resume",
+    environment: process.env.DEXTER_DEPLOY_ENV ?? "production",
+    controlPlane: "coolify",
+    tenantId: tenant.tenantId,
+  });
+  if (!deployAuth) {
+    throw new Error("Resume failed: could not generate deploy authorization.");
+  }
+  await fs.writeJson(path.join(runDir, "deploy_authorization.json"), deployAuth, { spaces: 2 });
+  const deployment = await controlPlane.deploy(idea.project, deployAuth, {
+    environment: process.env.DEXTER_DEPLOY_ENV ?? "production",
+    tenantId: tenant.tenantId,
+  });
+  const healthUrls = [
+    ...(process.env.DEXTER_DEPLOY_HEALTH_URLS ?? "").split(","),
+    process.env.DEXTER_DEPLOY_HEALTH_URL ?? "",
+  ]
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const healthTimeoutMs = Number(process.env.DEXTER_DEPLOY_HEALTH_TIMEOUT_MS ?? "5000");
+  const deploymentHealth = await runDeploymentHealthChecks({
+    urls: healthUrls,
+    timeoutMs: Number.isFinite(healthTimeoutMs) ? healthTimeoutMs : 5000,
+  });
+  if (!deploymentHealth.passed) {
+    await controlPlane.rollback(idea.project);
+    throw new Error("Resume deployment health checks failed. Rollback triggered.");
+  }
+  await fs.writeJson(path.join(runDir, "deployment.json"), deployment, { spaces: 2 });
+  await fs.writeJson(path.join(runDir, "deployment_health.json"), deploymentHealth, { spaces: 2 });
+
+  const durationMs = Date.now() - resumedAtMs;
+  const summary = {
+    runId,
+    project: idea.project,
+    resumed: true,
+    resumedAt: new Date().toISOString(),
+    durationMs,
+    verificationPassed: verification.passed,
+    deployed: true,
+    deploymentMode: deployment.mode,
+    tasksTotal: execution.length,
+    tasksPassed: execution.filter((item) => item.status === "passed").length,
+    policyApproved: policy.approved,
+    runStatus: lifecycle.runStatus,
+    requiredEscalations: lifecycle.unresolvedRequired,
+    operatorHighEscalations: lifecycle.unresolvedOperatorHigh,
+    productionReady: true,
+  };
+  await fs.writeJson(path.join(runDir, "run_summary.json"), summary, { spaces: 2 });
+  await writeOpsStatusArtifact({
+    rootDir,
+    runDir,
+    runId,
+  });
+  return {
+    runId,
+    resumed: true,
+    releasePath: path.join(rootDir, "artifacts", "release"),
+    verificationPassed: verification.passed,
+    deploymentMode: deployment.mode,
+    runStatus: lifecycle.runStatus,
+    productionReady: true,
   };
 }
