@@ -16,6 +16,7 @@ export interface IdeaInput {
   idea: string;
   constraints: string[];
   targetUsers: string[];
+  labels?: string[];
 }
 
 export interface DiscoveryArtifact {
@@ -27,6 +28,35 @@ export interface DiscoveryArtifact {
     title: string;
     level: RiskLevel;
     mitigation: string;
+  }>;
+}
+
+export interface TaskExecutionRouting {
+  originalMode: TaskMode;
+  routedMode: TaskMode;
+  reason: string;
+  policyVersion: string;
+}
+
+export interface TaskRiskPriority {
+  riskScore: number;
+  priorityScore: number;
+  riskLevel: RiskLevel;
+  priorityLevel: RiskLevel;
+  highRisk: boolean;
+  threshold: number;
+  dimensions: {
+    security: number;
+    blastRadius: number;
+    complexity: number;
+    urgency: number;
+  };
+  signals: Array<{
+    id: string;
+    dimension: "security" | "blastRadius" | "complexity" | "urgency";
+    weight: number;
+    reason: string;
+    hits?: number;
   }>;
 }
 
@@ -43,6 +73,8 @@ export interface TaskSpec {
   workspaceStrategy?: WorkspaceStrategy;
   commands?: TaskCommand[];
   acceptanceChecks?: AcceptanceCheck[];
+  riskPriority?: TaskRiskPriority;
+  routing?: TaskExecutionRouting;
 }
 
 export interface TaskCommand {

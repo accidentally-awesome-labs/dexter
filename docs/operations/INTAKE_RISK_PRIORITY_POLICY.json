@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Deterministic risk and priority scoring rubric for intake and task metadata.",
+  "highRiskThreshold": 60,
+  "priorityLevels": {
+    "low": { "minScore": 0, "maxScore": 39 },
+    "medium": { "minScore": 40, "maxScore": 59 },
+    "high": { "minScore": 60, "maxScore": 79 },
+    "critical": { "minScore": 80, "maxScore": 100 }
+  },
+  "riskLevels": {
+    "low": { "minScore": 0, "maxScore": 39 },
+    "medium": { "minScore": 40, "maxScore": 59 },
+    "high": { "minScore": 60, "maxScore": 79 },
+    "critical": { "minScore": 80, "maxScore": 100 }
+  },
+  "dimensionWeights": {
+    "security": 1.5,
+    "blastRadius": 1.5,
+    "complexity": 1.0,
+    "urgency": 1.25
+  },
+  "dimensionCaps": {
+    "security": 25,
+    "blastRadius": 25,
+    "complexity": 25,
+    "urgency": 25
+  },
+  "signals": {
+    "security-keywords": { "dimension": "security", "weight": 8, "maxHits": 3 },
+    "blast-radius-keywords": { "dimension": "blastRadius", "weight": 8, "maxHits": 3 },
+    "complexity-keywords": { "dimension": "complexity", "weight": 7, "maxHits": 3 },
+    "urgency-keywords": { "dimension": "urgency", "weight": 10, "maxHits": 2 },
+    "security-label": { "dimension": "security", "weight": 10 },
+    "incident-label": { "dimension": "urgency", "weight": 12 },
+    "high-ambiguity": { "dimension": "complexity", "weight": 12 },
+    "missing-constraints-security-scope": { "dimension": "security", "weight": 10 },
+    "hitl-task-mode": { "dimension": "blastRadius", "weight": 12 },
+    "governance-nfr-tag": { "dimension": "security", "weight": 8 }
+  },
+  "securityKeywords": ["security", "auth", "authentication", "authorization", "pci", "hipaa", "pii", "encryption", "secret", "oauth"],
+  "blastRadiusKeywords": ["production", "prod", "multi-tenant", "global", "all users", "customer-facing", "billing", "payments"],
+  "complexityKeywords": ["integration", "migration", "refactor", "distributed", "multi-region", "legacy"],
+  "urgencyKeywords": ["urgent", "asap", "outage", "incident", "blocking", "sev1", "critical bug", "hotfix"]
+}

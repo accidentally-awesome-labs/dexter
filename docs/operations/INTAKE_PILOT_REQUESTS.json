@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Milestone 2 Day 9 pilot requests representing realistic internal product work.",
+  "requests": [
+    {
+      "id": "req-01-internal-dashboard",
+      "project": "internal-tools",
+      "idea": "Add a staging developer dashboard widget that summarizes test coverage and flaky test trends for platform engineers.",
+      "constraints": ["type-safe", "staging-only"],
+      "targetUsers": ["platform-team"],
+      "labels": ["internal"],
+      "expectHighRisk": false,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-02-export-api",
+      "project": "billing-api",
+      "idea": "Add a CSV export endpoint for monthly invoices with pagination, audit logging, and role-based access control for finance operations.",
+      "constraints": ["SOC2", "audit-trail"],
+      "targetUsers": ["finance-ops"],
+      "labels": ["api"],
+      "expectHighRisk": false,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-03-auth-outage",
+      "project": "payments",
+      "idea": "Patch production authentication outage impacting customer-facing login with PCI scope, immediate incident response, and rollback safeguards.",
+      "constraints": ["production", "PCI", "rollback-ready"],
+      "targetUsers": ["oncall-team"],
+      "labels": ["security", "incident"],
+      "expectHighRisk": true,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-04-billing-incident",
+      "project": "billing-core",
+      "idea": "Fix urgent production billing duplicate charge incident with PCI scope, customer-facing payments impact, and immediate incident response requiring rollback safeguards.",
+      "constraints": ["production", "compliance", "no-regression"],
+      "targetUsers": ["finops-oncall"],
+      "labels": ["security", "incident", "payments"],
+      "expectHighRisk": true,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-05-ambiguous-data-platform",
+      "project": "data-platform",
+      "idea": "Build something for customer data platform maybe with exports later.",
+      "constraints": [],
+      "targetUsers": [],
+      "labels": ["data"],
+      "expectHighRisk": false,
+      "expectClarification": true,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-06-oncall-runbook",
+      "project": "internal-tools",
+      "idea": "Document staging on-call runbook steps for flaky test triage and deployment smoke checks for platform engineers.",
+      "constraints": ["staging-only", "docs"],
+      "targetUsers": ["platform-team"],
+      "labels": ["internal", "docs"],
+      "expectHighRisk": false,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-07-feature-flag-ui",
+      "project": "growth",
+      "idea": "Add an admin UI to toggle beta feature flags per workspace with audit logging in non-production environments.",
+      "constraints": ["non-production", "audit-trail"],
+      "targetUsers": ["growth-ops"],
+      "labels": ["admin"],
+      "expectHighRisk": false,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-08-schema-migration",
+      "project": "billing-core",
+      "idea": "Execute production multi-tenant billing schema migration with PCI scope, customer-facing payments impact, and rollback safeguards.",
+      "constraints": ["production", "PCI", "rollback-ready"],
+      "targetUsers": ["data-oncall"],
+      "labels": ["security", "incident"],
+      "expectHighRisk": true,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-09-secret-rotation",
+      "project": "payments",
+      "idea": "Rotate production OAuth client secrets after authentication security incident with urgent hotfix and customer-facing login impact.",
+      "constraints": ["production", "no-downtime"],
+      "targetUsers": ["security-oncall"],
+      "labels": ["security", "incident"],
+      "expectHighRisk": true,
+      "manualTaskDecompositionOverride": false
+    },
+    {
+      "id": "req-10-ambiguous-observability",
+      "project": "platform",
+      "idea": "Make observability better for the platform when things fail maybe with dashboards later.",
+      "constraints": [],
+      "targetUsers": [],
+      "labels": ["observability"],
+      "expectHighRisk": false,
+      "expectClarification": true,
+      "manualTaskDecompositionOverride": false
+    }
+  ]
+}

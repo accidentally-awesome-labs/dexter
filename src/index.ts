@@ -36,6 +36,18 @@ import { verifyGovernance } from "./operations/governance-verify.js";
 import { verifyPromotionRepeatability } from "./operations/promotion-repeatability.js";
 import { writeOperatorWorkflowReadiness } from "./operations/operator-workflow-readiness.js";
 import { generateMilestone1Signoff } from "./operations/milestone-signoff.js";
+import { githubIssueAdapter } from "./intake/adapters/issue.js";
+import { cliPromptAdapter } from "./intake/adapters/cli-prompt.js";
+import { templateAdapter } from "./intake/adapters/template.js";
+import { attachIntakeAmbiguityFromPolicyFile } from "./intake/ambiguity.js";
+import { attachIntakeRiskPriority } from "./intake/risk-priority.js";
+import { loadIntakeRiskPriorityPolicy } from "./intake/risk-priority-policy.js";
+import { runClarificationGate } from "./intake/clarification-gate.js";
+import { processIntakeBrief } from "./intake/process-intake.js";
+import { compilePlan } from "./skills/planning/compiler.js";
+import { planFromIntakeArtifacts } from "./intake/plan-from-intake.js";
+import { readIntakeArtifact, writeIntakeArtifact } from "./intake/write-artifact.js";
+import type { IntakeSourceType } from "./intake/schema.js";
 
 dotenv.config();
 
@@ -574,6 +586,274 @@ async function main() {
       const triggerNames = sloEvaluation.triggers.map((item) => item.trigger).join(", ");
       throw new Error(`SLO rollback triggered (${triggerNames}). Rollback captured in release artifacts.`);
     }
+    return;
+  }
+
+  if (command === "intake-normalize") {
+    const adapter = (parseArg("--adapter", "cli-prompt") || parseArg("--source-type", "cli-prompt")) as IntakeSourceType;
+    if (!["cli-prompt", "issue", "template"].includes(adapter)) {
+      throw new Error("Invalid --adapter. Use cli-prompt|issue|template");
+    }
+
+    const project = parseArg("--project", "dexter-sample");
+    const constraints = parseListArg("--constraints", []);
+    const targetUsers = parseListArg("--target-users", ["engineering-teams", "founders"]);
+
+    let brief;
+    if (adapter === "issue") {
+      const issueFile = parseArg("--issue-file", "");
+      if (issueFile) {
+        const payload = await fs.readJson(path.resolve(rootDir, issueFile));
+        brief = githubIssueAdapter.normalize(payload);
+      } else {
+        const title = parseArg("--issue-title", "");
+        const body = parseArg("--issue-body", "");
+        if (!title || !body) {
+          throw new Error("Issue adapter requires --issue-file or both --issue-title and --issue-body");
+        }
+        brief = githubIssueAdapter.normalize({
+          project,
+          title,
+          body,
+          number: Number(parseArg("--issue-number", "0")) || undefined,
+          labels: parseListArg("--issue-labels", []),
+          constraints,
+          targetUsers,
+        });
+      }
+    } else if (adapter === "template") {
+      const templateId = parseArg("--template-id", "");
+      if (!templateId) {
+        throw new Error("Template adapter requires --template-id");
+      }
+      const varsRaw = parseArg("--template-vars", "{}");
+      let variables: Record<string, string> = {};
+      try {
+        variables = JSON.parse(varsRaw) as Record<string, string>;
+      } catch {
+        throw new Error("Invalid --template-vars JSON object");
+      }
+      brief = templateAdapter.normalize({
+        project,
+        templateId,
+        variables,
+        constraints,
+        targetUsers,
+      });
+    } else {
+      const idea = parseArg("--idea", "Build a production-ready autonomous coding factory.");
+      brief = cliPromptAdapter.normalize({
+        project,
+        idea,
+        constraints,
+        targetUsers,
+        externalId: parseArg("--external-id", "") || undefined,
+      });
+    }
+
+    const skipClarificationGate = parseBoolArg("--skip-clarification-gate", false);
+    const processed = await processIntakeBrief(rootDir, brief);
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: processed.brief.intakeId,
+          project: processed.brief.project,
+          title: processed.brief.title,
+          ambiguityScore: processed.brief.ambiguity.score,
+          ambiguityLevel: processed.brief.ambiguity.level,
+          clarificationRequired: processed.brief.ambiguity.clarificationRequired,
+          clarificationPassed: processed.clarification.passed,
+          clarificationLogPath: processed.clarification.logPath,
+          riskScore: processed.brief.riskPriority.riskScore,
+          priorityScore: processed.brief.riskPriority.priorityScore,
+          highRisk: processed.brief.riskPriority.highRisk,
+          jsonPath: processed.jsonPath,
+          markdownPath: processed.markdownPath,
+        },
+        null,
+        2,
+      ),
+    );
+    if (!processed.clarification.passed && !skipClarificationGate) {
+      throw new Error(
+        `Clarification gate blocked intake (score ${processed.brief.ambiguity.score} >= ${processed.brief.ambiguity.threshold}). See ${processed.clarification.logPath}`,
+      );
+    }
+    return;
+  }
+
+  if (command === "intake-clarify") {
+    const existing = await readIntakeArtifact(rootDir);
+    if (!existing) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const gate = await runClarificationGate(rootDir, existing);
+    console.log(
+      JSON.stringify(
+        {
+          passed: gate.passed,
+          clarificationRequired: gate.clarificationRequired,
+          questionCount: gate.cycle?.questions.length ?? 0,
+          logPath: gate.logPath,
+          jsonPath: gate.jsonPath,
+        },
+        null,
+        2,
+      ),
+    );
+    if (!gate.passed) {
+      throw new Error(`Clarification required. See ${gate.logPath}`);
+    }
+    return;
+  }
+
+  if (command === "intake-score") {
+    const existing = await readIntakeArtifact(rootDir);
+    if (!existing) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const { ambiguity: _a, riskPriority: _r, ...core } = existing;
+    const withAmbiguity = await attachIntakeAmbiguityFromPolicyFile(rootDir, core);
+    const riskPolicy = await loadIntakeRiskPriorityPolicy(rootDir);
+    const scored = attachIntakeRiskPriority(withAmbiguity, riskPolicy);
+    const result = await writeIntakeArtifact(rootDir, scored);
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: scored.intakeId,
+          ambiguityScore: scored.ambiguity.score,
+          ambiguityLevel: scored.ambiguity.level,
+          clarificationRequired: scored.ambiguity.clarificationRequired,
+          threshold: scored.ambiguity.threshold,
+          signalCount: scored.ambiguity.signals.length,
+          riskScore: scored.riskPriority.riskScore,
+          priorityScore: scored.riskPriority.priorityScore,
+          highRisk: scored.riskPriority.highRisk,
+          jsonPath: result.jsonPath,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "intake-pilot-batch") {
+    const { runIntakePilotBatch } = await import("./intake/pilot-batch.js");
+    const fullRun = parseBoolArg("--full-run", false);
+    const skipClarificationGate =
+      parseBoolArg("--skip-clarification-gate", false) ||
+      process.env.DEXTER_SKIP_CLARIFICATION_GATE === "true";
+    if (fullRun) {
+      process.env.DEXTER_AUTO_APPROVE_HITL = "true";
+      const hooksDir = path.join(rootDir, "infra", "coolify", "hooks");
+      await fs.ensureDir(hooksDir);
+      await fs.writeFile(path.join(hooksDir, "deploy.sh"), "#!/usr/bin/env sh\necho deploy\n");
+      await fs.writeFile(path.join(hooksDir, "rollback.sh"), "#!/usr/bin/env sh\necho rollback\n");
+    }
+    const { reportPath, markdownPath, report } = await runIntakePilotBatch(rootDir, {
+      fullRun,
+      skipClarificationGate,
+    });
+    console.log(
+      JSON.stringify(
+        {
+          reportPath,
+          markdownPath,
+          passed: report.evaluation.passed,
+          autoDecompositionRate: report.evaluation.autoDecompositionRate,
+          highRiskHitlPassed: report.evaluation.highRiskHitlPassed,
+        },
+        null,
+        2,
+      ),
+    );
+    if (!report.evaluation.passed) {
+      throw new Error("Intake pilot batch failed acceptance gates.");
+    }
+    return;
+  }
+
+  if (command === "intake-run") {
+    const { runDexterFromIntakeArtifacts } = await import("./intake/run-from-intake.js");
+    const result = await runDexterFromIntakeArtifacts(rootDir, {
+      skipClarificationGate: parseBoolArg("--skip-clarification-gate", false) ||
+        process.env.DEXTER_SKIP_CLARIFICATION_GATE === "true",
+    });
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (command === "intake-plan") {
+    const brief = await readIntakeArtifact(rootDir);
+    if (!brief) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const planned = await planFromIntakeArtifacts(
+      rootDir,
+      {
+        brief: brief.summary,
+        glossary: {},
+        marketEvidence: [],
+        risks: [],
+      },
+      brief,
+      { project: brief.project },
+    );
+    const planningDir = path.join(rootDir, "artifacts", "planning");
+    await fs.ensureDir(planningDir);
+    await fs.writeFile(path.join(planningDir, "PRD.md"), planned.plan.prd);
+    await fs.writeFile(path.join(planningDir, "ARCHITECTURE_SPEC.md"), planned.plan.architecture);
+    await fs.writeFile(path.join(planningDir, "NFR_SPEC.md"), planned.plan.nfrSpec);
+    await fs.writeFile(path.join(planningDir, "TEST_STRATEGY.md"), planned.plan.testStrategy);
+    await fs.writeJson(path.join(planningDir, "TASK_GRAPH.json"), planned.plan.tasks, { spaces: 2 });
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: brief.intakeId,
+          manifestPath: planned.manifestPath,
+          taskCount: planned.manifest.taskCount,
+          tasksWithRiskPriority: planned.manifest.tasksWithRiskPriority,
+          tasksRoutedToHitl: planned.manifest.tasksRoutedToHitl,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  if (command === "intake-route-preview") {
+    const brief = await readIntakeArtifact(rootDir);
+    if (!brief) {
+      throw new Error("Missing artifacts/intake/INTAKE_BRIEF.json. Run intake-normalize first.");
+    }
+    const plan = compilePlan(
+      {
+        brief: brief.summary,
+        glossary: {},
+        marketEvidence: [],
+        risks: [],
+      },
+      { project: brief.project, intakeBrief: brief },
+    );
+    console.log(
+      JSON.stringify(
+        {
+          intakeId: brief.intakeId,
+          highRisk: brief.riskPriority.highRisk,
+          tasks: plan.tasks.map((task) => ({
+            id: task.id,
+            mode: task.mode,
+            routedMode: task.routing?.routedMode ?? task.mode,
+            reason: task.routing?.reason ?? "none",
+            afkEligible: task.routing?.routedMode === "AFK",
+          })),
+        },
+        null,
+        2,
+      ),
+    );
     return;
   }
 

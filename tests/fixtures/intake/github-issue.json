@@ -1,0 +1,12 @@
+{
+  "project": "billing-api",
+  "title": "Add invoice export endpoint",
+  "body": "Expose CSV export for monthly invoices with role-based access control.",
+  "number": 123,
+  "labels": ["api", "security"],
+  "constraints": ["SOC2"],
+  "targetUsers": ["finance-ops"],
+  "assignees": ["alice"],
+  "milestone": "Q2",
+  "url": "https://github.com/org/repo/issues/123"
+}

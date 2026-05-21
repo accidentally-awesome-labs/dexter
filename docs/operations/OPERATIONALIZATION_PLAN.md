@@ -6,24 +6,22 @@ This document tracks the work required to make Dexter a fully operational autono
 
 - Plan owner: _TBD_
 - Last updated: 2026-05-21
-- Current phase: Milestone 1 (complete)
-- Overall completion: 25%
+- Current phase: Milestone 2 (complete)
+- Overall completion: 28%
 
 ## Today View
 
-- Today focus: Milestone 1 / Day 10 (Forced Canary Rollback Drill + Signoff)
+- Today focus: Milestone 2 / Day 10 (Real Request Pilot Batch of 5 + Signoff)
 - Active owner: _TBD_
-- Current status: Day 10 complete — Milestone 1 signed off
-- Current blocker: None for Milestone 1 baseline
+- Current status: Day 10 complete — 10-request intake pilot validated end-to-end
+- Current blocker: None
 - Next command sequence:
-  - `npm run typecheck`
-  - `npm run test:unit`
+  - `npm run intake:pilot:batch`
   - `npm run release:decision`
-  - `npm run ops:status`
+  - `npm run escalation:list -- --output table`
 - Today success criteria:
-  - [x] append-only audit logger implemented and wired to governed escalation and promotion actions
-  - [x] `artifacts/operations/AUDIT_LOG.jsonl` emits structured records with actor/action/scope/reason/timestamp/runId
-  - [x] no regression in Day 3 validation commands
+  - [x] >=80% requests auto-decomposed without manual overrides
+  - [x] all high-risk requests route through HITL
 
 ## Milestone 1: Production Foundations (Weeks 1-2)
 
@@ -198,23 +196,25 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Build intake pipeline: request/issue -> normalized brief -> task graph
-- [ ] Add clarification gate for ambiguous requests
-- [ ] Add risk and priority scoring for incoming work
-- [ ] Auto-route tasks to AFK or HITL mode based on risk policy
-- [ ] Validate with 10 real requests end-to-end
+- [x] Build intake pipeline: request/issue -> normalized brief -> task graph
+- [x] Add clarification gate for ambiguous requests
+- [x] Add risk and priority scoring for incoming work
+- [x] Auto-route tasks to AFK or HITL mode based on risk policy
+- [x] Validate with 10 real requests end-to-end
 
 ### Deliverables
 
-- [ ] `artifacts/intake/INTAKE_BRIEF.json`
-- [ ] `artifacts/intake/CLARIFICATION_LOG.md`
-- [ ] `artifacts/planning/TASK_GRAPH.json` with risk and priority metadata
+- [x] `artifacts/intake/INTAKE_BRIEF.json`
+- [x] `artifacts/intake/CLARIFICATION_LOG.md`
+- [x] `artifacts/planning/TASK_GRAPH.json` with risk and priority metadata
+- [x] `artifacts/intake/pilot-batch/PILOT_BATCH_REPORT.json`
+- [x] `artifacts/intake/pilot-batch/PILOT_BATCH_INTERVENTIONS.md`
 
 ### Acceptance Gates
 
-- [ ] 10 real requests processed end-to-end
-- [ ] >=80% requests require no manual task decomposition
-- [ ] High-risk requests always route through HITL
+- [x] 10 real requests processed end-to-end
+- [x] >=80% requests require no manual task decomposition (Day 9 batch: 100%)
+- [x] High-risk requests always route through HITL
 
 ### Progress Notes
 
@@ -227,12 +227,13 @@ Use this checklist for day-level tracking. Do not move to the next day until val
 
 #### Day 1: Intake Contract and Request Normalization
 
-- [ ] Define normalized intake schema for external requests/issues
-- [ ] Add intake artifact writer for `artifacts/intake/INTAKE_BRIEF.json`
+- [x] Define normalized intake schema for external requests/issues
+- [x] Add intake artifact writer for `artifacts/intake/INTAKE_BRIEF.json`
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-normalize.test.ts`
+- `npm run intake:normalize`
 
 Pass criteria:
 - Intake schema is documented and validated at runtime
@@ -240,12 +241,14 @@ Pass criteria:
 
 #### Day 2: Source Adapters (Issue/Prompt/Template)
 
-- [ ] Implement adapters for at least two request sources (e.g., CLI prompt + issue payload)
-- [ ] Normalize both sources into a single intake contract
+- [x] Implement adapters for at least two request sources (e.g., CLI prompt + issue payload)
+- [x] Normalize both sources into a single intake contract
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-adapters.test.ts tests/intake-normalize.test.ts`
+- `npm run intake:normalize:issue`
+- `npm run intake:normalize:template`
 
 Pass criteria:
 - Different source formats produce equivalent normalized intake artifacts
@@ -253,12 +256,13 @@ Pass criteria:
 
 #### Day 3: Ambiguity Scoring Engine
 
-- [ ] Add ambiguity scoring for incomplete or conflicting requirements
-- [ ] Define threshold for auto-clarification gate
+- [x] Add ambiguity scoring for incomplete or conflicting requirements
+- [x] Define threshold for auto-clarification gate
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-ambiguity.test.ts`
+- `npm run intake:normalize`
 
 Pass criteria:
 - Ambiguity score is deterministic for fixed input
@@ -266,12 +270,14 @@ Pass criteria:
 
 #### Day 4: Clarification Gate and Logging
 
-- [ ] Implement clarification question generation for ambiguous requests
-- [ ] Write `artifacts/intake/CLARIFICATION_LOG.md` for each clarification cycle
+- [x] Implement clarification question generation for ambiguous requests
+- [x] Write `artifacts/intake/CLARIFICATION_LOG.md` for each clarification cycle
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-clarification.test.ts`
+- `npm run intake:normalize:ambiguous` (expect blocked gate + log)
+- `npm run intake:normalize` (expect bypass)
 
 Pass criteria:
 - Ambiguous input triggers clarification log
@@ -279,12 +285,13 @@ Pass criteria:
 
 #### Day 5: Risk and Priority Scoring
 
-- [ ] Add risk score and priority score fields to normalized intake/task metadata
-- [ ] Define scoring rubric (security, blast radius, complexity, urgency)
+- [x] Add risk score and priority score fields to normalized intake/task metadata
+- [x] Define scoring rubric (security, blast radius, complexity, urgency)
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-risk-priority.test.ts`
+- `npm run intake:normalize:high-risk`
 
 Pass criteria:
 - Risk and priority scores are present in intake/task artifacts
@@ -292,12 +299,13 @@ Pass criteria:
 
 #### Day 6: AFK/HITL Auto-Routing
 
-- [ ] Implement routing policy from risk profile to AFK/HITL execution mode
-- [ ] Enforce HITL for high-risk requests
+- [x] Implement routing policy from risk profile to AFK/HITL execution mode
+- [x] Enforce HITL for high-risk requests
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit -- tests/acceptance-verifier.test.ts`
+- `npm run test:unit -- tests/intake-mode-routing.test.ts tests/acceptance-verifier.test.ts`
+- `npm run intake:normalize:high-risk && npm run intake:route-preview`
 
 Pass criteria:
 - High-risk requests route to HITL path
@@ -305,12 +313,13 @@ Pass criteria:
 
 #### Day 7: Intake-to-Plan End-to-End Wiring
 
-- [ ] Connect normalized intake and clarification output into planning compiler
-- [ ] Ensure `TASK_GRAPH.json` includes intake-derived risk/priority metadata
+- [x] Connect normalized intake and clarification output into planning compiler
+- [x] Ensure `TASK_GRAPH.json` includes intake-derived risk/priority metadata
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit -- tests/graph-validator.test.ts tests/replay.test.ts`
+- `npm run test:unit -- tests/intake-to-plan.test.ts tests/graph-validator.test.ts tests/replay.test.ts`
+- `npm run intake:plan`
 
 Pass criteria:
 - Intake request deterministically produces task graph with metadata
@@ -318,13 +327,15 @@ Pass criteria:
 
 #### Day 8: Intake-to-Execution End-to-End Validation
 
-- [ ] Execute full run starting from intake artifacts
-- [ ] Verify escalations and run status are coherent with risk routing decisions
+- [x] Execute full run starting from intake artifacts
+- [x] Verify escalations and run status are coherent with risk routing decisions
 
 Validation commands:
 - `npm run run:sample`
+- `npm run intake:run`
 - `npm run ops:status`
 - `npm run resume:check -- --latest true --output table`
+- `npm run test:unit -- tests/intake-execution-e2e.test.ts`
 
 Pass criteria:
 - End-to-end flow completes from intake to run summary
@@ -332,10 +343,12 @@ Pass criteria:
 
 #### Day 9: Real Request Pilot (Batch of 5)
 
-- [ ] Process 5 real requests end-to-end with intake pipeline
-- [ ] Capture manual interventions and decomposition overrides
+- [x] Process 5 real requests end-to-end with intake pipeline
+- [x] Capture manual interventions and decomposition overrides
 
 Validation commands:
+- `npm run intake:pilot:batch`
+- `npm run test:unit -- tests/intake-pilot-batch.test.ts`
 - `npm run release:decision`
 - `npm run escalation:list -- --output table`
 
@@ -345,8 +358,8 @@ Pass criteria:
 
 #### Day 10: Real Request Pilot (Batch of 5) + Signoff
 
-- [ ] Process additional 5 real requests (total 10)
-- [ ] Close Milestone 2 acceptance gates
+- [x] Process additional 5 real requests (total 10)
+- [x] Close Milestone 2 acceptance gates
 
 Validation commands:
 - `npm run ops:status`

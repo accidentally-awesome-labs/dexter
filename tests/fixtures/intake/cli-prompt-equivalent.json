@@ -1,0 +1,6 @@
+{
+  "project": "billing-api",
+  "idea": "Add invoice export endpoint\n\nExpose CSV export for monthly invoices with role-based access control.",
+  "constraints": ["SOC2"],
+  "targetUsers": ["finance-ops"]
+}

@@ -47,3 +47,10 @@ artifacts/release/SLO_ROLLBACK_RESULT.md
 artifacts/release/promotions/
 artifacts/verification/TRUST_GATES_REPORT.json
 artifacts/verification/TRUST_GATES_REPORT.md
+artifacts/intake/INTAKE_BRIEF.json
+artifacts/intake/INTAKE_BRIEF.md
+artifacts/intake/CLARIFICATION_LOG.json
+artifacts/intake/CLARIFICATION_LOG.md
+artifacts/intake/INTAKE_TO_PLAN_MANIFEST.json
+artifacts/intake/INTAKE_EXECUTION_MANIFEST.json
+artifacts/intake/pilot-batch/
