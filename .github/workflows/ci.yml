@@ -34,7 +34,7 @@ jobs:
           npm run run:sample
           npm run benchmark:backend
           npm run soak:cycle -- --target-streak 1 --enforce-gate false
-          tsx src/index.ts verify
+          npm exec tsx src/index.ts verify
       - name: Typecheck
         run: npm run typecheck
       - name: Run sample pipeline
