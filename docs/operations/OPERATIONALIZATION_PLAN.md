@@ -6,18 +6,19 @@ This document tracks the work required to make Dexter a fully operational autono
 
 - Plan owner: _TBD_
 - Last updated: 2026-05-21
-- Current phase: Cross-milestone KPI closure
-- Overall completion: 100% (milestones), KPI signoff in progress
+- Current phase: Production integration (real services)
+- Overall completion: 100% (milestones + KPI signoff); production wiring in progress
 
 ## Today View
 
-- Today focus: Milestone 4 / Days 6–9 (triage, release center, incident sims)
+- Today focus: Wire first real control-plane bridge and staged promotion on a target service
 - Active owner: _TBD_
-- Current status: Alert rules, runbook index, and dry-run routing adapters
-- Current blocker: None
+- Current status: Operational signoff merged; drills use local mocks
+- Current blocker: No deploy bridge URL/token configured for a live service
 - Next command sequence:
-  - `npm run typecheck`
-  - `npm run ops:status`
+  - `cp .env.example .env` (fill bridge + health URLs)
+  - `npm run production:preflight`
+  - `npm run deploy:self -- --environment staging --require-api true --health-url <url>`
 - Today success criteria:
   - [x] Cost metrics use run_summary with dogfood benchmark fallback
   - [x] Queue metrics expose backlog aging buckets and degrade flags
@@ -712,6 +713,29 @@ Validation commands:
 Pass criteria:
 - `artifacts/release/CROSS_MILESTONE_KPI.json` reports `passed: true`
 - `artifacts/release/OPERATIONAL_SIGNOFF.json` reports `passed: true`
+
+## Production Integration (Post-Milestone)
+
+**Goal:** Replace mock-only promotions with real control-plane deploys and live alert delivery.
+
+### Tasks
+
+- [ ] Deploy HTTP deploy bridge (or implement hook-backed bridge) per `infra/coolify/bridge/README.md`
+- [ ] Configure `.env` from `.env.example` (control plane, health URL, alert webhooks)
+- [ ] Pass `npm run production:preflight`
+- [ ] Run staging deploy with `deploymentMode: api`
+- [ ] Run first real `npm run promotion:pipeline` on a target service
+- [ ] Enable live `npm run alert:route -- --dry-run false`
+
+### Deliverables
+
+- [ ] `artifacts/release/PRODUCTION_PREFLIGHT.json` with `passed: true`
+- [ ] `artifacts/release/PROMOTION_PIPELINE_MANIFEST.json` from real (non-local) promotion
+- [ ] Alert deliveries in `artifacts/execution/ALERT_DELIVERIES.jsonl`
+
+### Guide
+
+- `docs/operations/PRODUCTION_INTEGRATION.md`
 
 ## Weekly Update Template
 

@@ -37,6 +37,7 @@ npm test
 - `npm run milestone:m4:signoff` - verify Milestone 4 control-plane gates and write `MILESTONE_4_SIGNOFF.md`
 - `npm run operational:kpi` - measure cross-milestone KPIs (autonomy, reliability, safety, recovery, governance)
 - `npm run operational:signoff` - verify fully operational KPI targets and write `OPERATIONAL_SIGNOFF.md`
+- `npm run production:preflight` - validate env, control plane reachability, and release gates before real promotions
 - `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
 - `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
 - `npm run intake:normalize:template` - normalize a template-driven request into intake brief
@@ -69,6 +70,10 @@ npm test
 - `npm run attest:verify` - verify release attestation signatures
 - `npm test` - verify required release artifacts exist
 - `npm run build` - compile TypeScript
+
+## Production Integration
+
+See [docs/operations/PRODUCTION_INTEGRATION.md](docs/operations/PRODUCTION_INTEGRATION.md) for wiring real control planes (not local mocks). Copy `.env.example` to `.env` and run `npm run production:preflight` before `promotion:pipeline`.
 
 ## Production Integration Env Vars
 
