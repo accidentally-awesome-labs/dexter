@@ -1,8 +1,11 @@
 import path from "node:path";
+import dotenv from "dotenv";
 import {
   runProductionPreflight,
   writeProductionPreflightArtifacts,
 } from "../operations/production-preflight.js";
+
+dotenv.config();
 import type { DeploymentProviderId } from "../providers/deployment/types.js";
 
 function parseArg(flag: string, fallback?: string): string | undefined {

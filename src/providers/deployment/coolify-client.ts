@@ -17,6 +17,13 @@ export interface CoolifyApplicationSummary {
   name: string;
   git_commit_sha?: string;
   status?: string;
+  fqdn?: string;
+}
+
+export interface CoolifyApplicationDetail extends CoolifyApplicationSummary {
+  fqdn?: string;
+  health_check_path?: string;
+  health_check_enabled?: boolean;
 }
 
 export interface CoolifyDeployResult {
@@ -113,6 +120,18 @@ export class CoolifyClient {
       return payload;
     }
     return payload.data ?? [];
+  }
+
+  async getApplication(uuid: string): Promise<CoolifyApplicationDetail> {
+    return this.request<CoolifyApplicationDetail>(`/applications/${uuid}`);
+  }
+
+  async findApplicationByName(appName: string, rootDir?: string): Promise<CoolifyApplicationDetail | null> {
+    const target = await this.resolveApplication(appName, rootDir);
+    if (!target.uuid) {
+      return null;
+    }
+    return this.getApplication(target.uuid);
   }
 
   private async loadAppsConfig(rootDir?: string): Promise<CoolifyAppsConfig | null> {
