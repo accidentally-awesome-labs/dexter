@@ -12,6 +12,8 @@ interface DexterBridgeRequest {
   appName?: string;
   action?: "deploy" | "rollback";
   authorizationToken?: string | null;
+  deployTag?: string;
+  force?: boolean;
 }
 
 function readJsonBody(req: IncomingMessage): Promise<DexterBridgeRequest> {
@@ -104,8 +106,11 @@ export async function handleBridgeRequest(
       return;
     }
 
-    const force = process.env.COOLIFY_DEPLOY_FORCE === "true";
-    const result = await client.deployApplication(appName, { force });
+    const force = body.force ?? process.env.COOLIFY_DEPLOY_FORCE === "true";
+    const result = await client.deployApplication(appName, {
+      force,
+      deployTag: body.deployTag,
+    });
     sendJson(res, 200, toDeployPayload(result));
   } catch (error) {
     sendJson(res, 502, {

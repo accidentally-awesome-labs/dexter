@@ -162,19 +162,23 @@ export class CoolifyClient {
     return { uuid: match.uuid, force: configured?.force };
   }
 
-  async deployApplication(appName: string, options?: { rootDir?: string; force?: boolean }): Promise<CoolifyDeployResult> {
+  async deployApplication(
+    appName: string,
+    options?: { rootDir?: string; force?: boolean; deployTag?: string },
+  ): Promise<CoolifyDeployResult> {
     const target = await this.resolveApplication(appName, options?.rootDir);
     const force = options?.force ?? target.force ?? false;
+    const deployTag = options?.deployTag ?? target.tag;
 
-    if (target.tag) {
-      const query = new URLSearchParams({ tag: target.tag, force: String(force) });
+    if (deployTag) {
+      const query = new URLSearchParams({ tag: deployTag, force: String(force) });
       const payload = await this.request<{
         deployments?: Array<{ deployment_uuid?: string; resource_uuid?: string; message?: string }>;
         message?: string;
       }>(`/deploy?${query.toString()}`, { method: "GET" });
       const first = payload.deployments?.[0];
       if (!first?.deployment_uuid) {
-        throw new Error(payload.message ?? `Coolify deploy by tag failed for ${target.tag}`);
+        throw new Error(payload.message ?? `Coolify deploy by tag failed for tag=${deployTag}`);
       }
       return {
         deploymentId: first.deployment_uuid,

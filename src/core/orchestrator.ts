@@ -40,6 +40,8 @@ import {
 import { generateDeployAuthorization } from "../deploy/authorization.js";
 import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 import { writeOpsStatusArtifact } from "./ops-status.js";
+import { injectClosedLoopStampTask } from "../release/closed-loop-stamp.js";
+import { writeDeployManifest } from "../release/deploy-manifest.js";
 
 async function persistIntakeExecutionArtifacts(input: {
   rootDir: string;
@@ -233,6 +235,7 @@ export async function runDexter(
     intakeBrief?: IntakeBrief;
     skipIntakePipeline?: boolean;
     requireApiDeploy?: boolean;
+    closedLoopSmoke?: boolean;
   },
 ) {
   const startedAtMs = Date.now();
@@ -309,7 +312,13 @@ export async function runDexter(
     project: idea.project,
     priorLessons: priorLessons.map((item) => item.lesson),
   });
-  const plan = planned.plan;
+  let plan = planned.plan;
+  if (options?.closedLoopSmoke ?? process.env.DEXTER_CLOSED_LOOP_SMOKE === "true") {
+    plan = {
+      ...plan,
+      tasks: injectClosedLoopStampTask(plan.tasks, ctx.runId, idea.project),
+    };
+  }
   await writePlanningArtifacts(rootDir, plan);
   await fs.writeJson(path.join(ctx.runDir, "intake_to_plan_manifest.json"), planned.manifest, { spaces: 2 });
   await generatePlanningSignatures(rootDir);
@@ -640,6 +649,16 @@ export async function runDexter(
     await controlPlane.rollback(idea.project);
     throw new Error("Verification failed. Rollback has been triggered.");
   }
+
+  if (options?.closedLoopSmoke ?? process.env.DEXTER_CLOSED_LOOP_SMOKE === "true") {
+    await writeDeployManifest({
+      rootDir,
+      runDir: ctx.runDir,
+      runId: ctx.runId,
+      project: idea.project,
+    });
+  }
+
   const deployment = await controlPlane.deploy(idea.project, deployAuth, {
     environment: process.env.DEXTER_DEPLOY_ENV ?? "production",
     tenantId: tenant.tenantId,

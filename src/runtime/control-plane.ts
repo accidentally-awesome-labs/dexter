@@ -10,6 +10,7 @@ import path from "node:path";
 import fs from "fs-extra";
 import { spawn } from "node:child_process";
 import { createDeploymentProvider } from "../providers/deployment/factory.js";
+import { loadDeployManifest } from "../release/deploy-manifest.js";
 
 export interface ControlPlaneAdapter {
   id: "coolify" | "dokploy" | "dokku";
@@ -31,6 +32,7 @@ class BaseAdapter implements ControlPlaneAdapter {
     action: "deploy" | "rollback",
     appName: string,
     authorizationToken?: string,
+    deployOptions?: { deployTag?: string; force?: boolean },
   ): Promise<string | null> {
     const provider = createDeploymentProvider(this.id);
     if (!provider) {
@@ -41,6 +43,8 @@ class BaseAdapter implements ControlPlaneAdapter {
       appName,
       provider: this.id,
       authorizationToken,
+      deployTag: deployOptions?.deployTag,
+      force: deployOptions?.force,
     });
     if (!response) {
       return null;
@@ -90,7 +94,12 @@ class BaseAdapter implements ControlPlaneAdapter {
     }
 
     const authToken = Buffer.from(JSON.stringify(authorization)).toString("base64");
-    const apiId = await this.runApi("deploy", appName, authToken);
+    const manifest = await loadDeployManifest();
+    const useManifestTag = process.env.DEXTER_DEPLOY_USE_MANIFEST_TAG === "true";
+    const apiId = await this.runApi("deploy", appName, authToken, {
+      deployTag: useManifestTag ? manifest?.deployTag : undefined,
+      force: manifest?.coolify.force ?? true,
+    });
     if (apiId) {
       return {
         deploymentId: apiId,

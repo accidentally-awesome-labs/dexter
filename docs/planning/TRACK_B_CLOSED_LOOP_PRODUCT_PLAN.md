@@ -1,6 +1,6 @@
 # Track B — Closed-Loop Product Factory (v1.1 Plan)
 
-**Status:** Planning (post v1.0.0 GA)  
+**Status:** In progress — Week 1 (B1 + B2.1 + B3a landed on `v1.0.0-rc1`, not yet tagged v1.1)  
 **Owner:** _TBD_  
 **Depends on:** [v1.0.0 RELEASE_SCOPE.md](../releases/v1.0.0/RELEASE_SCOPE.md) (factory + integration shipped)  
 **Goal:** One credible product loop — **idea → built artifact → deploy that artifact → health on the app URL** — without pre-provisioned placeholder apps or control-plane-only health.
@@ -100,9 +100,11 @@ flowchart TB
 
 ## 5. Workstreams
 
-### B1 — Application health (1–2 days)
+### B1 — Application health (1–2 days) — **partial**
 
 **Objective:** Health probes the deployed service, not only Coolify panel health.
+
+**Done:** FQDN-first resolution, schema 1.1 (`fallbackUsed`, `appFqdn`), strict mode via `DEXTER_E2E_STRICT_HEALTH`.
 
 #### Tasks
 
@@ -132,7 +134,7 @@ flowchart TB
 
 **Objective:** Bridge deploy sends **this run’s** build output to Coolify.
 
-#### Phase B2.1 — Deploy contract
+#### Phase B2.1 — Deploy contract — **done**
 
 Introduce `artifacts/release/DEPLOY_MANIFEST.json`:
 

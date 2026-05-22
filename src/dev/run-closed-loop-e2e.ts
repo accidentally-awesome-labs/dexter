@@ -31,6 +31,7 @@ async function main(): Promise<void> {
       .map((item) => item.trim())
       .filter(Boolean),
     skipPreflight: parseBool("--skip-preflight", false),
+    strictHealth: parseBool("--strict-health", process.env.DEXTER_E2E_STRICT_HEALTH !== "false"),
   });
 
   console.log(

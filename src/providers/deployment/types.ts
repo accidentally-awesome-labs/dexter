@@ -6,6 +6,8 @@ export interface DeploymentRequest {
   appName: string;
   action: DeploymentAction;
   authorizationToken?: string;
+  deployTag?: string;
+  force?: boolean;
 }
 
 export interface DeploymentResponse {
