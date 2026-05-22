@@ -115,7 +115,7 @@ export async function resolveClosedLoopHealthUrl(
     try {
       const app = await coolify.findApplicationByName(appName, rootDir);
       const fqdn = app?.fqdn?.trim();
-      if (fqdn) {
+      if (app && fqdn) {
         const candidate = appHealthUrl(fqdn, app.health_check_path);
         const probe = await runDeploymentHealthChecks({
           urls: [candidate],
