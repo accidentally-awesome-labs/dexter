@@ -32,6 +32,7 @@ describe("deploy manifest", () => {
     expect(manifest.project).toBe("sample-app");
     expect(manifest.deployTag).toBe("run-655e012fb152");
     expect(manifest.image).toBe("dexter/sample-app");
+    expect(manifest.stampPath).toBe("generated/RUN_STAMP.json");
     await fs.remove(rootDir);
   });
 

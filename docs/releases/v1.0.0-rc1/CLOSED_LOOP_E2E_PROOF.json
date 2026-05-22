@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.1",
+  "generatedAt": "2026-05-22T21:53:46.237Z",
+  "passed": true,
+  "project": "dexter",
+  "coolifyAppName": "dexter",
+  "runId": "97034bf1-9820-41bf-bf2b-9ed898362ed4",
+  "deploymentMode": "api",
+  "deploymentId": "a6ghcjs67kd9q51n726vuth8",
+  "deployArtifactRef": {
+    "image": "dexter/dexter",
+    "tag": "run-97034bf19820",
+    "deployTag": "run-97034bf19820",
+    "stampPath": "generated/RUN_STAMP.json"
+  },
+  "verificationPassed": true,
+  "productionReady": true,
+  "health": {
+    "url": "http://127.0.0.1:18080/",
+    "appFqdn": "http://127.0.0.1:18080",
+    "source": "coolify_app_fqdn",
+    "fallbackUsed": false,
+    "passed": true,
+    "checks": [
+      {
+        "url": "http://127.0.0.1:18080/",
+        "status": "pass",
+        "statusCode": 200
+      }
+    ]
+  },
+  "phases": [
+    { "name": "wiring", "passed": true },
+    { "name": "preflight", "passed": true },
+    { "name": "health_resolution", "passed": true, "detail": "coolify_app_fqdn, fallback=false" },
+    { "name": "factory_run", "passed": true, "detail": "deploymentMode=api" },
+    { "name": "run_stamp", "passed": true }
+  ],
+  "_note": "Redacted local proof after Track B Week 1 merge. Live runs write artifacts/release/CLOSED_LOOP_E2E.json (gitignored)."
+}

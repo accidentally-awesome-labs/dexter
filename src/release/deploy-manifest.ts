@@ -81,7 +81,7 @@ export async function buildDeployManifest(options: BuildDeployManifestOptions): 
       appName: process.env.DEXTER_COOLIFY_APP_NAME ?? options.project,
       force: process.env.DEXTER_DEPLOY_FORCE !== "false",
     },
-    stampPath: path.join(options.rootDir, "generated", "RUN_STAMP.json"),
+    stampPath: "generated/RUN_STAMP.json",
   };
 }
 

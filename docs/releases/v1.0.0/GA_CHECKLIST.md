@@ -32,7 +32,8 @@ Prerequisites: `.env` from `.env.example`, `infra/coolify/apps.json`, Coolify AP
 ## 4. Closed-loop factory E2E
 
 - [x] `npm run factory:e2e` → exit 0
-- [x] `artifacts/release/CLOSED_LOOP_E2E.json` → `passed: true`, `deploymentMode: "api"`
+- [x] `artifacts/release/CLOSED_LOOP_E2E.json` → `passed: true`, `deploymentMode: "api"`, schema **1.1** (`health.fallbackUsed`, `deployArtifactRef`)
+- [x] Redacted proof: [../v1.0.0-rc1/CLOSED_LOOP_E2E_PROOF.json](../v1.0.0-rc1/CLOSED_LOOP_E2E_PROOF.json) (Track B Week 1, local Coolify + bridge)
 - [x] Run directory `runs/<runId>/run_summary.json` → `deploymentMode: "api"`, `verificationPassed: true`
 - [x] `artifacts/intake/INTAKE_BRIEF.json` updated for the E2E idea
 
