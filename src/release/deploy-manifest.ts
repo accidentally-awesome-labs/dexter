@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "fs-extra";
+import { buildDeployImage, type BuildDeployImageResult } from "./deploy-build.js";
 
 export interface DeployManifest {
   schemaVersion: "1.0";
@@ -15,6 +16,12 @@ export interface DeployManifest {
     force: boolean;
   };
   stampPath: string;
+  imageRef?: string;
+  build?: {
+    built: boolean;
+    skipped: boolean;
+    detail: string;
+  };
 }
 
 export interface BuildDeployManifestOptions {
@@ -85,10 +92,25 @@ export async function buildDeployManifest(options: BuildDeployManifestOptions): 
   };
 }
 
+export async function prepareDeployArtifact(
+  options: BuildDeployManifestOptions,
+): Promise<{ manifest: DeployManifest; build: BuildDeployImageResult }> {
+  const manifest = await buildDeployManifest(options);
+  const build = await buildDeployImage(options.rootDir, manifest);
+  manifest.imageRef = build.imageRef;
+  manifest.build = {
+    built: build.built,
+    skipped: build.skipped,
+    detail: build.detail,
+  };
+  return { manifest, build };
+}
+
 export async function writeDeployManifest(
   options: BuildDeployManifestOptions,
+  prepared?: { manifest: DeployManifest },
 ): Promise<{ manifest: DeployManifest; manifestPath: string }> {
-  const manifest = await buildDeployManifest(options);
+  const manifest = prepared?.manifest ?? (await prepareDeployArtifact(options)).manifest;
   const manifestPath = path.join(options.runDir, "deploy_manifest.json");
   await fs.ensureDir(options.runDir);
   await fs.writeJson(manifestPath, manifest, { spaces: 2 });

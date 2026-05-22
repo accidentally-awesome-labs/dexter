@@ -41,6 +41,8 @@ describe("deploy manifest", () => {
     const runId = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee";
     const runDir = path.join(rootDir, "runs", runId);
     await fs.ensureDir(runDir);
+    const previousSkip = process.env.DEXTER_SKIP_DEPLOY_BUILD;
+    process.env.DEXTER_SKIP_DEPLOY_BUILD = "true";
 
     const { manifestPath, manifest } = await writeDeployManifest({
       rootDir,
@@ -53,6 +55,11 @@ describe("deploy manifest", () => {
     expect(process.env.DEXTER_DEPLOY_MANIFEST_PATH).toBe(manifestPath);
     const loaded = await loadDeployManifest();
     expect(loaded?.deployTag).toBe(manifest.deployTag);
+    if (previousSkip) {
+      process.env.DEXTER_SKIP_DEPLOY_BUILD = previousSkip;
+    } else {
+      delete process.env.DEXTER_SKIP_DEPLOY_BUILD;
+    }
     await fs.remove(rootDir);
     delete process.env.DEXTER_DEPLOY_MANIFEST_PATH;
   });

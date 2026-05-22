@@ -26,6 +26,16 @@ export interface CoolifyApplicationDetail extends CoolifyApplicationSummary {
   health_check_enabled?: boolean;
 }
 
+export interface CoolifyProjectSummary {
+  uuid: string;
+  name?: string;
+}
+
+export interface CoolifyServerSummary {
+  uuid: string;
+  name?: string;
+}
+
 export interface CoolifyDeployResult {
   deploymentId: string;
   resourceUuid?: string;
@@ -127,11 +137,97 @@ export class CoolifyClient {
   }
 
   async findApplicationByName(appName: string, rootDir?: string): Promise<CoolifyApplicationDetail | null> {
-    const target = await this.resolveApplication(appName, rootDir);
-    if (!target.uuid) {
+    try {
+      const target = await this.resolveApplication(appName, rootDir);
+      if (!target.uuid) {
+        return null;
+      }
+      return this.getApplication(target.uuid);
+    } catch {
       return null;
     }
-    return this.getApplication(target.uuid);
+  }
+
+  async listProjects(): Promise<CoolifyProjectSummary[]> {
+    const payload = await this.request<CoolifyProjectSummary[] | { data?: CoolifyProjectSummary[] }>("/projects");
+    return Array.isArray(payload) ? payload : (payload.data ?? []);
+  }
+
+  async listServers(): Promise<CoolifyServerSummary[]> {
+    const payload = await this.request<CoolifyServerSummary[] | { data?: CoolifyServerSummary[] }>("/servers");
+    return Array.isArray(payload) ? payload : (payload.data ?? []);
+  }
+
+  private async resolveDefaultProjectUuid(explicit?: string): Promise<string> {
+    if (explicit) {
+      return explicit;
+    }
+    const projects = await this.listProjects();
+    const first = projects[0];
+    if (!first?.uuid) {
+      throw new Error("Coolify has no projects. Create a project in the panel or set DEXTER_COOLIFY_PROJECT_UUID.");
+    }
+    return first.uuid;
+  }
+
+  private async resolveDefaultServerUuid(explicit?: string): Promise<string> {
+    if (explicit) {
+      return explicit;
+    }
+    const servers = await this.listServers();
+    const localhost = servers.find((server) => server.name?.toLowerCase().includes("localhost"));
+    const pick = localhost ?? servers[0];
+    if (!pick?.uuid) {
+      throw new Error("Coolify has no servers. Set DEXTER_COOLIFY_SERVER_UUID.");
+    }
+    return pick.uuid;
+  }
+
+  async updateApplicationDockerImage(
+    appName: string,
+    input: { image: string; tag: string; rootDir?: string },
+  ): Promise<CoolifyApplicationDetail> {
+    const target = await this.resolveApplication(appName, input.rootDir);
+    if (!target.uuid) {
+      throw new Error(`Cannot update image for appName=${appName}: missing uuid`);
+    }
+    return this.request<CoolifyApplicationDetail>(`/applications/${target.uuid}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        docker_registry_image_name: input.image,
+        docker_registry_image_tag: input.tag,
+      }),
+    });
+  }
+
+  async createDockerImageApplication(input: {
+    name: string;
+    dockerImage: string;
+    dockerTag?: string;
+    portsExposes: string;
+    projectUuid?: string;
+    serverUuid?: string;
+    environmentName: string;
+    environmentUuid?: string;
+    instantDeploy?: boolean;
+  }): Promise<CoolifyApplicationDetail> {
+    const projectUuid = await this.resolveDefaultProjectUuid(input.projectUuid);
+    const serverUuid = await this.resolveDefaultServerUuid(input.serverUuid);
+    const body: Record<string, unknown> = {
+      project_uuid: projectUuid,
+      server_uuid: serverUuid,
+      environment_name: input.environmentName,
+      environment_uuid: input.environmentUuid ?? projectUuid,
+      docker_registry_image_name: input.dockerImage,
+      docker_registry_image_tag: input.dockerTag ?? "latest",
+      ports_exposes: input.portsExposes,
+      name: input.name,
+      instant_deploy: input.instantDeploy ?? false,
+    };
+    return this.request<CoolifyApplicationDetail>("/applications/dockerimage", {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
   }
 
   private async loadAppsConfig(rootDir?: string): Promise<CoolifyAppsConfig | null> {
@@ -164,8 +260,21 @@ export class CoolifyClient {
 
   async deployApplication(
     appName: string,
-    options?: { rootDir?: string; force?: boolean; deployTag?: string },
+    options?: {
+      rootDir?: string;
+      force?: boolean;
+      deployTag?: string;
+      syncManifestImage?: { image: string; tag: string };
+    },
   ): Promise<CoolifyDeployResult> {
+    if (options?.syncManifestImage) {
+      await this.updateApplicationDockerImage(appName, {
+        image: options.syncManifestImage.image,
+        tag: options.syncManifestImage.tag,
+        rootDir: options.rootDir,
+      });
+    }
+
     const target = await this.resolveApplication(appName, options?.rootDir);
     const force = options?.force ?? target.force ?? false;
     const deployTag = options?.deployTag ?? target.tag;

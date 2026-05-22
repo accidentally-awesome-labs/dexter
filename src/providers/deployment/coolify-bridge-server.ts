@@ -14,6 +14,9 @@ interface DexterBridgeRequest {
   authorizationToken?: string | null;
   deployTag?: string;
   force?: boolean;
+  image?: string;
+  tag?: string;
+  syncManifestImage?: boolean;
 }
 
 function readJsonBody(req: IncomingMessage): Promise<DexterBridgeRequest> {
@@ -110,6 +113,10 @@ export async function handleBridgeRequest(
     const result = await client.deployApplication(appName, {
       force,
       deployTag: body.deployTag,
+      syncManifestImage:
+        body.syncManifestImage && body.image && body.tag
+          ? { image: body.image, tag: body.tag }
+          : undefined,
     });
     sendJson(res, 200, toDeployPayload(result));
   } catch (error) {

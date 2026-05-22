@@ -41,7 +41,7 @@ import { generateDeployAuthorization } from "../deploy/authorization.js";
 import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 import { writeOpsStatusArtifact } from "./ops-status.js";
 import { injectClosedLoopStampTask } from "../release/closed-loop-stamp.js";
-import { writeDeployManifest } from "../release/deploy-manifest.js";
+import { prepareDeployArtifact, writeDeployManifest } from "../release/deploy-manifest.js";
 
 async function persistIntakeExecutionArtifacts(input: {
   rootDir: string;
@@ -651,12 +651,22 @@ export async function runDexter(
   }
 
   if (options?.closedLoopSmoke ?? process.env.DEXTER_CLOSED_LOOP_SMOKE === "true") {
-    await writeDeployManifest({
+    const prepared = await prepareDeployArtifact({
       rootDir,
       runDir: ctx.runDir,
       runId: ctx.runId,
       project: idea.project,
     });
+    await writeDeployManifest(
+      {
+        rootDir,
+        runDir: ctx.runDir,
+        runId: ctx.runId,
+        project: idea.project,
+      },
+      prepared,
+    );
+    await fs.writeJson(path.join(ctx.runDir, "deploy_build.json"), prepared.build, { spaces: 2 });
   }
 
   const deployment = await controlPlane.deploy(idea.project, deployAuth, {

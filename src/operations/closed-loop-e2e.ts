@@ -10,6 +10,7 @@ import {
 import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 import { runProductionPreflight } from "./production-preflight.js";
 import { loadDeployManifest } from "../release/deploy-manifest.js";
+import { ensureCoolifyApplication } from "../providers/deployment/coolify-provision.js";
 
 export interface ClosedLoopE2eOptions {
   rootDir: string;
@@ -164,6 +165,15 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
   const wiringBlockers = await validateClosedLoopWiring(rootDir);
   if (wiringBlockers.length > 0) {
     throw new Error(wiringBlockers.join("\n"));
+  }
+
+  if (process.env.DEXTER_COOLIFY_AUTO_PROVISION === "true") {
+    await ensureCoolifyApplication({
+      rootDir,
+      appName: coolifyAppName,
+      image: process.env.DEXTER_DEPLOY_IMAGE ?? "nginx",
+      tag: process.env.DEXTER_DEPLOY_TAG ?? "alpine",
+    });
   }
   phases.push({ name: "wiring", passed: true, detail: "Coolify bridge env and apps.json present." });
 

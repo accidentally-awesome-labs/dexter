@@ -32,7 +32,7 @@ npm test
 
 **Shipping v1.0.0?** Use the [GA checklist](./docs/releases/v1.0.0/GA_CHECKLIST.md).  
 **Production wiring:** [PRODUCTION_INTEGRATION.md](./docs/operations/PRODUCTION_INTEGRATION.md).  
-**Closed-loop E2E:** `npm run coolify:bridge` (terminal 1) then `npm run factory:e2e` (terminal 2).
+**Closed-loop E2E:** `npm run factory:bootstrap` → `npm run coolify:bridge` (terminal 1) → `npm run factory` or `npm run factory:e2e` (terminal 2).
 
 ## Core Commands
 
