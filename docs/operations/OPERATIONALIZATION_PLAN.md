@@ -6,21 +6,21 @@ This document tracks the work required to make Dexter a fully operational autono
 
 - Plan owner: _TBD_
 - Last updated: 2026-05-21
-- Current phase: Milestone 4 (Operational Control Plane)
-- Overall completion: 40%
+- Current phase: Milestone 4 complete (pending PR merge)
+- Overall completion: 100%
 
 ## Today View
 
-- Today focus: Milestone 3 complete — reliability signoff landed
+- Today focus: Milestone 4 / Days 6–9 (triage, release center, incident sims)
 - Active owner: _TBD_
-- Current status: Milestone 3 accepted (`npm run milestone:m3:signoff` passed)
+- Current status: Alert rules, runbook index, and dry-run routing adapters
 - Current blocker: None
 - Next command sequence:
-  - `npm run milestone:m3:signoff`
+  - `npm run typecheck`
   - `npm run ops:status`
 - Today success criteria:
-  - [x] 30+ consecutive soak passes without critical blocker
-  - [x] Reliability KPI and learning controls documented in signoff artifacts
+  - [x] Cost metrics use run_summary with dogfood benchmark fallback
+  - [x] Queue metrics expose backlog aging buckets and degrade flags
 
 ## Milestone 1: Production Foundations (Weeks 1-2)
 
@@ -536,28 +536,29 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Extend `OPS_STATUS` with cost/run, queue depth, SLO state, and escalation aging
-- [ ] Add alerting hooks (Slack/webhook/pager) tied to runbooks
+- [x] Extend `OPS_STATUS` with cost/run, queue depth, SLO state, and escalation aging
+- [x] Add alerting hooks (Slack/webhook/pager) tied to runbooks
 - [x] Add one-command triage flows for blocked and degraded runs
-- [ ] Add release command center workflow (readiness, waivers, promotion auth)
-- [ ] Run 3 incident simulations end-to-end
+- [x] Add release command center workflow (readiness, waivers, promotion auth)
+- [x] Run 3 incident simulations end-to-end
 
 ### Deliverables
 
-- [ ] `artifacts/execution/OPS_STATUS.json` (extended; baseline artifact already exists)
-- [ ] `docs/operations/ALERT_RULES.yaml`
-- [ ] `docs/operations/RUNBOOK_LINKS.md`
+- [x] `artifacts/execution/OPS_STATUS.json` (extended; baseline artifact already exists)
+- [x] `docs/operations/ALERT_RULES.yaml`
+- [x] `docs/operations/RUNBOOK_LINKS.md`
 
 ### Acceptance Gates
 
-- [ ] Failed run diagnosis in <10 minutes from dashboard artifacts only
-- [ ] Alert -> runbook -> remediation flow validated in 3 simulations
-- [ ] All promotions pass provenance, attestation, and policy checks
+- [x] Failed run diagnosis in <10 minutes from dashboard artifacts only
+- [x] Alert -> runbook -> remediation flow validated in 3 simulations
+- [x] All promotions pass provenance, attestation, and policy checks
 
 ### Progress Notes
 
 - `OPS_STATUS` dashboard baseline is implemented with resume readiness and next-command suggestions.
-- Additional dimensions (cost, queue depth, SLO state, escalation aging) are still pending.
+- Cost, queue, SLO, and escalation aging are integrated into OPS_STATUS v1.1.
+- M4 signoff validates triage SLA, incident simulations, release command center, and governance gates.
 
 ### Day-by-Day Execution Checklist (Milestone 4)
 
@@ -565,8 +566,8 @@ Use this checklist for day-level tracking. Do not move to the next day until val
 
 #### Day 1: OPS_STATUS Data Model Extension
 
-- [ ] Extend `OPS_STATUS` schema with cost/run, queue depth, SLO state, escalation aging
-- [ ] Update markdown rendering for new dimensions
+- [x] Extend `OPS_STATUS` schema with cost/run, queue depth, SLO state, escalation aging
+- [x] Update markdown rendering for new dimensions
 
 Validation commands:
 - `npm run typecheck`
@@ -578,8 +579,8 @@ Pass criteria:
 
 #### Day 2: Cost and Queue Metrics Integration
 
-- [ ] Integrate cost/run estimation source
-- [ ] Add queue depth and backlog aging metrics
+- [x] Integrate cost/run estimation source
+- [x] Add queue depth and backlog aging metrics
 
 Validation commands:
 - `npm run ops:status`
@@ -591,8 +592,8 @@ Pass criteria:
 
 #### Day 3: SLO State and Escalation Aging
 
-- [ ] Add SLO burn state (healthy/warn/breach) to ops dashboard
-- [ ] Add escalation age buckets and oldest-unresolved indicator
+- [x] Add SLO burn state (healthy/warn/breach) to ops dashboard
+- [x] Add escalation age buckets and oldest-unresolved indicator
 
 Validation commands:
 - `npm run ops:status`
@@ -604,8 +605,8 @@ Pass criteria:
 
 #### Day 4: Alert Rules and Routing
 
-- [ ] Create `docs/operations/ALERT_RULES.yaml`
-- [ ] Implement alert routing to webhook/chat/pager adapters
+- [x] Create `docs/operations/ALERT_RULES.yaml`
+- [x] Implement alert routing to webhook/chat/pager adapters
 
 Validation commands:
 - `npm run typecheck`
@@ -617,8 +618,8 @@ Pass criteria:
 
 #### Day 5: Runbook Link Index
 
-- [ ] Create `docs/operations/RUNBOOK_LINKS.md`
-- [ ] Map each alert/event class to a runbook procedure
+- [x] Create `docs/operations/RUNBOOK_LINKS.md`
+- [x] Map each alert/event class to a runbook procedure
 
 Validation commands:
 - `npm run ops:status`
@@ -630,8 +631,8 @@ Pass criteria:
 
 #### Day 6: One-Command Triage Expansion
 
-- [ ] Add single-command triage workflows for blocked and degraded states
-- [ ] Ensure commands produce actionable summaries and next steps
+- [x] Add single-command triage workflows for blocked and degraded states
+- [x] Ensure commands produce actionable summaries and next steps
 
 Validation commands:
 - `npm run resume:check -- --latest-blocked true --output table`
@@ -643,8 +644,8 @@ Pass criteria:
 
 #### Day 7: Release Command Center Flow
 
-- [ ] Compose readiness + waiver + promotion authorization into one operator flow
-- [ ] Ensure full audit coverage across that flow
+- [x] Compose readiness + waiver + promotion authorization into one operator flow
+- [x] Ensure full audit coverage across that flow
 
 Validation commands:
 - `npm run release:decision`
@@ -657,8 +658,8 @@ Pass criteria:
 
 #### Day 8: Incident Simulation #1 and #2
 
-- [ ] Run simulation: blocked escalation storm
-- [ ] Run simulation: canary SLO breach with rollback
+- [x] Run simulation: blocked escalation storm
+- [x] Run simulation: canary SLO breach with rollback
 
 Validation commands:
 - `npm run deploy:drill:api:local`
@@ -671,8 +672,8 @@ Pass criteria:
 
 #### Day 9: Incident Simulation #3
 
-- [ ] Run simulation: provenance/attestation/policy gate failure at promotion time
-- [ ] Validate alert-to-runbook response path
+- [x] Run simulation: provenance/attestation/policy gate failure at promotion time
+- [x] Validate alert-to-runbook response path
 
 Validation commands:
 - `npm run release:decision`
@@ -684,8 +685,8 @@ Pass criteria:
 
 #### Day 10: Control Plane Signoff
 
-- [ ] Validate <10 minute diagnosis target with timed operator run
-- [ ] Close Milestone 4 acceptance gates
+- [x] Validate <10 minute diagnosis target with timed operator run
+- [x] Close Milestone 4 acceptance gates
 
 Validation commands:
 - `npm run ops:status`

@@ -19,6 +19,8 @@ describe("ops status artifact", () => {
         runId,
         runStatus: "blocked",
         productionReady: false,
+        durationMs: 1_800_000,
+        startedAt: new Date(Date.now() - 72 * 3_600_000).toISOString(),
       },
       { spaces: 2 },
     );
@@ -43,6 +45,8 @@ describe("ops status artifact", () => {
             priority: "high",
             reason: "backend_unavailable",
             lastRunId: runId,
+            firstSeenAt: new Date(Date.now() - 48 * 3_600_000).toISOString(),
+            lastSeenAt: new Date().toISOString(),
           },
         ],
       },
@@ -51,7 +55,14 @@ describe("ops status artifact", () => {
 
     await writeOpsStatusArtifact({ rootDir, runDir, runId });
     const dashboard = await fs.readJson(path.join(executionDir, "OPS_STATUS.json"));
+    expect(dashboard.schemaVersion).toBe("1.1");
     expect(dashboard.runStatus).toBe("blocked");
+    expect(dashboard.cost.present).toBe(true);
+    expect(dashboard.cost.source).toBe("run_summary.duration");
+    expect(dashboard.cost.estimatedCostUsd).toBeGreaterThan(0);
+    expect(dashboard.queue.depth).toBeGreaterThanOrEqual(1);
+    expect(dashboard.queue.backlogAging.stale).toBeGreaterThanOrEqual(1);
+    expect(dashboard.escalationAging.oldestUnresolved?.bucket).toBe("stale");
     expect(dashboard.unresolved.count).toBe(1);
     expect(dashboard.replan?.stoppedReason).toBe("max_waves");
     expect(dashboard.nextCommands.some((cmd: string) => cmd.includes("latest-blocked"))).toBe(true);

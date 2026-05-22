@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-22T01:27:51.171Z",
+  "readyForPromotion": true,
+  "releaseDecision": "GO",
+  "governancePassed": true,
+  "unresolvedEscalations": 0,
+  "waiverSummary": {
+    "waived": 0,
+    "open": 0,
+    "inProgress": 0
+  },
+  "promotionAuth": {
+    "stagingAllowed": true,
+    "prodAllowed": false,
+    "detail": "Promotion blocked: canary gates failed. Resolve canary SLO breaches before prod promotion."
+  },
+  "steps": [
+    {
+      "id": "ops_status",
+      "status": "pass",
+      "detail": "OPS_STATUS refreshed for 4f147520-ad4a-4aca-a4aa-79b81940a53f"
+    },
+    {
+      "id": "release_decision",
+      "status": "pass",
+      "detail": "decision=GO, unresolved=0"
+    },
+    {
+      "id": "escalation_inventory",
+      "status": "pass",
+      "detail": "open=0, in_progress=0, waived=0"
+    },
+    {
+      "id": "governance_verify",
+      "status": "pass",
+      "detail": "unresolved_operator_high=true; unresolved_escalations=true; promotion_history_count=true; promotion_stage_policy_promotion-local-2026-05-21-001=true; promotion_audit_trail_promotion-local-2026-05-21-001=true; promotion_stage_policy_promotion-local-2026-05-21-002=true; promotion_audit_trail_promotion-local-2026-05-21-002=true; promotion_stage_policy_promotion-local-2026-05-21-003=true; promotion_audit_trail_promotion-local-2026-05-21-003=true"
+    },
+    {
+      "id": "promotion_auth",
+      "status": "warn",
+      "detail": "Promotion blocked: canary gates failed. Resolve canary SLO breaches before prod promotion."
+    }
+  ],
+  "recommendedCommands": [
+    "npm run release:center",
+    "npm run ops:status",
+    "npm run release:decision",
+    "npm run escalation:list -- --output table",
+    "npm run governance:verify -- --minimum-promotions 3",
+    "npm run promotion:pipeline"
+  ],
+  "artifacts": {
+    "opsStatus": "/Users/salar/Projects/dexter/artifacts/execution/OPS_STATUS.json",
+    "governanceVerification": "/Users/salar/Projects/dexter/artifacts/release/GOVERNANCE_VERIFICATION.json",
+    "auditLog": "/Users/salar/Projects/dexter/artifacts/operations/AUDIT_LOG.jsonl",
+    "reportJson": "/Users/salar/Projects/dexter/artifacts/release/RELEASE_COMMAND_CENTER.json",
+    "reportMarkdown": "/Users/salar/Projects/dexter/artifacts/release/RELEASE_COMMAND_CENTER.md"
+  }
+}

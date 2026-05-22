@@ -398,7 +398,7 @@ export async function collectFailureSignals(rootDir: string): Promise<RawFailure
     collectGovernanceFailures(rootDir),
     collectCanaryFailures(rootDir),
   ]);
-  return chunks.flat().sort((left, right) => left.at.localeCompare(right.at));
+  return chunks.flat().sort((left, right) => (left.at ?? "").localeCompare(right.at ?? ""));
 }
 
 export function renderFailureTaxonomyMarkdown(report: FailureTaxonomyReport): string {
