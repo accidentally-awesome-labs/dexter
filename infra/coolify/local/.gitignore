@@ -1,0 +1,6 @@
+.env
+ssh/
+applications/
+databases/
+services/
+backups/

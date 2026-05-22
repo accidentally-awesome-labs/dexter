@@ -11,14 +11,14 @@ This document tracks the work required to make Dexter a fully operational autono
 
 ## Today View
 
-- Today focus: Wire first real control-plane bridge and staged promotion on a target service
+- Today focus: **v1.0.0 GA** (Track A) — scope docs + checklist; **Track B** plan for v1.1 product loop
 - Active owner: _TBD_
-- Current status: Operational signoff merged; drills use local mocks
-- Current blocker: No deploy bridge URL/token configured for a live service
+- Current status: Local Coolify + bridge wired; `factory:e2e` and promotion pipeline pass with `deploymentMode: api`
+- Current blocker: None for v1.0 GA tag; product closed-loop (deploy built artifact + app health) is Track B
 - Next command sequence:
-  - `cp .env.example .env` (fill bridge + health URLs)
-  - `npm run production:preflight`
-  - `npm run deploy:self -- --environment staging --require-api true --health-url <url>`
+  - Complete [docs/releases/v1.0.0/GA_CHECKLIST.md](../releases/v1.0.0/GA_CHECKLIST.md)
+  - Tag `v1.0.0` when checklist satisfied on target environment
+  - Kick off [docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md)
 - Today success criteria:
   - [x] Cost metrics use run_summary with dogfood benchmark fallback
   - [x] Queue metrics expose backlog aging buckets and degrade flags
@@ -720,22 +720,26 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Deploy HTTP deploy bridge (or implement hook-backed bridge) per `infra/coolify/bridge/README.md`
-- [ ] Configure `.env` from `.env.example` (control plane, health URL, alert webhooks)
-- [ ] Pass `npm run production:preflight`
-- [ ] Run staging deploy with `deploymentMode: api`
-- [ ] Run first real `npm run promotion:pipeline` on a target service
-- [ ] Enable live `npm run alert:route -- --dry-run false`
+- [x] Deploy HTTP deploy bridge (or implement hook-backed bridge) per `infra/coolify/bridge/README.md`
+- [x] Configure `.env` from `.env.example` (control plane, health URL, alert webhooks)
+- [x] Pass `npm run production:preflight`
+- [x] Run staging deploy with `deploymentMode: api`
+- [x] Run first real `npm run promotion:pipeline` on a target service
+- [x] Enable live alert delivery (`alert:live-drill` / `alert-route --dry-run false`)
+- [x] `npm run factory:e2e` closed-loop proof
 
 ### Deliverables
 
-- [ ] `artifacts/release/PRODUCTION_PREFLIGHT.json` with `passed: true`
-- [ ] `artifacts/release/PROMOTION_PIPELINE_MANIFEST.json` from real (non-local) promotion
-- [ ] Alert deliveries in `artifacts/execution/ALERT_DELIVERIES.jsonl`
+- [x] `artifacts/release/PRODUCTION_PREFLIGHT.json` with `passed: true`
+- [x] `artifacts/release/PROMOTION_PIPELINE_MANIFEST.json` from real (local) promotion
+- [x] Alert deliveries in `artifacts/execution/ALERT_DELIVERIES.jsonl`
+- [x] `artifacts/release/CLOSED_LOOP_E2E.json` with `passed: true`
 
 ### Guide
 
 - `docs/operations/PRODUCTION_INTEGRATION.md`
+- v1.0 GA: `docs/releases/v1.0.0/GA_CHECKLIST.md`
+- v1.1 product: `docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md`
 
 ## Weekly Update Template
 

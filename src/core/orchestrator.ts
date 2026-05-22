@@ -218,6 +218,13 @@ async function writeReleaseArtifacts(rootDir: string) {
   );
 }
 
+function requireApiDeployEnabled(options?: { requireApiDeploy?: boolean }): boolean {
+  return (
+    options?.requireApiDeploy === true ||
+    process.env.DEXTER_REQUIRE_API_DEPLOY === "true"
+  );
+}
+
 export async function runDexter(
   rootDir: string,
   rawInput: IdeaInput,
@@ -225,6 +232,7 @@ export async function runDexter(
     replanMaxWaves?: number;
     intakeBrief?: IntakeBrief;
     skipIntakePipeline?: boolean;
+    requireApiDeploy?: boolean;
   },
 ) {
   const startedAtMs = Date.now();
@@ -636,6 +644,12 @@ export async function runDexter(
     environment: process.env.DEXTER_DEPLOY_ENV ?? "production",
     tenantId: tenant.tenantId,
   });
+  if (requireApiDeployEnabled(options) && deployment.mode !== "api") {
+    await controlPlane.rollback(idea.project);
+    throw new Error(
+      `Closed-loop deploy requires API mode (set DEXTER_COOLIFY_API_URL + DEXTER_COOLIFY_TOKEN). Got mode=${deployment.mode}.`,
+    );
+  }
   const healthUrls = [
     ...(process.env.DEXTER_DEPLOY_HEALTH_URLS ?? "").split(","),
     process.env.DEXTER_DEPLOY_HEALTH_URL ?? "",

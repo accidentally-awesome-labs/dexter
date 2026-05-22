@@ -50,10 +50,18 @@ export async function loadSoakStatus(rootDir: string, targetStreak: number): Pro
       history: [],
     };
   }
-  const current = (await fs.readJson(file)) as SoakStatus;
+  const current = (await fs.readJson(file)) as Partial<SoakStatus>;
   return {
-    ...current,
+    schemaVersion: "1.0",
     targetStreak,
+    currentStreak: current.currentStreak ?? 0,
+    longestStreak: current.longestStreak ?? 0,
+    totalCycles: current.totalCycles ?? 0,
+    gateSatisfied: current.gateSatisfied ?? false,
+    lastCycleAt: current.lastCycleAt,
+    lastCyclePassed: current.lastCyclePassed,
+    lastFailureReason: current.lastFailureReason,
+    history: Array.isArray(current.history) ? current.history : [],
   };
 }
 

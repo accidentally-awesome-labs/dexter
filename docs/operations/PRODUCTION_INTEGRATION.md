@@ -131,7 +131,30 @@ npm run ops:status
 npm run alert:route -- --dry-run false
 ```
 
-### 5. Continuous reliability
+### 5. Closed-loop E2E (idea → deploy)
+
+Proves the full factory path with a **real** Coolify API deploy (not simulated):
+
+```bash
+# Terminal 1: bridge must be running
+npm run coolify:bridge
+
+# Terminal 2: one command
+npm run factory:e2e
+```
+
+Requirements:
+
+- `infra/coolify/apps.json` maps your Coolify app name (default `dexter`)
+- `DEXTER_COOLIFY_API_URL` + `DEXTER_COOLIFY_TOKEN` in `.env`
+- Optional `DEXTER_DEPLOY_HEALTH_URL` (otherwise resolves app FQDN or Coolify `/api/health`)
+
+Success writes `artifacts/release/CLOSED_LOOP_E2E.json` with `deploymentMode: "api"` and `passed: true`.
+
+**v1.0 scope:** See [releases/v1.0.0/RELEASE_SCOPE.md](../releases/v1.0.0/RELEASE_SCOPE.md).  
+**v1.1 product loop (deploy built artifact + app URL health):** [planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md).
+
+### 6. Continuous reliability
 
 - Schedule `npm run soak:schedule` (see `.github/workflows/soak-schedule.yml`).
 - Monitor `npm run operational:kpi` and `npm run ops:status`.

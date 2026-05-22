@@ -1,6 +1,20 @@
-# Dexter v1 Autonomous Factory
+# Dexter v1 — Policy-Gated Software Factory
 
-Dexter is a polyglot-ready autonomous software factory inspired by Ralph-loop execution patterns and skill-driven planning pipelines. It runs through:
+Dexter is a polyglot-ready **software factory runtime**: intake, planning, policy-gated execution, verification, release governance, and Coolify production integration. It is inspired by Ralph-loop execution patterns and skill-driven planning pipelines.
+
+### What v1.0 includes
+
+- Full factory path: discovery → planning → execution → verification → release artifacts
+- Staged promotion (`dev → staging → canary → prod`), deploy authorization, audit log, soak/KPI ops
+- **Coolify integration** (bridge + API deploy) when `.env` and `infra/coolify/apps.json` are configured
+- **`npm run factory:e2e`** — proves idea → factory run → **real API deploy** ([scope](./docs/releases/v1.0.0/RELEASE_SCOPE.md))
+
+### What v1.0 does not include (see v1.1 plan)
+
+- Hands-off “idea → brand-new app URL” with zero Coolify prep or placeholder apps
+- Deploying **only** the artifact built in the same run (planned: [Track B](./docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md))
+
+The pipeline stages:
 
 1. Discovery and deep-research artifact generation
 2. Gapless planning and atomic task graph compilation
@@ -15,6 +29,10 @@ npm install
 npm run run:sample
 npm test
 ```
+
+**Shipping v1.0.0?** Use the [GA checklist](./docs/releases/v1.0.0/GA_CHECKLIST.md).  
+**Production wiring:** [PRODUCTION_INTEGRATION.md](./docs/operations/PRODUCTION_INTEGRATION.md).  
+**Closed-loop E2E:** `npm run coolify:bridge` (terminal 1) then `npm run factory:e2e` (terminal 2).
 
 ## Core Commands
 
@@ -41,6 +59,9 @@ npm test
 - `npm run coolify:bridge` - start HTTP bridge that calls Coolify API for deploy/rollback
 - `npm run coolify:deploy` - deploy app via Coolify API (uses `infra/coolify/apps.json`)
 - `npm run coolify:rollback` - restart or redeploy app via Coolify API
+- `npm run coolify:setup` - discover Coolify apps and merge bridge env into `.env`
+- `npm run factory:e2e` - closed-loop E2E: intake → factory run → API deploy proof
+- `npm run alert:live-drill` - deliver test alerts to configured webhooks (non-dry-run)
 - `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
 - `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
 - `npm run intake:normalize:template` - normalize a template-driven request into intake brief

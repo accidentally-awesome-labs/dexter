@@ -42,6 +42,14 @@ artifacts/release/PROMOTION_PIPELINE_LOCAL_REPORT*.json
 artifacts/release/PROMOTION_PIPELINE_MANIFEST.json
 artifacts/release/PROMOTION_PIPELINE_MANIFEST.md
 artifacts/release/PROMOTION_REPEATABILITY.json
+artifacts/release/CLOSED_LOOP_E2E.json
+artifacts/release/CLOSED_LOOP_E2E.md
+artifacts/release/PRODUCTION_PREFLIGHT.json
+artifacts/release/PRODUCTION_PREFLIGHT.md
+artifacts/release/SOAK_SCHEDULE_STATE.json
+artifacts/release/SOAK_SCHEDULE_MANIFEST.md
+artifacts/execution/ALERT_DELIVERIES.jsonl
+artifacts/execution/ALERT_ROUTING.json
 artifacts/release/SLO_ROLLBACK_RESULT.json
 artifacts/release/SLO_ROLLBACK_RESULT.md
 artifacts/release/promotions/
