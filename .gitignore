@@ -60,3 +60,4 @@ artifacts/intake/CLARIFICATION_LOG.md
 artifacts/intake/INTAKE_TO_PLAN_MANIFEST.json
 artifacts/intake/INTAKE_EXECUTION_MANIFEST.json
 artifacts/intake/pilot-batch/
+infra/coolify/apps.json

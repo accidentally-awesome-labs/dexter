@@ -2,9 +2,19 @@
 
 Dexter's operational milestones are validated with local mocks. This guide wires **real** control planes, health checks, and alert destinations for bucket-2 production use.
 
+## Provider recommendation
+
+| Provider | Status | Use for |
+|----------|--------|---------|
+| **Coolify** | Implemented (`npm run coolify:bridge`) | dev, staging, canary, prod |
+| Dokploy | Not implemented | dev/staging only (future) |
+| Dokku | Not implemented | dev/staging only (future) |
+
+Start with **Coolify** — it is the only provider wired to the real API and the only one allowed for canary/prod in `DEPLOY_AUTH_POLICY.json`.
+
 ## Architecture
 
-Dexter does not call Coolify/Dokploy/Dokku APIs directly. It uses a **generic HTTP deploy contract**:
+Dexter uses a **generic HTTP deploy contract** toward the control plane adapter. For Coolify, run the included bridge that calls the Coolify API:
 
 | Method | Path | Auth | Body |
 |--------|------|------|------|
@@ -15,25 +25,32 @@ Implementation: `src/providers/deployment/coolify-api.ts`
 
 Your bridge (or hook scripts) must translate these calls into real provider actions.
 
-### Option A: HTTP bridge (recommended)
+### Option A: Coolify bridge (recommended)
 
-Deploy a small service that:
-
-1. Validates the Bearer token.
-2. On `/deploy`, triggers your CI/CD or control-plane deploy for `appName`.
-3. On `/rollback`, rolls back to the previous revision.
-4. Returns JSON: `{ "deploymentId": "...", "status": "ok", "revision": "..." }`.
-
-Point Dexter at the bridge:
+Dexter ships a bridge that calls Coolify `/api/v1`:
 
 ```bash
-export DEXTER_COOLIFY_API_URL=https://deploy-bridge.internal
-export DEXTER_COOLIFY_TOKEN=<secret>
+cp infra/coolify/apps.example.json infra/coolify/apps.json
+# edit application UUIDs
+
+export COOLIFY_ORIGIN=https://coolify.example
+export COOLIFY_API_TOKEN=<coolify-api-token>
+export DEXTER_BRIDGE_TOKEN=<bridge-secret>
+export DEXTER_COOLIFY_API_URL=http://127.0.0.1:9876
+export DEXTER_COOLIFY_TOKEN=$DEXTER_BRIDGE_TOKEN
+
+npm run coolify:bridge
 ```
+
+See `infra/coolify/bridge/README.md`.
 
 ### Option B: Shell hooks
 
-If `infra/coolify/hooks/deploy.sh` and `rollback.sh` invoke real tooling and exit 0, Dexter can use **hook** mode — but `promotion:pipeline` defaults to `--require-api true`, so hooks alone are not enough for full staged promotion unless you drop that flag.
+`infra/coolify/hooks/deploy.sh` and `rollback.sh` call the Coolify API via `npm run coolify:deploy` / `coolify:rollback`. Hook mode works for `deploy:self`, but `promotion:pipeline` defaults to `--require-api true`, so use the bridge for full staged promotion.
+
+### Option C: Custom HTTP bridge
+
+You can still deploy your own service implementing `POST /deploy` and `POST /rollback` if you do not use the built-in Coolify bridge.
 
 ## Environment setup
 
