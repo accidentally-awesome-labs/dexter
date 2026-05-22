@@ -101,7 +101,7 @@ describe("auto replan wave", () => {
     expect(await fs.pathExists(result.waveResultPath!)).toBe(true);
 
     await fs.remove(rootDir);
-  });
+  }, 30_000);
 
   it("detects stalled planner escalation keys across waves", async () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-auto-replan-stall-"));

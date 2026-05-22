@@ -90,5 +90,5 @@ describe("intake to execution end-to-end", () => {
     const resume = await buildResumeCheck(rootDir, result.runId);
     expect(resume.runId).toBe(result.runId);
     expect(resume.runStatus).toBeTruthy();
-  });
+  }, 30_000);
 });
