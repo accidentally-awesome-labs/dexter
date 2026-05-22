@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "promotions": [
+    {
+      "promotionId": "promotion-fixture-001",
+      "targetService": "dexter",
+      "appName": "dexter",
+      "generatedAt": "2026-01-01T00:00:00.000Z",
+      "passed": true,
+      "manifestPath": "artifacts/release/promotions/promotion-fixture-001.json",
+      "stages": ["dev", "staging", "canary", "prod"]
+    }
+  ]
+}

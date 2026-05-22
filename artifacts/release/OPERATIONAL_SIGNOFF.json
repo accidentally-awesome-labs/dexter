@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "milestone": "operational",
+  "generatedAt": "2026-05-22T01:51:18.505Z",
+  "passed": true,
+  "gates": [
+    {
+      "id": "autonomy",
+      "description": "Autonomy (no manual decomposition/intervention)",
+      "passed": true,
+      "detail": "pilot autoDecompositionRate=1 (10 requests)"
+    },
+    {
+      "id": "reliability",
+      "description": "Reliability (successful runs, rolling window)",
+      "passed": true,
+      "detail": "100/100 successful in last 100 runs (verificationPassed or healthy)"
+    },
+    {
+      "id": "safety",
+      "description": "Safety (policy + provenance + rollback readiness)",
+      "passed": true,
+      "detail": "3/3 promotions compliant; provenance=true, attestation=true"
+    },
+    {
+      "id": "recovery_mttr",
+      "description": "Recovery (blocked-run MTTR)",
+      "passed": true,
+      "detail": "No blocked recovery samples (0); treated as no open MTTR debt"
+    },
+    {
+      "id": "governance",
+      "description": "Governance (waiver metadata + expiry)",
+      "passed": true,
+      "detail": "governancePassed=true, no waived escalations"
+    },
+    {
+      "id": "cross_milestone_kpi_artifact",
+      "description": "Cross-milestone KPI report generated",
+      "passed": true,
+      "detail": "/Users/salar/Projects/dexter/artifacts/release/CROSS_MILESTONE_KPI.json"
+    }
+  ],
+  "kpi": {
+    "passed": true,
+    "reportPath": "/Users/salar/Projects/dexter/artifacts/release/CROSS_MILESTONE_KPI.json"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Cross-milestone KPI thresholds for fully operational Dexter.",
+  "targets": {
+    "autonomyRateMin": 0.85,
+    "reliabilitySuccessRateMin": 0.95,
+    "safetyPromotionComplianceMin": 1,
+    "governanceWaiverComplianceMin": 1,
+    "blockedRunMttrMaxMs": 1800000
+  },
+  "measurement": {
+    "reliabilityWindowRuns": 100,
+    "minReliabilitySamples": 20,
+    "minBlockedRecoverySamples": 1,
+    "allowSoakFallbackForReliability": true
+  }
+}

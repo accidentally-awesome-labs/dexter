@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-22T01:51:18.504Z",
+  "passed": true,
+  "metrics": [
+    {
+      "id": "autonomy",
+      "title": "Autonomy (no manual decomposition/intervention)",
+      "value": 1,
+      "target": 0.85,
+      "passed": true,
+      "unit": "ratio",
+      "detail": "pilot autoDecompositionRate=1 (10 requests)",
+      "source": "artifacts/intake/pilot-batch/PILOT_BATCH_REPORT.json"
+    },
+    {
+      "id": "reliability",
+      "title": "Reliability (successful runs, rolling window)",
+      "value": 1,
+      "target": 0.95,
+      "passed": true,
+      "unit": "ratio",
+      "detail": "100/100 successful in last 100 runs (verificationPassed or healthy)",
+      "source": "runs/*/run_summary.json"
+    },
+    {
+      "id": "safety",
+      "title": "Safety (policy + provenance + rollback readiness)",
+      "value": 1,
+      "target": 1,
+      "passed": true,
+      "unit": "ratio",
+      "detail": "3/3 promotions compliant; provenance=true, attestation=true",
+      "source": "artifacts/release/PROMOTION_HISTORY.json"
+    },
+    {
+      "id": "recovery_mttr",
+      "title": "Recovery (blocked-run MTTR)",
+      "value": null,
+      "target": 1800000,
+      "passed": true,
+      "unit": "milliseconds",
+      "detail": "No blocked recovery samples (0); treated as no open MTTR debt",
+      "source": "/Users/salar/Projects/dexter/artifacts/execution/ESCALATION_STATE.json"
+    },
+    {
+      "id": "governance",
+      "title": "Governance (waiver metadata + expiry)",
+      "value": 1,
+      "target": 1,
+      "passed": true,
+      "unit": "ratio",
+      "detail": "governancePassed=true, no waived escalations",
+      "source": "artifacts/release/GOVERNANCE_VERIFICATION.json"
+    }
+  ],
+  "sources": {
+    "policy": "/Users/salar/Projects/dexter/docs/operations/CROSS_MILESTONE_KPI_POLICY.json",
+    "pilotBatch": "/Users/salar/Projects/dexter/artifacts/intake/pilot-batch/PILOT_BATCH_REPORT.json",
+    "soakTrends": "/Users/salar/Projects/dexter/artifacts/release/SOAK_TRENDS.json",
+    "promotionHistory": "/Users/salar/Projects/dexter/artifacts/release/PROMOTION_HISTORY.json",
+    "escalationState": "/Users/salar/Projects/dexter/artifacts/execution/ESCALATION_STATE.json"
+  }
+}

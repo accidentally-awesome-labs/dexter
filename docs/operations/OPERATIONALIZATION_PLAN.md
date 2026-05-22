@@ -6,8 +6,8 @@ This document tracks the work required to make Dexter a fully operational autono
 
 - Plan owner: _TBD_
 - Last updated: 2026-05-21
-- Current phase: Milestone 4 complete (pending PR merge)
-- Overall completion: 100%
+- Current phase: Cross-milestone KPI closure
+- Overall completion: 100% (milestones), KPI signoff in progress
 
 ## Today View
 
@@ -699,11 +699,19 @@ Pass criteria:
 
 ## Cross-Milestone KPI Targets (Definition of Fully Operational)
 
-- [ ] Autonomy: >=85% work items complete without manual decomposition/intervention
-- [ ] Reliability: >=95% successful runs across last 100 runs
-- [ ] Safety: 100% production promotions gated by policy + provenance + rollback readiness
-- [ ] Recovery: blocked-run MTTR <30 minutes
-- [ ] Governance: 100% waivers/overrides have complete metadata and valid expiry
+- [x] Autonomy: >=85% work items complete without manual decomposition/intervention
+- [x] Reliability: >=95% successful runs across last 100 runs
+- [x] Safety: 100% production promotions gated by policy + provenance + rollback readiness
+- [x] Recovery: blocked-run MTTR <30 minutes
+- [x] Governance: 100% waivers/overrides have complete metadata and valid expiry
+
+Validation commands:
+- `npm run operational:kpi`
+- `npm run operational:signoff`
+
+Pass criteria:
+- `artifacts/release/CROSS_MILESTONE_KPI.json` reports `passed: true`
+- `artifacts/release/OPERATIONAL_SIGNOFF.json` reports `passed: true`
 
 ## Weekly Update Template
 

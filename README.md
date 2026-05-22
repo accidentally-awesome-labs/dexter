@@ -35,6 +35,8 @@ npm test
 - `npm run milestone:m1:signoff` - verify Milestone 1 acceptance gates and write signoff artifact
 - `npm run milestone:m3:signoff` - verify Milestone 3 reliability gates (30+ soak passes, KPI, learning controls) and write `MILESTONE_3_SIGNOFF.md`
 - `npm run milestone:m4:signoff` - verify Milestone 4 control-plane gates and write `MILESTONE_4_SIGNOFF.md`
+- `npm run operational:kpi` - measure cross-milestone KPIs (autonomy, reliability, safety, recovery, governance)
+- `npm run operational:signoff` - verify fully operational KPI targets and write `OPERATIONAL_SIGNOFF.md`
 - `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
 - `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
 - `npm run intake:normalize:template` - normalize a template-driven request into intake brief

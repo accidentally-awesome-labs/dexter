@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "promotionId": "promotion-fixture-001",
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "appName": "dexter",
+  "controlPlane": "coolify",
+  "targetService": "dexter",
+  "releaseDecision": "GO",
+  "unresolvedEscalations": 0,
+  "unresolvedOperatorHigh": 0,
+  "stages": [
+    {
+      "environment": "dev",
+      "sourceEnvironment": "dev",
+      "approverRole": "operator",
+      "exitCode": 0,
+      "artifacts": {}
+    },
+    {
+      "environment": "staging",
+      "sourceEnvironment": "dev",
+      "approverRole": "operator",
+      "exitCode": 0,
+      "artifacts": {}
+    },
+    {
+      "environment": "canary",
+      "sourceEnvironment": "staging",
+      "approverRole": "release-manager",
+      "exitCode": 0,
+      "artifacts": {
+        "canaryGateResult": "artifacts/release/CANARY_GATE_RESULT.json"
+      }
+    },
+    {
+      "environment": "prod",
+      "sourceEnvironment": "canary",
+      "approverRole": "release-manager",
+      "exitCode": 0,
+      "artifacts": {}
+    }
+  ],
+  "artifactTrail": ["artifacts/operations/AUDIT_LOG.jsonl"],
+  "audit": {
+    "logPath": "artifacts/operations/AUDIT_LOG.jsonl",
+    "eventsBefore": 1,
+    "eventsAfter": 4,
+    "eventsDelta": 3,
+    "pipelineActions": ["ops-status", "release-decision", "governance-verify"]
+  },
+  "passed": true
+}
