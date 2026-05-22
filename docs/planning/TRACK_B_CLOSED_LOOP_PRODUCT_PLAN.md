@@ -1,6 +1,6 @@
 # Track B — Closed-Loop Product Factory (v1.1 Plan)
 
-**Status:** In progress — Week 1 (B1 + B2.1 + B3a landed on `v1.0.0-rc1`, not yet tagged v1.1)  
+**Status:** In progress — Week 1 shipped on `v1.0.0-rc1` (#9); schema 1.1 E2E validated locally (see `docs/releases/v1.0.0-rc1/CLOSED_LOOP_E2E_PROOF.json`)  
 **Owner:** _TBD_  
 **Depends on:** [v1.0.0 RELEASE_SCOPE.md](../releases/v1.0.0/RELEASE_SCOPE.md) (factory + integration shipped)  
 **Goal:** One credible product loop — **idea → built artifact → deploy that artifact → health on the app URL** — without pre-provisioned placeholder apps or control-plane-only health.
