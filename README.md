@@ -38,6 +38,9 @@ npm test
 - `npm run operational:kpi` - measure cross-milestone KPIs (autonomy, reliability, safety, recovery, governance)
 - `npm run operational:signoff` - verify fully operational KPI targets and write `OPERATIONAL_SIGNOFF.md`
 - `npm run production:preflight` - validate env, control plane reachability, and release gates before real promotions
+- `npm run coolify:bridge` - start HTTP bridge that calls Coolify API for deploy/rollback
+- `npm run coolify:deploy` - deploy app via Coolify API (uses `infra/coolify/apps.json`)
+- `npm run coolify:rollback` - restart or redeploy app via Coolify API
 - `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
 - `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
 - `npm run intake:normalize:template` - normalize a template-driven request into intake brief
