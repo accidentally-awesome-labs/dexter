@@ -1,0 +1,26 @@
+name: soak-schedule
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  scheduled-soak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run scheduled soak cycle
+        run: npm run soak:schedule
+      - name: Refresh reliability deltas
+        run: npm run soak:reliability
+      - name: Evaluate release decision gates
+        run: npm run release:decision

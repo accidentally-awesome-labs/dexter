@@ -36,6 +36,7 @@ import { verifyGovernance } from "./operations/governance-verify.js";
 import { verifyPromotionRepeatability } from "./operations/promotion-repeatability.js";
 import { writeOperatorWorkflowReadiness } from "./operations/operator-workflow-readiness.js";
 import { generateMilestone1Signoff } from "./operations/milestone-signoff.js";
+import { generateMilestone3Signoff } from "./operations/milestone-3-signoff.js";
 import { githubIssueAdapter } from "./intake/adapters/issue.js";
 import { cliPromptAdapter } from "./intake/adapters/cli-prompt.js";
 import { templateAdapter } from "./intake/adapters/template.js";
@@ -859,27 +860,48 @@ async function main() {
 
   if (command === "milestone-signoff") {
     const milestone = parseArg("--milestone", "1");
-    if (milestone !== "1") {
-      throw new Error("Only milestone 1 signoff is implemented.");
+    if (milestone === "1") {
+      const report = await generateMilestone1Signoff(rootDir);
+      if (!report.passed) {
+        const failed = report.gates.filter((gate) => !gate.passed).map((gate) => gate.id);
+        throw new Error(`Milestone 1 signoff failed: ${failed.join(", ")}`);
+      }
+      console.log(
+        JSON.stringify(
+          {
+            passed: report.passed,
+            milestone: report.milestone,
+            gates: report.gates.length,
+            reportPath: path.join(rootDir, "artifacts", "release", "MILESTONE_1_SIGNOFF.json"),
+          },
+          null,
+          2,
+        ),
+      );
+      return;
     }
-    const report = await generateMilestone1Signoff(rootDir);
-    if (!report.passed) {
-      const failed = report.gates.filter((gate) => !gate.passed).map((gate) => gate.id);
-      throw new Error(`Milestone 1 signoff failed: ${failed.join(", ")}`);
+    if (milestone === "3") {
+      const report = await generateMilestone3Signoff(rootDir);
+      if (!report.passed) {
+        const failed = report.gates.filter((gate) => !gate.passed).map((gate) => gate.id);
+        throw new Error(`Milestone 3 signoff failed: ${failed.join(", ")}`);
+      }
+      console.log(
+        JSON.stringify(
+          {
+            passed: report.passed,
+            milestone: report.milestone,
+            gates: report.gates.length,
+            soak: report.soak,
+            reportPath: path.join(rootDir, "artifacts", "release", "MILESTONE_3_SIGNOFF.json"),
+          },
+          null,
+          2,
+        ),
+      );
+      return;
     }
-    console.log(
-      JSON.stringify(
-        {
-          passed: report.passed,
-          milestone: report.milestone,
-          gates: report.gates.length,
-          reportPath: path.join(rootDir, "artifacts", "release", "MILESTONE_1_SIGNOFF.json"),
-        },
-        null,
-        2,
-      ),
-    );
-    return;
+    throw new Error("Unsupported --milestone. Use 1 or 3.");
   }
 
   if (command === "operator-readiness") {
@@ -1120,8 +1142,16 @@ async function main() {
         ),
         "",
         formatTable(
-          ["key", "status", "target", "priority", "reason", "lastRunId"],
-          result.items.map((item) => [item.key, item.status, item.target, item.priority, item.reason, item.lastRunId]),
+          ["key", "status", "target", "priority", "class", "reason", "lastRunId"],
+          result.items.map((item) => [
+            item.key,
+            item.status,
+            item.target,
+            item.priority,
+            item.failureClass ?? "unknown",
+            item.reason,
+            item.lastRunId,
+          ]),
         ),
       ].join("\n"),
     );

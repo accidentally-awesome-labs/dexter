@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-21T22:51:42.663Z",
+  "source": {
+    "statusPath": "artifacts/release/SOAK_STATUS.json",
+    "totalCyclesInSource": 434,
+    "historyCyclesUsed": 200
+  },
+  "rolling100": {
+    "windowType": "rolling100",
+    "windowKey": "rolling-100",
+    "periodStart": "2026-05-20T17:07:29.812Z",
+    "periodEnd": "2026-05-21T22:51:42.661Z",
+    "totalCycles": 100,
+    "passedCycles": 99,
+    "failedCycles": 1,
+    "passRate": 0.99,
+    "avgDurationMs": 2559950,
+    "stepFailureCounts": {
+      "api-drill-local": 1
+    },
+    "lastUpdatedAt": "2026-05-21T22:51:42.663Z"
+  },
+  "daily": [
+    {
+      "windowType": "daily",
+      "windowKey": "2026-05-20",
+      "periodStart": "2026-05-20T17:06:35.361Z",
+      "periodEnd": "2026-05-20T23:58:32.677Z",
+      "totalCycles": 191,
+      "passedCycles": 191,
+      "failedCycles": 0,
+      "passRate": 1,
+      "avgDurationMs": 3336466,
+      "stepFailureCounts": {},
+      "lastUpdatedAt": "2026-05-21T22:51:42.663Z"
+    },
+    {
+      "windowType": "daily",
+      "windowKey": "2026-05-21",
+      "periodStart": "2026-05-21T00:13:34.791Z",
+      "periodEnd": "2026-05-21T22:51:42.661Z",
+      "totalCycles": 9,
+      "passedCycles": 8,
+      "failedCycles": 1,
+      "passRate": 0.889,
+      "avgDurationMs": 6116,
+      "stepFailureCounts": {
+        "api-drill-local": 1
+      },
+      "lastUpdatedAt": "2026-05-21T22:51:42.663Z"
+    }
+  ],
+  "weekly": [
+    {
+      "windowType": "weekly",
+      "windowKey": "2026-W21",
+      "periodStart": "2026-05-20T17:06:35.361Z",
+      "periodEnd": "2026-05-21T22:51:42.661Z",
+      "totalCycles": 200,
+      "passedCycles": 199,
+      "failedCycles": 1,
+      "passRate": 0.995,
+      "avgDurationMs": 3186600,
+      "stepFailureCounts": {
+        "api-drill-local": 1
+      },
+      "lastUpdatedAt": "2026-05-21T22:51:42.663Z"
+    }
+  ],
+  "query": {
+    "dailyKeys": [
+      "2026-05-20",
+      "2026-05-21"
+    ],
+    "weeklyKeys": [
+      "2026-W21"
+    ],
+    "rolling100CycleCount": 100
+  }
+}

@@ -4,9 +4,10 @@ import fs from "fs-extra";
 import { describe, expect, it } from "vitest";
 import { buildEscalationReport, writeEscalationReport } from "../src/skills/execution/escalation-report.js";
 import type { ExecutionResult } from "../src/protocols/types.js";
+import { loadRegressionPreventionPolicy } from "../src/verification/regression-prevention-policy.js";
 
 describe("escalation report", () => {
-  it("includes only required escalations", () => {
+  it("includes only required escalations", async () => {
     const results: ExecutionResult[] = [
       {
         taskId: "t1",
@@ -50,16 +51,23 @@ describe("escalation report", () => {
         attempts: 2,
       },
     ];
-    const report = buildEscalationReport(results);
+    const report = await buildEscalationReport(results, process.cwd());
     expect(report.totalTasks).toBe(3);
     expect(report.requiredEscalations).toBe(2);
     expect(report.requiredByTarget.operator).toBe(1);
     expect(report.requiredByTarget.planner).toBe(1);
     expect(report.items.map((item) => item.taskId)).toEqual(["t1", "t3"]);
+    expect(report.items[0]?.failureClass).toBe("execution.command_failed");
+    expect(report.items[0]?.remediation.retryGuidance.length).toBeGreaterThan(0);
   });
 
   it("writes escalation artifacts for supervisor handoff", async () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-escalations-root-"));
+    const policy = await loadRegressionPreventionPolicy(process.cwd());
+    await fs.ensureDir(path.join(rootDir, "docs", "operations"));
+    await fs.writeJson(path.join(rootDir, "docs", "operations", "REGRESSION_PREVENTION_TEMPLATES.json"), policy, {
+      spaces: 2,
+    });
     const runDir = path.join(rootDir, "runs", "test");
     await fs.ensureDir(runDir);
     const results: ExecutionResult[] = [

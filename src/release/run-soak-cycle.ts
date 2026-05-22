@@ -1,45 +1,20 @@
 import path from "node:path";
 import { spawn } from "node:child_process";
 import fs from "fs-extra";
-
-interface SoakStepResult {
-  name: string;
-  command: string;
-  exitCode: number;
-  durationMs: number;
-}
-
-interface SoakCycleResult {
-  at: string;
-  passed: boolean;
-  durationMs: number;
-  steps: SoakStepResult[];
-  failureReason?: string;
-}
-
-interface SoakStatus {
-  schemaVersion: "1.0";
-  targetStreak: number;
-  currentStreak: number;
-  longestStreak: number;
-  totalCycles: number;
-  gateSatisfied: boolean;
-  lastCycleAt?: string;
-  lastCyclePassed?: boolean;
-  lastFailureReason?: string;
-  history: SoakCycleResult[];
-}
+import { updateSoakReliability } from "./soak-reliability.js";
+import { updateSoakTrends } from "./soak-trends.js";
+import type { SoakCycleResult, SoakStatus, SoakStepResult } from "./soak-types.js";
 
 function parseArg(flag: string, fallback = ""): string {
   const idx = process.argv.indexOf(flag);
   return idx >= 0 ? (process.argv[idx + 1] ?? fallback) : fallback;
 }
 
-function statusPath(rootDir: string): string {
+export function statusPath(rootDir: string): string {
   return path.join(rootDir, "artifacts", "release", "SOAK_STATUS.json");
 }
 
-function statusMarkdownPath(rootDir: string): string {
+export function statusMarkdownPath(rootDir: string): string {
   return path.join(rootDir, "artifacts", "release", "SOAK_STATUS.md");
 }
 
@@ -61,7 +36,7 @@ async function runStep(name: string, command: string): Promise<SoakStepResult> {
   };
 }
 
-async function loadStatus(rootDir: string, targetStreak: number): Promise<SoakStatus> {
+export async function loadSoakStatus(rootDir: string, targetStreak: number): Promise<SoakStatus> {
   const file = statusPath(rootDir);
   if (!(await fs.pathExists(file))) {
     return {
@@ -81,7 +56,7 @@ async function loadStatus(rootDir: string, targetStreak: number): Promise<SoakSt
   };
 }
 
-function toMarkdown(status: SoakStatus): string {
+export function toSoakStatusMarkdown(status: SoakStatus): string {
   const lines = [
     "# Soak Status",
     "",
@@ -107,11 +82,27 @@ function toMarkdown(status: SoakStatus): string {
   return lines.join("\n");
 }
 
-async function main() {
-  const rootDir = process.cwd();
-  const targetStreakRaw = parseArg("--target-streak", process.env.DEXTER_SOAK_TARGET_STREAK ?? "10");
-  const targetStreak = Math.max(1, Number.parseInt(targetStreakRaw, 10) || 10);
-  const enforceGate = parseArg("--enforce-gate", "true").toLowerCase() !== "false";
+export interface RunSoakCycleOptions {
+  rootDir: string;
+  targetStreak?: number;
+  enforceGate?: boolean;
+}
+
+export interface RunSoakCycleResult {
+  statusPath: string;
+  markdownPath: string;
+  trendsPath: string;
+  reliabilityPath: string;
+  status: SoakStatus;
+  cycle: SoakCycleResult;
+  reliabilityStatus: string;
+  warningCount: number;
+}
+
+export async function runSoakCycle(options: RunSoakCycleOptions): Promise<RunSoakCycleResult> {
+  const rootDir = options.rootDir;
+  const targetStreak = Math.max(1, options.targetStreak ?? 10);
+  const enforceGate = options.enforceGate ?? true;
   const suite = [
     { name: "trust-gates", command: "npm run -s trust:gates" },
     { name: "api-drill-local", command: "npm run -s deploy:drill:api:local" },
@@ -141,7 +132,7 @@ async function main() {
     failureReason,
   };
 
-  const previous = await loadStatus(rootDir, targetStreak);
+  const previous = await loadSoakStatus(rootDir, targetStreak);
   const currentStreak = cycle.passed ? previous.currentStreak + 1 : 0;
   const next: SoakStatus = {
     schemaVersion: "1.0",
@@ -158,29 +149,63 @@ async function main() {
 
   await fs.ensureDir(path.dirname(statusPath(rootDir)));
   await fs.writeJson(statusPath(rootDir), next, { spaces: 2 });
-  await fs.writeFile(statusMarkdownPath(rootDir), toMarkdown(next));
-
-  console.log(
-    JSON.stringify(
-      {
-        statusPath: statusPath(rootDir),
-        markdownPath: statusMarkdownPath(rootDir),
-        targetStreak: next.targetStreak,
-        currentStreak: next.currentStreak,
-        gateSatisfied: next.gateSatisfied,
-        lastCyclePassed: next.lastCyclePassed,
-        lastFailureReason: next.lastFailureReason ?? null,
-      },
-      null,
-      2,
-    ),
-  );
+  await fs.writeFile(statusMarkdownPath(rootDir), toSoakStatusMarkdown(next));
+  const { trendsPath, trends } = await updateSoakTrends(rootDir, next);
+  const { jsonPath: reliabilityPath, report: reliability } = await updateSoakReliability(rootDir, {
+    trends,
+    status: next,
+  });
 
   if (enforceGate && !next.gateSatisfied) {
     throw new Error(
       `Soak gate not yet satisfied: current streak ${next.currentStreak}/${next.targetStreak}. Continue running soak cycles.`,
     );
   }
+
+  return {
+    statusPath: statusPath(rootDir),
+    markdownPath: statusMarkdownPath(rootDir),
+    trendsPath,
+    reliabilityPath,
+    status: next,
+    cycle,
+    reliabilityStatus: reliability.reliabilityStatus,
+    warningCount: reliability.warnings.length,
+  };
+}
+
+async function main() {
+  const rootDir = process.cwd();
+  const targetStreakRaw = parseArg("--target-streak", process.env.DEXTER_SOAK_TARGET_STREAK ?? "10");
+  const targetStreak = Math.max(1, Number.parseInt(targetStreakRaw, 10) || 10);
+  const enforceGate = parseArg("--enforce-gate", "true").toLowerCase() !== "false";
+  const result = await runSoakCycle({ rootDir, targetStreak, enforceGate });
+  const trends = await fs.readJson(result.trendsPath);
+
+  console.log(
+    JSON.stringify(
+      {
+        statusPath: result.statusPath,
+        markdownPath: result.markdownPath,
+        trendsPath: result.trendsPath,
+        reliabilityPath: result.reliabilityPath,
+        targetStreak: result.status.targetStreak,
+        currentStreak: result.status.currentStreak,
+        gateSatisfied: result.status.gateSatisfied,
+        lastCyclePassed: result.status.lastCyclePassed,
+        lastFailureReason: result.status.lastFailureReason ?? null,
+        reliabilityStatus: result.reliabilityStatus,
+        warningCount: result.warningCount,
+        trendWindows: {
+          daily: trends.query?.dailyKeys?.length ?? 0,
+          weekly: trends.query?.weeklyKeys?.length ?? 0,
+          rolling100: trends.query?.rolling100CycleCount ?? 0,
+        },
+      },
+      null,
+      2,
+    ),
+  );
 }
 
 main().catch((error) => {

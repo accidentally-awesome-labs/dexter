@@ -2,6 +2,10 @@ import path from "node:path";
 import fs from "fs-extra";
 import { readCanaryGateStatus } from "../operations/canary-gate.js";
 import { readSloRollbackStatus } from "../operations/slo-rollback.js";
+import { loadFlakyQuarantineReport } from "../verification/flaky-quarantine.js";
+import { loadSoakReliabilitySummary } from "../release/soak-reliability.js";
+import { loadSoakScheduleState } from "../release/soak-schedule.js";
+import { loadReliabilityKpiSummary } from "../release/reliability-kpi.js";
 
 type EscalationStatus = "open" | "in_progress" | "resolved" | "waived";
 type EscalationTarget = "operator" | "planner";
@@ -96,6 +100,10 @@ export async function writeOpsStatusArtifact(options: {
   const replan = (await fs.pathExists(replanPath)) ? ((await fs.readJson(replanPath)) as ReplanSummary) : null;
   const canaryGate = await readCanaryGateStatus(rootDir);
   const sloRollback = await readSloRollbackStatus(rootDir);
+  const flakyQuarantine = await loadFlakyQuarantineReport(rootDir);
+  const soakReliability = await loadSoakReliabilitySummary(rootDir);
+  const soakSchedule = await loadSoakScheduleState(rootDir);
+  const reliabilityKpi = await loadReliabilityKpiSummary(rootDir);
 
   const runStatus = (runSummary?.runStatus as RunStatus | undefined) ?? "unknown";
   const resumeAllowed = unresolved.length === 0 && runStatus === "healthy";
@@ -148,6 +156,43 @@ export async function writeOpsStatusArtifact(options: {
           executionCoherent: runSummary.intakeExecutionCoherent ?? intakeManifest?.coherence?.passed ?? null,
         }
       : null,
+    verification: {
+      flakyQuarantine: {
+        present: flakyQuarantine !== null,
+        quarantinedCount: flakyQuarantine?.quarantinedCount ?? 0,
+        blockingFlakyCount: flakyQuarantine?.blockingFlakyCount ?? 0,
+        lastEffectiveExitCode: flakyQuarantine?.lastRun?.effectiveExitCode ?? null,
+        artifactPath: path.join(rootDir, "artifacts", "verification", "FLAKY_QUARANTINE.json"),
+      },
+    },
+    soak: {
+      schedule: {
+        enabled: soakSchedule?.enabled ?? false,
+        nextDueAt: soakSchedule?.nextDueAt ?? null,
+        lastRunAt: soakSchedule?.lastRunAt ?? null,
+        lastRunResult: soakSchedule?.lastRunResult ?? null,
+        githubActionsCron: soakSchedule?.githubActionsCron ?? null,
+        manifestPath: path.join(rootDir, "artifacts", "release", "SOAK_SCHEDULE_MANIFEST.md"),
+      },
+      reliability: {
+        present: soakReliability.present,
+        status: soakReliability.reliabilityStatus,
+        warningCount: soakReliability.warningCount,
+        criticalWarningCount: soakReliability.criticalWarningCount,
+        rolling100PassRate: soakReliability.rolling100PassRate,
+        passRateDelta: soakReliability.passRateDelta,
+        consecutiveFailures: soakReliability.consecutiveFailures,
+        artifactPath: soakReliability.artifactPath,
+      },
+      kpi: {
+        present: reliabilityKpi.present,
+        gatesPassed: reliabilityKpi.gatesPassed,
+        topRiskClass: reliabilityKpi.topRiskClass,
+        mitigationCount: reliabilityKpi.mitigationCount,
+        soakPassRate: reliabilityKpi.soakPassRate,
+        artifactPath: reliabilityKpi.artifactPath,
+      },
+    },
     promotion: {
       canaryGate: {
         present: canaryGate.present,
@@ -210,6 +255,35 @@ export async function writeOpsStatusArtifact(options: {
             `- Attempted waves: ${payload.replan.attemptedWaves}`,
           ]
         : ["- No replan data for this run"]),
+      "",
+      "## Soak Schedule",
+      `- Enabled: ${payload.soak.schedule.enabled}`,
+      `- Next due: ${payload.soak.schedule.nextDueAt ?? "unknown"}`,
+      `- Last run: ${payload.soak.schedule.lastRunAt ?? "never"} (${payload.soak.schedule.lastRunResult ?? "n/a"})`,
+      `- GitHub cron: ${payload.soak.schedule.githubActionsCron ?? "unknown"}`,
+      "",
+      "## Reliability KPI",
+      `- Present: ${payload.soak.kpi.present}`,
+      `- Gates passed: ${payload.soak.kpi.gatesPassed}`,
+      `- Top risk class: ${payload.soak.kpi.topRiskClass ?? "unknown"}`,
+      `- Mitigation backlog items: ${payload.soak.kpi.mitigationCount}`,
+      `- Rolling-100 pass rate: ${payload.soak.kpi.soakPassRate ?? "unknown"}`,
+      `- Artifact: ${payload.soak.kpi.artifactPath}`,
+      "",
+      "## Soak Reliability",
+      `- Present: ${payload.soak.reliability.present}`,
+      `- Status: ${payload.soak.reliability.status ?? "unknown"}`,
+      `- Warnings: ${payload.soak.reliability.warningCount} (critical: ${payload.soak.reliability.criticalWarningCount})`,
+      `- Rolling-100 pass rate: ${payload.soak.reliability.rolling100PassRate ?? "unknown"} (delta: ${payload.soak.reliability.passRateDelta ?? "n/a"})`,
+      `- Consecutive failures: ${payload.soak.reliability.consecutiveFailures ?? "unknown"}`,
+      `- Artifact: ${payload.soak.reliability.artifactPath}`,
+      "",
+      "## Flaky Quarantine",
+      `- Present: ${payload.verification.flakyQuarantine.present}`,
+      `- Quarantined tests: ${payload.verification.flakyQuarantine.quarantinedCount}`,
+      `- Blocking flaky (regression-critical): ${payload.verification.flakyQuarantine.blockingFlakyCount}`,
+      `- Last effective test exit code: ${payload.verification.flakyQuarantine.lastEffectiveExitCode ?? "unknown"}`,
+      `- Artifact: ${payload.verification.flakyQuarantine.artifactPath}`,
       "",
       "## Canary Gate",
       `- Present: ${payload.promotion.canaryGate.present}`,

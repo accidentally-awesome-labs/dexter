@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Heuristic thresholds for flaky unit-test detection from rolling telemetry.",
+  "minObservations": 5,
+  "minPasses": 1,
+  "minFails": 1,
+  "minFlipRate": 0.2,
+  "highConfidenceThreshold": 0.7,
+  "maxRunsRetained": 200,
+  "stablePassRateThreshold": 0.98
+}

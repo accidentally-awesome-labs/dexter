@@ -1,6 +1,15 @@
 import path from "node:path";
 import fs from "fs-extra";
 import { buildMetricsReport } from "../metrics/aggregator.js";
+import { resolveFailureTaxonomyReport } from "../verification/failure-taxonomy.js";
+import { loadSoakReliabilitySummary } from "./soak-reliability.js";
+import {
+  loadReliabilityKpiReport,
+  loadReliabilityKpiSummary,
+  reliabilityKpiJsonPath,
+  reliabilityKpiMarkdownPath,
+  writeReliabilityKpiReport,
+} from "./reliability-kpi.js";
 
 interface GoNoGoThresholds {
   readinessPassRate: number;
@@ -151,6 +160,21 @@ export async function generateGoNoGoDecision(rootDir: string): Promise<{
   replanGateWaived: boolean;
 }> {
   const metrics = await buildMetricsReport(rootDir);
+  const taxonomy = await resolveFailureTaxonomyReport(rootDir);
+  const soakReliability = await loadSoakReliabilitySummary(rootDir);
+  const existingKpi = await loadReliabilityKpiReport(rootDir);
+  const kpi =
+    existingKpi?.kpi.gatesPassed === true
+      ? {
+          jsonPath: reliabilityKpiJsonPath(rootDir),
+          markdownPath: reliabilityKpiMarkdownPath(rootDir),
+          report: existingKpi,
+        }
+      : await writeReliabilityKpiReport(rootDir);
+  const soakGatePassed =
+    !soakReliability.present ||
+    (soakReliability.reliabilityStatus !== "critical" && soakReliability.criticalWarningCount === 0);
+  const kpiGatePassed = kpi.report.kpi.gatesPassed;
   const unresolvedEscalations = await readUnresolvedEscalations(rootDir);
   const replanOutcome = await readLatestReplanOutcome(rootDir);
   const replanWaiver = await readReplanOutcomeWaiver(rootDir);
@@ -161,7 +185,7 @@ export async function generateGoNoGoDecision(rootDir: string): Promise<{
   const replanGatePassed = !replanGateFailed || replanGateWaived;
   const { go, checks } = evaluate(metrics.report);
   const escalationGatePassed = unresolvedEscalations.length === 0;
-  const finalGo = go && escalationGatePassed && replanGatePassed;
+  const finalGo = go && escalationGatePassed && replanGatePassed && soakGatePassed && kpiGatePassed;
 
   const lines = [
     "# GO_NO_GO",
@@ -181,6 +205,8 @@ export async function generateGoNoGoDecision(rootDir: string): Promise<{
     ...checks.map((check) => `- [${check.pass ? "x" : " "}] ${check.name}: ${check.value} (${check.threshold})`),
     `- [${escalationGatePassed ? "x" : " "}] Unresolved required escalations: ${unresolvedEscalations.length} (must be 0)`,
     `- [${replanGatePassed ? "x" : " "}] Replan outcome: ${replanOutcome ?? "none"} (must not be stalled/max_waves unless waived)`,
+    `- [${soakGatePassed ? "x" : " "}] Soak reliability: ${soakReliability.reliabilityStatus ?? "n/a"} (critical warnings=${soakReliability.criticalWarningCount})`,
+    `- [${kpiGatePassed ? "x" : " "}] Reliability KPI gates: soak pass rate=${kpi.report.kpi.soakPassRate}, repeat-failure=${kpi.report.kpi.soakRepeatFailureRate}`,
     "",
     "## Unresolved Escalations",
     ...(unresolvedEscalations.length === 0
@@ -198,6 +224,24 @@ export async function generateGoNoGoDecision(rootDir: string): Promise<{
           `- expiresAt=${replanWaiver.expiresAt ?? "none"}`,
         ]
       : ["- None"]),
+    "",
+    "## Reliability KPI",
+    `- Report: ${kpi.markdownPath}`,
+    `- Gates passed: ${kpi.report.kpi.gatesPassed}`,
+    `- Top risks: ${kpi.report.topRisks.map((risk) => risk.taxonomyClass).join(", ") || "none"}`,
+    `- Mitigation backlog: ${kpi.report.mitigationBacklog.length} item(s)`,
+    "",
+    "## Soak Reliability",
+    `- Present: ${soakReliability.present}`,
+    `- Status: ${soakReliability.reliabilityStatus ?? "n/a"}`,
+    `- Rolling-100 pass rate: ${soakReliability.rolling100PassRate ?? "n/a"} (delta ${soakReliability.passRateDelta ?? "n/a"})`,
+    `- Consecutive failures: ${soakReliability.consecutiveFailures ?? "n/a"}`,
+    `- Artifact: ${soakReliability.artifactPath}`,
+    "",
+    "## Failure Taxonomy",
+    `- Report: ${taxonomy.markdownPath}`,
+    `- Total classified failures: ${taxonomy.report.totalFailures}`,
+    `- Top class: ${taxonomy.report.classSummaries[0]?.taxonomyClass ?? "n/a"} (${taxonomy.report.classSummaries[0]?.count ?? 0})`,
     "",
     "## Notes",
     "- This decision is based on current run telemetry and gate thresholds.",

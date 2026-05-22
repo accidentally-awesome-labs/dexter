@@ -33,6 +33,7 @@ npm test
 - `npm run operator:readiness` - summarize operator workflow readiness from ops + release artifacts
 - `npm run canary:rollback:drill` - force canary SLO breach and verify automatic rollback + audit capture
 - `npm run milestone:m1:signoff` - verify Milestone 1 acceptance gates and write signoff artifact
+- `npm run milestone:m3:signoff` - verify Milestone 3 reliability gates (30+ soak passes, KPI, learning controls) and write `MILESTONE_3_SIGNOFF.md`
 - `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
 - `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
 - `npm run intake:normalize:template` - normalize a template-driven request into intake brief
@@ -48,7 +49,11 @@ npm test
 - `npm run ops:status` - write consolidated operator status dashboard artifacts
 - `npm run resume:check` - inspect resume readiness for a run (`--latest true` supported)
 - `npm run trust:gates` - run failure-injection trust gate matrix and write report artifacts
-- `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`)
+- `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`) plus trend rollups (`SOAK_TRENDS.json`)
+- `npm run soak:schedule` - run a scheduled soak cycle when due (writes `SOAK_SCHEDULE_STATE.json`)
+- `npm run soak:reliability` - refresh run-to-run reliability deltas and warnings (`SOAK_RELIABILITY.json`)
+- `npm run reliability:kpi` - rolling-100 KPI review with top risks and prioritized mitigation backlog (`RELIABILITY_KPI.json`)
+- `npm run test:unit` - run unit tests with telemetry ingest, flaky scoring, and quarantine report (`FLAKY_QUARANTINE.json`)
 - `npm run benchmark:backend` - benchmark pluggable coding backends and select default
 - `npm run dogfood:run` - run multi-scenario dogfood benchmark
 - `npm run dogfood:metrics` - regenerate aggregated run metrics

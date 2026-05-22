@@ -60,18 +60,7 @@ export async function addLearning(rootDir: string, node: Omit<LearningNode, "id"
 }
 
 export async function retrieveLessons(rootDir: string, tags: string[], limit = 5): Promise<LearningNode[]> {
-  const file = graphPath(rootDir);
-  if (!(await fs.pathExists(file))) {
-    return [];
-  }
-
-  const data = (await fs.readJson(file)) as LearningNode[];
-  const score = (node: LearningNode) => {
-    const overlap = node.tags.filter((t) => tags.includes(t)).length;
-    return overlap * 2 + node.confidence;
-  };
-
-  return data
-    .sort((a, b) => score(b) - score(a))
-    .slice(0, limit);
+  const { retrieveLessonsForPlanning } = await import("./memory-contradiction.js");
+  const { lessons } = await retrieveLessonsForPlanning(rootDir, tags, limit);
+  return lessons.map((item) => item.node);
 }

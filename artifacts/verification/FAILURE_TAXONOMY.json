@@ -1,0 +1,1116 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-21T19:39:55.486Z",
+  "totalFailures": 122,
+  "unmappedCount": 0,
+  "allMapped": true,
+  "classSummaries": [
+    {
+      "taxonomyClass": "release.soak",
+      "title": "Soak cycle step failed",
+      "severity": "high",
+      "count": 122,
+      "share": 1
+    }
+  ],
+  "records": [
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.017Z",
+      "at": "2026-05-21T19:38:58.017Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.372Z",
+      "at": "2026-05-21T19:38:58.372Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.475Z",
+      "at": "2026-05-21T19:38:58.475Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.575Z",
+      "at": "2026-05-21T19:38:58.575Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.666Z",
+      "at": "2026-05-21T19:38:58.666Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.765Z",
+      "at": "2026-05-21T19:38:58.765Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.867Z",
+      "at": "2026-05-21T19:38:58.867Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:58.956Z",
+      "at": "2026-05-21T19:38:58.956Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.048Z",
+      "at": "2026-05-21T19:38:59.048Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.151Z",
+      "at": "2026-05-21T19:38:59.151Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.286Z",
+      "at": "2026-05-21T19:38:59.286Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.433Z",
+      "at": "2026-05-21T19:38:59.433Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.554Z",
+      "at": "2026-05-21T19:38:59.554Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.792Z",
+      "at": "2026-05-21T19:38:59.792Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:38:59.973Z",
+      "at": "2026-05-21T19:38:59.973Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.123Z",
+      "at": "2026-05-21T19:39:00.123Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.262Z",
+      "at": "2026-05-21T19:39:00.262Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.387Z",
+      "at": "2026-05-21T19:39:00.387Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.523Z",
+      "at": "2026-05-21T19:39:00.523Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.659Z",
+      "at": "2026-05-21T19:39:00.659Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.784Z",
+      "at": "2026-05-21T19:39:00.784Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:00.908Z",
+      "at": "2026-05-21T19:39:00.908Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.047Z",
+      "at": "2026-05-21T19:39:01.047Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.177Z",
+      "at": "2026-05-21T19:39:01.177Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.341Z",
+      "at": "2026-05-21T19:39:01.341Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.487Z",
+      "at": "2026-05-21T19:39:01.487Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.651Z",
+      "at": "2026-05-21T19:39:01.651Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.816Z",
+      "at": "2026-05-21T19:39:01.816Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:01.962Z",
+      "at": "2026-05-21T19:39:01.962Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:02.107Z",
+      "at": "2026-05-21T19:39:02.107Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:02.257Z",
+      "at": "2026-05-21T19:39:02.257Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:02.407Z",
+      "at": "2026-05-21T19:39:02.407Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:02.551Z",
+      "at": "2026-05-21T19:39:02.551Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:02.692Z",
+      "at": "2026-05-21T19:39:02.692Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:02.856Z",
+      "at": "2026-05-21T19:39:02.856Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:03.027Z",
+      "at": "2026-05-21T19:39:03.027Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:03.200Z",
+      "at": "2026-05-21T19:39:03.200Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:03.377Z",
+      "at": "2026-05-21T19:39:03.377Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:03.533Z",
+      "at": "2026-05-21T19:39:03.533Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:03.709Z",
+      "at": "2026-05-21T19:39:03.709Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:03.910Z",
+      "at": "2026-05-21T19:39:03.910Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:04.132Z",
+      "at": "2026-05-21T19:39:04.132Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:04.346Z",
+      "at": "2026-05-21T19:39:04.346Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:04.557Z",
+      "at": "2026-05-21T19:39:04.557Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:04.781Z",
+      "at": "2026-05-21T19:39:04.781Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:05.011Z",
+      "at": "2026-05-21T19:39:05.011Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:05.340Z",
+      "at": "2026-05-21T19:39:05.340Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:05.662Z",
+      "at": "2026-05-21T19:39:05.662Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:06.023Z",
+      "at": "2026-05-21T19:39:06.023Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:06.379Z",
+      "at": "2026-05-21T19:39:06.379Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:06.763Z",
+      "at": "2026-05-21T19:39:06.763Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:07.239Z",
+      "at": "2026-05-21T19:39:07.239Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:07.630Z",
+      "at": "2026-05-21T19:39:07.630Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:08.050Z",
+      "at": "2026-05-21T19:39:08.050Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:08.499Z",
+      "at": "2026-05-21T19:39:08.499Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:08.943Z",
+      "at": "2026-05-21T19:39:08.943Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:09.360Z",
+      "at": "2026-05-21T19:39:09.360Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:09.800Z",
+      "at": "2026-05-21T19:39:09.800Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:10.185Z",
+      "at": "2026-05-21T19:39:10.185Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:10.554Z",
+      "at": "2026-05-21T19:39:10.554Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:10.935Z",
+      "at": "2026-05-21T19:39:10.935Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:11.352Z",
+      "at": "2026-05-21T19:39:11.352Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:11.752Z",
+      "at": "2026-05-21T19:39:11.752Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:12.277Z",
+      "at": "2026-05-21T19:39:12.277Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:12.785Z",
+      "at": "2026-05-21T19:39:12.785Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:13.238Z",
+      "at": "2026-05-21T19:39:13.238Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:13.634Z",
+      "at": "2026-05-21T19:39:13.634Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:14.064Z",
+      "at": "2026-05-21T19:39:14.064Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:14.495Z",
+      "at": "2026-05-21T19:39:14.495Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:15.167Z",
+      "at": "2026-05-21T19:39:15.167Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:15.678Z",
+      "at": "2026-05-21T19:39:15.678Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:16.240Z",
+      "at": "2026-05-21T19:39:16.240Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:16.740Z",
+      "at": "2026-05-21T19:39:16.740Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:17.220Z",
+      "at": "2026-05-21T19:39:17.220Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:17.869Z",
+      "at": "2026-05-21T19:39:17.869Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:18.517Z",
+      "at": "2026-05-21T19:39:18.517Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:19.246Z",
+      "at": "2026-05-21T19:39:19.246Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:19.916Z",
+      "at": "2026-05-21T19:39:19.916Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:20.545Z",
+      "at": "2026-05-21T19:39:20.545Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:21.148Z",
+      "at": "2026-05-21T19:39:21.148Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:21.752Z",
+      "at": "2026-05-21T19:39:21.752Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:22.372Z",
+      "at": "2026-05-21T19:39:22.372Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:23.131Z",
+      "at": "2026-05-21T19:39:23.131Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:24.009Z",
+      "at": "2026-05-21T19:39:24.009Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:24.731Z",
+      "at": "2026-05-21T19:39:24.731Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:25.285Z",
+      "at": "2026-05-21T19:39:25.285Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:25.971Z",
+      "at": "2026-05-21T19:39:25.971Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:26.740Z",
+      "at": "2026-05-21T19:39:26.740Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:27.469Z",
+      "at": "2026-05-21T19:39:27.469Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:28.270Z",
+      "at": "2026-05-21T19:39:28.270Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:28.984Z",
+      "at": "2026-05-21T19:39:28.984Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:29.600Z",
+      "at": "2026-05-21T19:39:29.600Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:30.294Z",
+      "at": "2026-05-21T19:39:30.294Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:31.027Z",
+      "at": "2026-05-21T19:39:31.027Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:31.896Z",
+      "at": "2026-05-21T19:39:31.896Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:32.600Z",
+      "at": "2026-05-21T19:39:32.600Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:33.293Z",
+      "at": "2026-05-21T19:39:33.293Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:33.991Z",
+      "at": "2026-05-21T19:39:33.991Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:34.659Z",
+      "at": "2026-05-21T19:39:34.659Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:35.459Z",
+      "at": "2026-05-21T19:39:35.459Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:36.278Z",
+      "at": "2026-05-21T19:39:36.278Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:36.945Z",
+      "at": "2026-05-21T19:39:36.945Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:37.645Z",
+      "at": "2026-05-21T19:39:37.645Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:38.362Z",
+      "at": "2026-05-21T19:39:38.362Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:39.054Z",
+      "at": "2026-05-21T19:39:39.054Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:39.714Z",
+      "at": "2026-05-21T19:39:39.714Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:40.383Z",
+      "at": "2026-05-21T19:39:40.383Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:41.111Z",
+      "at": "2026-05-21T19:39:41.111Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:41.862Z",
+      "at": "2026-05-21T19:39:41.862Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:42.616Z",
+      "at": "2026-05-21T19:39:42.616Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:43.448Z",
+      "at": "2026-05-21T19:39:43.448Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:44.477Z",
+      "at": "2026-05-21T19:39:44.477Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:45.631Z",
+      "at": "2026-05-21T19:39:45.631Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:46.575Z",
+      "at": "2026-05-21T19:39:46.575Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:47.382Z",
+      "at": "2026-05-21T19:39:47.382Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:48.081Z",
+      "at": "2026-05-21T19:39:48.081Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:48.783Z",
+      "at": "2026-05-21T19:39:48.783Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:49.603Z",
+      "at": "2026-05-21T19:39:49.603Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:50.391Z",
+      "at": "2026-05-21T19:39:50.391Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:51.147Z",
+      "at": "2026-05-21T19:39:51.147Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:52.266Z",
+      "at": "2026-05-21T19:39:52.266Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    },
+    {
+      "source": "soak",
+      "sourceId": "2026-05-21T19:39:53.042Z",
+      "at": "2026-05-21T19:39:53.042Z",
+      "signal": "api-drill-local failed with exit code 1 step=api-drill-local",
+      "taxonomyClass": "release.soak",
+      "mappedBy": "fallback:soak",
+      "severity": "high"
+    }
+  ]
+}

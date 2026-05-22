@@ -1,6 +1,7 @@
 import path from "node:path";
 import fs from "fs-extra";
 import type { EscalationReport } from "../skills/execution/escalation-report.js";
+import type { RegressionRemediation } from "../verification/regression-prevention.js";
 
 interface SupervisorActionItem {
   key: string;
@@ -11,6 +12,8 @@ interface SupervisorActionItem {
   action: string;
   failureReason?: string;
   attempts?: number;
+  failureClass: string;
+  remediation: RegressionRemediation;
 }
 
 interface SupervisorActionPlan {
@@ -49,10 +52,10 @@ function toMarkdown(plan: SupervisorActionPlan): string {
     "## Actions",
     ...(plan.actions.length === 0
       ? ["- None"]
-      : plan.actions.map(
-          (action) =>
-            `- [${action.priority}] task=${action.taskId} target=${action.target} reason=${action.reason} action=${action.action}`,
-        )),
+      : plan.actions.flatMap((action) => [
+          `- [${action.priority}] task=${action.taskId} target=${action.target} class=${action.failureClass} reason=${action.reason} action=${action.action}`,
+          `  retry: ${action.remediation.retryGuidance}`,
+        ])),
     "",
   ].join("\n");
 }
@@ -80,6 +83,8 @@ export async function routeEscalations(rootDir: string): Promise<{
     action: item.action,
     failureReason: item.failureReason,
     attempts: item.attempts,
+    failureClass: item.failureClass,
+    remediation: item.remediation,
   }));
   const plan: SupervisorActionPlan = {
     generatedAt: new Date().toISOString(),

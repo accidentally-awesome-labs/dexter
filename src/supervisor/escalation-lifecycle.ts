@@ -1,6 +1,7 @@
 import path from "node:path";
 import fs from "fs-extra";
 import { appendAuditLogEvent } from "../operations/audit-log.js";
+import type { RegressionRemediation } from "../verification/regression-prevention.js";
 
 type EscalationStatus = "open" | "in_progress" | "resolved" | "waived";
 type RunStatus = "healthy" | "degraded" | "blocked";
@@ -19,6 +20,8 @@ interface SupervisorActionsPlan {
     priority: "high" | "medium";
     reason: string;
     action: string;
+    failureClass?: string;
+    remediation?: RegressionRemediation;
   }>;
 }
 
@@ -29,6 +32,8 @@ interface EscalationStateItem {
   priority: "high" | "medium";
   reason: string;
   action: string;
+  failureClass?: string;
+  remediation?: RegressionRemediation;
   status: EscalationStatus;
   firstSeenAt: string;
   lastSeenAt: string;
@@ -105,14 +110,16 @@ function toMarkdown(state: EscalationState, runStatus: RunStatus, unresolvedRequ
     "## Items",
     ...(state.items.length === 0
       ? ["- None"]
-      : state.items.map(
-          (item) =>
-            `- key=${item.key} status=${item.status} target=${item.target} priority=${item.priority} reason=${item.reason}${
-              item.waiver
-                ? ` waiver={approvedBy:${item.waiver.approvedBy},scope:${item.waiver.scope},expiresAt:${item.waiver.expiresAt}}`
-                : ""
-            }`,
-        )),
+      : state.items.flatMap((item) => [
+          `- key=${item.key} status=${item.status} target=${item.target} priority=${item.priority} class=${item.failureClass ?? "unknown"} reason=${item.reason}${
+            item.waiver
+              ? ` waiver={approvedBy:${item.waiver.approvedBy},scope:${item.waiver.scope},expiresAt:${item.waiver.expiresAt}}`
+              : ""
+          }`,
+          ...(item.remediation
+            ? [`  retry: ${item.remediation.retryGuidance}`]
+            : []),
+        ])),
     "",
   ].join("\n");
 }
@@ -153,6 +160,8 @@ export async function syncEscalationLifecycle(rootDir: string, runDir: string, r
         priority: current.priority,
         reason: current.reason,
         action: current.action,
+        failureClass: current.failureClass,
+        remediation: current.remediation,
         status: "open",
         firstSeenAt: now,
         lastSeenAt: now,
@@ -167,6 +176,8 @@ export async function syncEscalationLifecycle(rootDir: string, runDir: string, r
       priority: current.priority,
       reason: current.reason,
       action: current.action,
+      failureClass: current.failureClass ?? prior.failureClass,
+      remediation: current.remediation ?? prior.remediation,
       lastSeenAt: now,
       lastRunId: runId,
       // Re-open if previously resolved/waived and issue reappears.
@@ -314,6 +325,8 @@ export async function listEscalationLifecycle(options: {
     priority: "high" | "medium";
     reason: string;
     action: string;
+    failureClass?: string;
+    remediation?: RegressionRemediation;
     lastRunId: string;
     waiver?: EscalationWaiver;
   }>;
@@ -343,6 +356,8 @@ export async function listEscalationLifecycle(options: {
       priority: item.priority,
       reason: item.reason,
       action: item.action,
+      failureClass: item.failureClass,
+      remediation: item.remediation,
       lastRunId: item.lastRunId,
       waiver: item.waiver,
     })),

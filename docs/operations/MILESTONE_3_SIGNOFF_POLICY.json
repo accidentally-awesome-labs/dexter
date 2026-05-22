@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Milestone 3 reliability signoff thresholds.",
+  "minConsecutiveSoakPasses": 30,
+  "minTotalSoakCycles": 30,
+  "requireWeeklyPassRateNonDeclining": true,
+  "allowWaivedWeeklyTrend": false
+}
