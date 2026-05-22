@@ -34,6 +34,7 @@ npm test
 - `npm run canary:rollback:drill` - force canary SLO breach and verify automatic rollback + audit capture
 - `npm run milestone:m1:signoff` - verify Milestone 1 acceptance gates and write signoff artifact
 - `npm run milestone:m3:signoff` - verify Milestone 3 reliability gates (30+ soak passes, KPI, learning controls) and write `MILESTONE_3_SIGNOFF.md`
+- `npm run milestone:m4:signoff` - verify Milestone 4 control-plane gates and write `MILESTONE_4_SIGNOFF.md`
 - `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
 - `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
 - `npm run intake:normalize:template` - normalize a template-driven request into intake brief
@@ -47,6 +48,11 @@ npm test
 - `npm run intake:pilot:batch` - run Milestone 2 Day 9 five-request intake pilot batch
 - `npm run intake:pilot:batch:full` - same pilot batch with full orchestrator runs
 - `npm run ops:status` - write consolidated operator status dashboard artifacts
+- `npm run alert:route` - evaluate alert rules and route payloads (dry-run by default)
+- `npm run triage:blocked` - one-command blocked-run diagnosis (ops status + findings + next steps)
+- `npm run triage:degraded` - one-command degraded-run diagnosis
+- `npm run release:center` - release command center (readiness, governance, promotion auth, audit)
+- `npm run incident:simulate` - run three incident simulations (blocked storm, SLO breach, policy gate)
 - `npm run resume:check` - inspect resume readiness for a run (`--latest true` supported)
 - `npm run trust:gates` - run failure-injection trust gate matrix and write report artifacts
 - `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`) plus trend rollups (`SOAK_TRENDS.json`)

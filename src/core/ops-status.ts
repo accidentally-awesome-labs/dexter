@@ -1,5 +1,12 @@
 import path from "node:path";
 import fs from "fs-extra";
+import {
+  buildCostSnapshot,
+  buildEscalationAgingSnapshot,
+  buildQueueSnapshot,
+  buildSloSnapshot,
+  loadOpsStatusPolicy,
+} from "./ops-status-snapshot.js";
 import { readCanaryGateStatus } from "../operations/canary-gate.js";
 import { readSloRollbackStatus } from "../operations/slo-rollback.js";
 import { loadFlakyQuarantineReport } from "../verification/flaky-quarantine.js";
@@ -25,6 +32,8 @@ interface EscalationItem {
   priority: EscalationPriority;
   reason: string;
   lastRunId: string;
+  firstSeenAt?: string;
+  lastSeenAt?: string;
 }
 
 interface ReplanSummary {
@@ -52,7 +61,10 @@ export async function writeOpsStatusArtifact(options: {
   await fs.ensureDir(executionDir);
 
   const runSummaryPath = path.join(runDir, "run_summary.json");
+  const opsPolicy = await loadOpsStatusPolicy(rootDir);
+
   const runSummary: (RunSummary & {
+    durationMs?: number;
     intake?: {
       intakeId?: string;
       riskScore?: number;
@@ -105,6 +117,23 @@ export async function writeOpsStatusArtifact(options: {
   const soakSchedule = await loadSoakScheduleState(rootDir);
   const reliabilityKpi = await loadReliabilityKpiSummary(rootDir);
 
+  const cost = await buildCostSnapshot({
+    rootDir,
+    runDir,
+    policy: opsPolicy,
+  });
+  const queue = await buildQueueSnapshot(rootDir, opsPolicy);
+  const slo = buildSloSnapshot({
+    canaryPresent: canaryGate.present,
+    canaryBurnState: canaryGate.burnState ?? null,
+    sloRollbackPresent: sloRollback.present,
+    sloRollbackTriggered: sloRollback.triggered,
+  });
+  const escalationAging = buildEscalationAgingSnapshot({
+    items: escalationItems,
+    policy: opsPolicy,
+  });
+
   const runStatus = (runSummary?.runStatus as RunStatus | undefined) ?? "unknown";
   const resumeAllowed = unresolved.length === 0 && runStatus === "healthy";
 
@@ -115,6 +144,25 @@ export async function writeOpsStatusArtifact(options: {
   }
   if (unresolvedOperatorHigh > 0) {
     nextCommands.push('npm run escalation:resolve -- --all-unresolved true --target operator --status resolved --note "operator escalation resolved"');
+  }
+  if (slo.state === "breach" || slo.state === "warn") {
+    nextCommands.push("npm run ops:status");
+    nextCommands.push("npm run release:decision");
+  }
+  if (escalationAging.oldestUnresolved?.bucket === "stale") {
+    nextCommands.push("npm run escalation:list -- --unresolved-only true --output table");
+  }
+  if (
+    queue.backlogAging.stale > 0 ||
+    (queue.oldestBacklogAgeMs !== null &&
+      queue.oldestBacklogAgeMs > opsPolicy.backlogAgingBucketsHours.stale * 3_600_000)
+  ) {
+    nextCommands.push("npm run resume:check -- --latest-blocked true --output table");
+  } else if (queue.depth > 0) {
+    nextCommands.push("npm run resume:check -- --latest-blocked true --output table");
+  }
+  if (cost.degraded) {
+    nextCommands.push("npm run dogfood:metrics");
   }
   if (runStatus === "blocked") {
     nextCommands.push("npm run resume:check -- --latest-blocked true --output table");
@@ -128,10 +176,15 @@ export async function writeOpsStatusArtifact(options: {
   }
 
   const payload = {
+    schemaVersion: "1.1",
     generatedAt: new Date().toISOString(),
     runId,
     runStatus,
     productionReady: runSummary?.productionReady ?? false,
+    cost,
+    queue,
+    slo,
+    escalationAging,
     unresolved: {
       count: unresolved.length,
       operatorHigh: unresolvedOperatorHigh,
@@ -240,6 +293,51 @@ export async function writeOpsStatusArtifact(options: {
             `- Execution coherent: ${payload.intake.executionCoherent ?? "unknown"}`,
           ]
         : ["- No intake execution metadata for this run"]),
+      "",
+      "## Cost / Run",
+      `- Present: ${payload.cost.present}`,
+      `- Source: ${payload.cost.source}`,
+      `- Degraded: ${payload.cost.degraded}`,
+      ...(payload.cost.degradationReasons.length > 0
+        ? payload.cost.degradationReasons.map((reason) => `- Degrade reason: ${reason}`)
+        : []),
+      `- Duration (ms): ${payload.cost.durationMs ?? "unknown"}`,
+      `- Estimated cost: ${payload.cost.estimatedCostUsd ?? "unknown"} ${payload.cost.currency}`,
+      `- Rate basis: ${payload.cost.hourlyRateUsd ?? "unknown"} ${payload.cost.currency}/hour`,
+      `- Tasks: ${payload.cost.tasksPassed ?? "?"}/${payload.cost.tasksTotal ?? "?"}`,
+      `- Dogfood benchmark: ${payload.cost.dogfoodBenchmark.present ? `${payload.cost.dogfoodBenchmark.avgTimeToReadyMs ?? "n/a"} ms avg (${payload.cost.dogfoodBenchmark.totalRuns ?? 0} runs)` : "missing"}`,
+      "",
+      "## Queue Depth",
+      `- Present: ${payload.queue.present}`,
+      `- Degraded: ${payload.queue.degraded}`,
+      ...(payload.queue.degradationReasons.length > 0
+        ? payload.queue.degradationReasons.map((reason) => `- Degrade reason: ${reason}`)
+        : []),
+      `- Backlog depth: ${payload.queue.depth} (blocked=${payload.queue.blockedCount}, degraded=${payload.queue.degradedCount})`,
+      `- Average backlog age (ms): ${payload.queue.averageBacklogAgeMs ?? "n/a"}`,
+      `- Backlog aging: fresh=${payload.queue.backlogAging.fresh}, aging=${payload.queue.backlogAging.aging}, stale=${payload.queue.backlogAging.stale}, unknown=${payload.queue.backlogAging.unknown}`,
+      `- Oldest backlog: ${payload.queue.oldestBacklogRunId ?? "none"} (${payload.queue.oldestBacklogAgeMs ?? "n/a"} ms)`,
+      ...(payload.queue.entries.length > 0
+        ? payload.queue.entries.map(
+            (entry) =>
+              `- backlog run=${entry.runId} status=${entry.runStatus} bucket=${entry.bucket} ageMs=${entry.ageMs}`,
+          )
+        : ["- No backlog runs"]),
+      "",
+      "## SLO State",
+      `- Present: ${payload.slo.present}`,
+      `- Overall: ${payload.slo.state}`,
+      `- Canary burn: ${payload.slo.canaryBurnState}`,
+      `- SLO rollback triggered: ${payload.slo.sloRollbackTriggered}`,
+      "",
+      "## Escalation Aging",
+      `- Unresolved: ${payload.escalationAging.unresolvedCount}`,
+      `- Buckets: fresh=${payload.escalationAging.buckets.fresh}, aging=${payload.escalationAging.buckets.aging}, stale=${payload.escalationAging.buckets.stale}`,
+      ...(payload.escalationAging.oldestUnresolved
+        ? [
+            `- Oldest unresolved: ${payload.escalationAging.oldestUnresolved.key} (${payload.escalationAging.oldestUnresolved.bucket}, ${payload.escalationAging.oldestUnresolved.ageMs} ms, ${payload.escalationAging.oldestUnresolved.target}/${payload.escalationAging.oldestUnresolved.priority})`,
+          ]
+        : ["- Oldest unresolved: none"]),
       "",
       "## Unresolved Escalations",
       `- Count: ${payload.unresolved.count}`,

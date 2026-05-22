@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-22T01:27:51.031Z",
+  "passed": true,
+  "simulations": [
+    {
+      "id": "blocked_escalation_storm",
+      "passed": true,
+      "detail": "triageEscalations=2, alertRules=run_blocked,escalation_stale,queue_stale_backlog",
+      "artifacts": [
+        "/var/folders/gc/mmsf5hkj517207_c2kskth9r0000gn/T/dexter-m4-incident-cm2gCx/artifacts/execution/TRIAGE_BLOCKED_sim-blocked.json",
+        "/var/folders/gc/mmsf5hkj517207_c2kskth9r0000gn/T/dexter-m4-incident-cm2gCx/artifacts/execution/ALERT_ROUTING.json"
+      ]
+    },
+    {
+      "id": "canary_slo_breach_rollback",
+      "passed": true,
+      "detail": "triggered=true, alerts=run_degraded,slo_breach",
+      "artifacts": [
+        "/var/folders/gc/mmsf5hkj517207_c2kskth9r0000gn/T/dexter-m4-incident-cm2gCx/artifacts/release/SLO_ROLLBACK_RESULT.json",
+        "/var/folders/gc/mmsf5hkj517207_c2kskth9r0000gn/T/dexter-m4-incident-cm2gCx/artifacts/execution/ALERT_ROUTING.json"
+      ]
+    },
+    {
+      "id": "promotion_policy_gate",
+      "passed": true,
+      "detail": "Promotion blocked: canary gate artifact is missing. Promote to canary and pass SLO gates first.",
+      "artifacts": [
+        "/var/folders/gc/mmsf5hkj517207_c2kskth9r0000gn/T/dexter-m4-incident-cm2gCx/artifacts/execution/ALERT_ROUTING.json"
+      ]
+    }
+  ]
+}

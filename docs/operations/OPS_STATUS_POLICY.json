@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Ops dashboard cost estimation and queue classification defaults.",
+  "costModel": {
+    "hourlyRateUsd": 5,
+    "currency": "USD"
+  },
+  "queue": {
+    "backlogStatuses": ["blocked", "degraded"],
+    "maxEntriesInDashboard": 10
+  },
+  "escalationAgingBucketsHours": {
+    "fresh": 1,
+    "stale": 24
+  },
+  "backlogAgingBucketsHours": {
+    "fresh": 6,
+    "stale": 48
+  }
+}

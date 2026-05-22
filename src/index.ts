@@ -3,7 +3,10 @@ import fs from "fs-extra";
 import dotenv from "dotenv";
 import { runDexter, resumeDexterRun } from "./core/orchestrator.js";
 import { buildResumeCheck, findLatestBlockedRunId, findLatestDegradedRunId, findLatestRunId } from "./core/run-selector.js";
+import { buildRunTriage } from "./core/run-triage.js";
+import { runReleaseCommandCenter } from "./operations/release-command-center.js";
 import { writeOpsStatusArtifact } from "./core/ops-status.js";
+import { routeAlertsFromOpsStatus } from "./operations/alert-routing.js";
 import { evaluateReadiness } from "./release/readiness.js";
 import { createControlPlaneAdapter } from "./runtime/control-plane.js";
 import { buildMetricsReport } from "./metrics/aggregator.js";
@@ -37,6 +40,7 @@ import { verifyPromotionRepeatability } from "./operations/promotion-repeatabili
 import { writeOperatorWorkflowReadiness } from "./operations/operator-workflow-readiness.js";
 import { generateMilestone1Signoff } from "./operations/milestone-signoff.js";
 import { generateMilestone3Signoff } from "./operations/milestone-3-signoff.js";
+import { generateMilestone4Signoff } from "./operations/milestone-4-signoff.js";
 import { githubIssueAdapter } from "./intake/adapters/issue.js";
 import { cliPromptAdapter } from "./intake/adapters/cli-prompt.js";
 import { templateAdapter } from "./intake/adapters/template.js";
@@ -183,6 +187,7 @@ async function main() {
     const latest = parseBoolArg("--latest", false);
     const latestBlocked = parseBoolArg("--latest-blocked", false);
     const latestDegraded = parseBoolArg("--latest-degraded", false);
+    const triage = parseBoolArg("--triage", false);
     const modeCount = [latest, latestBlocked, latestDegraded].filter(Boolean).length;
     if (modeCount > 1) {
       throw new Error("Use only one of --latest, --latest-blocked, or --latest-degraded.");
@@ -205,11 +210,48 @@ async function main() {
               : "Missing --run-id",
       );
     }
-    const result = await buildResumeCheck(rootDir, runId);
-    const output = (parseArg("--output", "json") as "json" | "table");
+    const output = parseArg("--output", "json") as "json" | "table";
     if (!["json", "table"].includes(output)) {
       throw new Error("Invalid --output. Use json|table");
     }
+
+    if (triage) {
+      const mode = latestBlocked ? "blocked" : latestDegraded ? "degraded" : null;
+      if (!mode) {
+        throw new Error("Use --triage with --latest-blocked or --latest-degraded.");
+      }
+      const result = await buildRunTriage(rootDir, runId, mode);
+      printOutput(result, output, () =>
+        [
+          formatTable(
+            ["runId", "runStatus", "resumeAllowed", "sloState", "alerts"],
+            [[
+              result.runId,
+              result.runStatus,
+              String(result.resume.allowed),
+              result.ops.sloState,
+              String(result.alerts.matchedRules.length),
+            ]],
+          ),
+          "",
+          result.diagnosisSummary,
+          "",
+          "Findings:",
+          ...(result.findings.length === 0
+            ? ["- none"]
+            : result.findings.map((finding) => `- [${finding.severity}] ${finding.category}: ${finding.message}`)),
+          "",
+          "Next Steps:",
+          ...result.nextSteps.map((step) => `- ${step}`),
+          "",
+          "Suggested Commands:",
+          ...result.suggestedCommands.map((cmd) => `- ${cmd}`),
+        ].join("\n"),
+      );
+      return;
+    }
+
+    const result = await buildResumeCheck(rootDir, runId);
     printOutput(result, output, () =>
       [
         formatTable(
@@ -230,6 +272,42 @@ async function main() {
         "Suggested Commands:",
         ...result.suggestedCommands.map((cmd) => `- ${cmd}`),
       ].join("\n"),
+    );
+    return;
+  }
+
+  if (command === "release-center") {
+    const minimumPromotions = Number(parseArg("--minimum-promotions", "2"));
+    const actor = parseArg("--actor", "dexter-release-manager");
+    const report = await runReleaseCommandCenter(rootDir, {
+      minimumPromotions: Number.isFinite(minimumPromotions) ? minimumPromotions : 2,
+      actor,
+    });
+    const output = parseArg("--output", "json") as "json" | "table";
+    printOutput(
+      report,
+      output,
+      () =>
+        [
+          formatTable(
+            ["ready", "decision", "governance", "unresolved", "prodAllowed"],
+            [[
+              String(report.readyForPromotion),
+              report.releaseDecision,
+              String(report.governancePassed),
+              String(report.unresolvedEscalations),
+              String(report.promotionAuth.prodAllowed),
+            ]],
+          ),
+          "",
+          "Steps:",
+          ...report.steps.map((step) => `- [${step.status}] ${step.id}: ${step.detail}`),
+          "",
+          "Recommended Commands:",
+          ...report.recommendedCommands.map((cmd) => `- ${cmd}`),
+          "",
+          `report: ${report.artifacts.reportJson}`,
+        ].join("\n"),
     );
     return;
   }
@@ -296,6 +374,85 @@ async function main() {
           "",
           `jsonPath: ${result.jsonPath}`,
           `markdownPath: ${result.markdownPath}`,
+        ].join("\n"),
+    );
+    return;
+  }
+
+  if (command === "alert-route") {
+    const latest = parseBoolArg("--latest", false);
+    const dryRun = parseBoolArg("--dry-run", true);
+    const runId = latest ? await findLatestRunId(rootDir) : parseArg("--run-id");
+    if (!runId) {
+      throw new Error(latest ? "No runs found." : "Missing --run-id");
+    }
+    const opsStatusPath = path.join(rootDir, "artifacts", "execution", "OPS_STATUS.json");
+    let context: {
+      runId: string;
+      runStatus: string;
+      productionReady?: boolean;
+      slo?: { state?: string };
+      queue?: { backlogAging?: { stale?: number } };
+      escalationAging?: { oldestUnresolved?: { bucket?: string } | null };
+    };
+    if (await fs.pathExists(opsStatusPath)) {
+      const dashboard = (await fs.readJson(opsStatusPath)) as {
+        runId?: string;
+        runStatus?: string;
+        productionReady?: boolean;
+        slo?: { state?: string };
+        queue?: { backlogAging?: { stale?: number } };
+        escalationAging?: { oldestUnresolved?: { bucket?: string } | null };
+      };
+      context = {
+        runId: dashboard.runId ?? runId,
+        runStatus: dashboard.runStatus ?? "unknown",
+        productionReady: dashboard.productionReady,
+        slo: dashboard.slo,
+        queue: dashboard.queue,
+        escalationAging: dashboard.escalationAging,
+      };
+    } else {
+      const runDir = path.join(rootDir, "runs", runId);
+      await writeOpsStatusArtifact({ rootDir, runDir, runId });
+      const dashboard = (await fs.readJson(opsStatusPath)) as {
+        runId?: string;
+        runStatus?: string;
+        productionReady?: boolean;
+        slo?: { state?: string };
+        queue?: { backlogAging?: { stale?: number } };
+        escalationAging?: { oldestUnresolved?: { bucket?: string } | null };
+      };
+      context = {
+        runId: dashboard.runId ?? runId,
+        runStatus: dashboard.runStatus ?? "unknown",
+        productionReady: dashboard.productionReady,
+        slo: dashboard.slo,
+        queue: dashboard.queue,
+        escalationAging: dashboard.escalationAging,
+      };
+    }
+    const result = await routeAlertsFromOpsStatus({ rootDir, context, dryRun });
+    const output = parseArg("--output", "json") as "json" | "table";
+    printOutput(
+      result,
+      output,
+      () =>
+        [
+          "Matched rules:",
+          ...(result.matchedRules.length === 0
+            ? ["- none"]
+            : result.matchedRules.map((ruleId) => `- ${ruleId}`)),
+          "",
+          "Deliveries:",
+          ...(result.deliveries.length === 0
+            ? ["- none"]
+            : result.deliveries.map(
+                (delivery) =>
+                  `- ${delivery.channel}: ${delivery.status} (${delivery.reason})`,
+              )),
+          "",
+          `deliveryLogPath: ${result.deliveryLogPath}`,
         ].join("\n"),
     );
     return;
@@ -901,7 +1058,29 @@ async function main() {
       );
       return;
     }
-    throw new Error("Unsupported --milestone. Use 1 or 3.");
+    if (milestone === "4") {
+      const report = await generateMilestone4Signoff(rootDir);
+      if (!report.passed) {
+        const failed = report.gates.filter((gate) => !gate.passed).map((gate) => gate.id);
+        throw new Error(`Milestone 4 signoff failed: ${failed.join(", ")}`);
+      }
+      console.log(
+        JSON.stringify(
+          {
+            passed: report.passed,
+            milestone: report.milestone,
+            gates: report.gates.length,
+            diagnosisMs: report.diagnosis.durationMs,
+            incidentSimulations: report.incidentSimulations,
+            reportPath: path.join(rootDir, "artifacts", "release", "MILESTONE_4_SIGNOFF.json"),
+          },
+          null,
+          2,
+        ),
+      );
+      return;
+    }
+    throw new Error("Unsupported --milestone. Use 1, 3, or 4.");
   }
 
   if (command === "operator-readiness") {
