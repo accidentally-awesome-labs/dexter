@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Continuous soak scheduling policy for automated reliability tracking.",
+  "enabled": true,
+  "intervalMinutes": 360,
+  "minGapMinutes": 60,
+  "enforceGateOnScheduledRun": false,
+  "targetStreak": 10,
+  "warningThresholds": {
+    "rolling100PassRateDropMin": 0.05,
+    "rolling100PassRateFloor": 0.85,
+    "consecutiveFailuresWarn": 2,
+    "consecutiveFailuresCritical": 3,
+    "avgDurationIncreasePct": 0.25,
+    "dailyPassRateDropMin": 0.1,
+    "stepFailureSpikeMin": 2
+  },
+  "automation": {
+    "githubActionsCron": "0 */6 * * *",
+    "localCronExample": "0 */6 * * * cd /path/to/dexter && npm run soak:schedule"
+  }
+}

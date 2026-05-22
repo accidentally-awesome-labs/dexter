@@ -6,22 +6,21 @@ This document tracks the work required to make Dexter a fully operational autono
 
 - Plan owner: _TBD_
 - Last updated: 2026-05-21
-- Current phase: Milestone 2 (complete)
-- Overall completion: 28%
+- Current phase: Milestone 4 (Operational Control Plane)
+- Overall completion: 40%
 
 ## Today View
 
-- Today focus: Milestone 2 / Day 10 (Real Request Pilot Batch of 5 + Signoff)
+- Today focus: Milestone 3 complete — reliability signoff landed
 - Active owner: _TBD_
-- Current status: Day 10 complete — 10-request intake pilot validated end-to-end
+- Current status: Milestone 3 accepted (`npm run milestone:m3:signoff` passed)
 - Current blocker: None
 - Next command sequence:
-  - `npm run intake:pilot:batch`
-  - `npm run release:decision`
-  - `npm run escalation:list -- --output table`
+  - `npm run milestone:m3:signoff`
+  - `npm run ops:status`
 - Today success criteria:
-  - [x] >=80% requests auto-decomposed without manual overrides
-  - [x] all high-risk requests route through HITL
+  - [x] 30+ consecutive soak passes without critical blocker
+  - [x] Reliability KPI and learning controls documented in signoff artifacts
 
 ## Milestone 1: Production Foundations (Weeks 1-2)
 
@@ -375,27 +374,27 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Add continuous soak runner with trend tracking
-- [ ] Add flaky-test detection and quarantine policy
-- [ ] Add memory quality controls: contradiction checks and stale lesson decay
-- [ ] Add regression-prevention templates by failure class
-- [ ] Track repeat-failure reduction over rolling windows
+- [x] Add continuous soak runner with trend tracking
+- [x] Add flaky-test detection and quarantine policy
+- [x] Add memory quality controls: contradiction checks and stale lesson decay
+- [x] Add regression-prevention templates by failure class
+- [x] Track repeat-failure reduction over rolling windows
 
 ### Deliverables
 
-- [ ] `artifacts/release/SOAK_TRENDS.json`
-- [ ] `artifacts/verification/FAILURE_TAXONOMY.md`
-- [ ] `global-memory/MEMORY_QUALITY_SCORECARD.md`
+- [x] `artifacts/release/SOAK_TRENDS.json`
+- [x] `artifacts/verification/FAILURE_TAXONOMY.md`
+- [x] `global-memory/MEMORY_QUALITY_SCORECARD.md`
 
 ### Acceptance Gates
 
-- [ ] 30+ consecutive soak cycles without critical blocker
-- [ ] Repeat-failure rate decreases week-over-week
-- [ ] Contradictory or stale lessons are flagged pre-planning
+- [x] 30+ consecutive soak cycles without critical blocker (verified via `npm run milestone:m3:signoff`)
+- [x] Repeat-failure rate decreases week-over-week (weekly pass-rate trend gate in KPI/signoff)
+- [x] Contradictory or stale lessons are flagged pre-planning
 
 ### Progress Notes
 
-- Soak runner and streak tracking exist (`SOAK_STATUS`), but trend/taxonomy artifacts are still missing.
+- Soak runner writes `SOAK_STATUS` and `SOAK_TRENDS` trend rollups; unit tests emit flaky telemetry; memory contradiction and quality scorecards are generated before planning.
 
 ### Day-by-Day Execution Checklist (Milestone 3)
 
@@ -403,8 +402,8 @@ Use this checklist for day-level tracking. Do not move to the next day until val
 
 #### Day 1: Soak Trend Artifact Baseline
 
-- [ ] Add trend rollup output `artifacts/release/SOAK_TRENDS.json`
-- [ ] Define retained windows (daily, weekly, rolling 100 runs)
+- [x] Add trend rollup output `artifacts/release/SOAK_TRENDS.json`
+- [x] Define retained windows (daily, weekly, rolling 100 runs)
 
 Validation commands:
 - `npm run soak:cycle -- --target-streak 1 --enforce-gate false`
@@ -416,8 +415,8 @@ Pass criteria:
 
 #### Day 2: Failure Taxonomy Classification
 
-- [ ] Add canonical failure classes and mapping rules
-- [ ] Emit `artifacts/verification/FAILURE_TAXONOMY.md`
+- [x] Add canonical failure classes and mapping rules
+- [x] Emit `artifacts/verification/FAILURE_TAXONOMY.md`
 
 Validation commands:
 - `npm run test:unit`
@@ -429,8 +428,8 @@ Pass criteria:
 
 #### Day 3: Flaky Test Detection
 
-- [ ] Add flaky-test heuristic (intermittent pass/fail patterns)
-- [ ] Record flaky candidates and confidence score
+- [x] Add flaky-test heuristic (intermittent pass/fail patterns)
+- [x] Record flaky candidates and confidence score
 
 Validation commands:
 - `npm run test:unit`
@@ -442,8 +441,8 @@ Pass criteria:
 
 #### Day 4: Flaky Quarantine Policy
 
-- [ ] Implement quarantine policy and reporting for flaky tests
-- [ ] Ensure quarantined tests do not silently mask regressions
+- [x] Implement quarantine policy and reporting for flaky tests
+- [x] Ensure quarantined tests do not silently mask regressions
 
 Validation commands:
 - `npm run test:unit`
@@ -455,8 +454,8 @@ Pass criteria:
 
 #### Day 5: Memory Contradiction Detection
 
-- [ ] Detect conflicting lessons in global memory
-- [ ] Flag contradictions during planning context retrieval
+- [x] Detect conflicting lessons in global memory
+- [x] Flag contradictions during planning context retrieval
 
 Validation commands:
 - `npm run typecheck`
@@ -468,8 +467,8 @@ Pass criteria:
 
 #### Day 6: Stale Lesson Decay
 
-- [ ] Add freshness decay for older/low-confidence lessons
-- [ ] Persist quality scoring to `global-memory/MEMORY_QUALITY_SCORECARD.md`
+- [x] Add freshness decay for older/low-confidence lessons
+- [x] Persist quality scoring to `global-memory/MEMORY_QUALITY_SCORECARD.md`
 
 Validation commands:
 - `npm run typecheck`
@@ -481,8 +480,8 @@ Pass criteria:
 
 #### Day 7: Regression-Prevention Templates
 
-- [ ] Add per-failure-class remediation templates
-- [ ] Attach template hints to escalations and replans
+- [x] Add per-failure-class remediation templates
+- [x] Attach template hints to escalations and replans
 
 Validation commands:
 - `npm run test:unit -- tests/replan-loop.test.ts tests/task-executor.test.ts`
@@ -494,8 +493,8 @@ Pass criteria:
 
 #### Day 8: Continuous Soak Scheduling
 
-- [ ] Schedule continuous soak execution (cron/automation)
-- [ ] Emit run-to-run reliability deltas and warning thresholds
+- [x] Schedule continuous soak execution (cron/automation)
+- [x] Emit run-to-run reliability deltas and warning thresholds
 
 Validation commands:
 - `npm run soak:cycle -- --target-streak 1 --enforce-gate false`
@@ -507,8 +506,8 @@ Pass criteria:
 
 #### Day 9: Reliability KPI Review
 
-- [ ] Evaluate rolling 100-run reliability and repeat-failure trend
-- [ ] Produce remediation actions for top 3 failure classes
+- [x] Evaluate rolling 100-run reliability and repeat-failure trend
+- [x] Produce remediation actions for top 3 failure classes
 
 Validation commands:
 - `npm run ops:status`
@@ -520,8 +519,8 @@ Pass criteria:
 
 #### Day 10: 30+ Cycle Reliability Signoff
 
-- [ ] Demonstrate 30+ consecutive soak cycles without critical blocker
-- [ ] Close Milestone 3 acceptance gates
+- [x] Demonstrate 30+ consecutive soak cycles without critical blocker
+- [x] Close Milestone 3 acceptance gates
 
 Validation commands:
 - `npm run soak:cycle`

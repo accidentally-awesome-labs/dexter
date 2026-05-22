@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Quarantine rules for flaky tests. Regression-critical suites always remain blocking.",
+  "regressionCriticalPatterns": [
+    "tests/audit-log.test.ts",
+    "tests/canary-gate.test.ts",
+    "tests/deploy-authorization.test.ts",
+    "tests/failure-taxonomy.test.ts",
+    "tests/governance-verify.test.ts",
+    "tests/milestone-signoff.test.ts",
+    "tests/policy-gate.test.ts",
+    "tests/promotion-gate.test.ts",
+    "tests/promotion-pipeline.test.ts",
+    "tests/promotion-repeatability.test.ts",
+    "tests/slo-rollback.test.ts",
+    "tests/soak-trends.test.ts",
+    "tests/flaky-detection.test.ts",
+    "tests/flaky-quarantine.test.ts"
+  ],
+  "manualQuarantine": [],
+  "manualNeverQuarantine": []
+}

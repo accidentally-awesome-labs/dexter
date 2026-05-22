@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Freshness decay and quality scoring for global-memory lesson retrieval.",
+  "freshnessHalfLifeDays": 30,
+  "minFreshnessFactor": 0.2,
+  "staleAfterDays": 90,
+  "lowConfidenceThreshold": 0.5,
+  "maxLessonsInScorecard": 100
+}

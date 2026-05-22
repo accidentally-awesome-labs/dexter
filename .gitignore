@@ -47,6 +47,12 @@ artifacts/release/SLO_ROLLBACK_RESULT.md
 artifacts/release/promotions/
 artifacts/verification/TRUST_GATES_REPORT.json
 artifacts/verification/TRUST_GATES_REPORT.md
+artifacts/verification/vitest-last.json
+artifacts/verification/TEST_TELEMETRY.json
+artifacts/verification/FLAKY_CANDIDATES.json
+artifacts/verification/FLAKY_CANDIDATES.md
+artifacts/verification/FLAKY_QUARANTINE.json
+artifacts/verification/FLAKY_QUARANTINE.md
 artifacts/intake/INTAKE_BRIEF.json
 artifacts/intake/INTAKE_BRIEF.md
 artifacts/intake/CLARIFICATION_LOG.json

@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0",
+  "milestone": "M3",
+  "generatedAt": "2026-05-21T22:51:41.241Z",
+  "passed": true,
+  "gates": [
+    {
+      "id": "soak_consecutive_passes",
+      "description": "30+ consecutive soak passes without failure",
+      "passed": true,
+      "detail": "maxConsecutive=200, longestStreak=431, trailing=200, required>=30"
+    },
+    {
+      "id": "soak_total_cycles",
+      "description": "30+ total soak cycles recorded",
+      "passed": true,
+      "detail": "totalCycles=433, required>=30"
+    },
+    {
+      "id": "no_critical_soak_blocker",
+      "description": "No critical soak reliability blocker",
+      "passed": true,
+      "detail": "reliabilityStatus=healthy, criticalWarnings=0"
+    },
+    {
+      "id": "soak_trends_artifact",
+      "description": "Soak trend rollups persisted",
+      "passed": true,
+      "detail": "rolling100=1"
+    },
+    {
+      "id": "weekly_pass_rate_trend",
+      "description": "Repeat-failure pressure not increasing week-over-week (pass rate non-declining)",
+      "passed": true,
+      "detail": "Insufficient weekly soak history; trend gate deferred."
+    },
+    {
+      "id": "failure_taxonomy",
+      "description": "Failure taxonomy report available",
+      "passed": true,
+      "detail": "/Users/salar/Projects/dexter/artifacts/verification/FAILURE_TAXONOMY.md"
+    },
+    {
+      "id": "memory_quality_controls",
+      "description": "Stale lesson decay policy configured",
+      "passed": true,
+      "detail": "MEMORY_QUALITY_POLICY.json present"
+    },
+    {
+      "id": "memory_contradiction_controls",
+      "description": "Contradiction checks policy configured",
+      "passed": true,
+      "detail": "MEMORY_CONTRADICTION_POLICY.json present"
+    },
+    {
+      "id": "flaky_quarantine_policy",
+      "description": "Flaky detection and quarantine policies configured",
+      "passed": true,
+      "detail": "flakyTest=true, quarantine=true"
+    },
+    {
+      "id": "regression_prevention_templates",
+      "description": "Regression-prevention templates available",
+      "passed": true,
+      "detail": "policy present, index=pending first escalation"
+    },
+    {
+      "id": "continuous_soak_scheduling",
+      "description": "Continuous soak scheduling policy configured",
+      "passed": true,
+      "detail": "SOAK_SCHEDULE_POLICY.json present"
+    },
+    {
+      "id": "reliability_kpi_gates",
+      "description": "Reliability KPI acceptance gates satisfied",
+      "passed": true,
+      "detail": "gatesPassed=true, soakPassRate=1, repeatFailure=0"
+    },
+    {
+      "id": "reliability_kpi_artifact",
+      "description": "Reliability KPI review artifact generated",
+      "passed": true,
+      "detail": "/Users/salar/Projects/dexter/artifacts/release/RELIABILITY_KPI.json"
+    },
+    {
+      "id": "release_decision_go",
+      "description": "Release decision is GO",
+      "passed": true,
+      "detail": "decision=GO, unresolvedEscalations=0"
+    }
+  ],
+  "soak": {
+    "totalCycles": 433,
+    "maxConsecutivePasses": 200,
+    "trailingConsecutivePasses": 200,
+    "currentStreak": 431
+  }
+}

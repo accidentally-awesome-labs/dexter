@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Rules for detecting contradictory global-memory lessons before planning.",
+  "minTagOverlap": 1,
+  "requireCategoryMatch": false,
+  "contradictionPairs": [
+    { "id": "always-never", "left": "always", "right": "never" },
+    { "id": "must-must-not", "left": "must", "right": "must not" },
+    { "id": "require-forbid", "left": "require", "right": "forbid" },
+    { "id": "enable-disable", "left": "enable", "right": "disable" },
+    { "id": "approve-block", "left": "approve", "right": "block" },
+    { "id": "safe-unsafe", "left": "safe to", "right": "unsafe to" },
+    { "id": "increase-decrease-risk", "left": "increase risk", "right": "decrease risk" },
+    { "id": "allow-prevent", "left": "allow", "right": "prevent" }
+  ],
+  "deprioritizePenaltyWeight": 0.5,
+  "highSeverityThreshold": 0.6
+}

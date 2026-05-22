@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-21T22:51:41.172Z",
+  "window": {
+    "rolling100CycleCount": 100,
+    "runTelemetryCount": 538
+  },
+  "kpi": {
+    "soakPassRate": 1,
+    "soakPassRateDelta": 0.01,
+    "consecutiveSoakFailures": 0,
+    "soakRepeatFailureRate": 0,
+    "runRepeatFailureRate": 0,
+    "runReadinessPassRate": 1,
+    "reliabilityStatus": "healthy",
+    "gatesPassed": true
+  },
+  "topRisks": [
+    {
+      "rank": 1,
+      "taxonomyClass": "release.soak",
+      "title": "Soak cycle step failed",
+      "severity": "high",
+      "count": 122,
+      "share": 1,
+      "trend": "stable"
+    }
+  ],
+  "mitigationBacklog": [
+    {
+      "priority": "P1",
+      "failureClass": "release.soak",
+      "title": "Soak cycle step failed",
+      "owner": "platform",
+      "rationale": "122 failures (100.0% share), severity=high, trend=stable.",
+      "actions": [
+        "Re-run soak with enforce-gate disabled only for diagnosis; fix root step before enforcing gates again.",
+        "Quarantine flaky unit tests identified in FLAKY_CANDIDATES.json",
+        "Stabilize soak step ordering and timeouts",
+        "Track soak failure class share week over week",
+        "Alert on repeat failure class across 3+ cycles"
+      ]
+    }
+  ],
+  "sources": {
+    "soakTrendsPath": "artifacts/release/SOAK_TRENDS.json",
+    "soakReliabilityPath": "artifacts/release/SOAK_RELIABILITY.json",
+    "failureTaxonomyPath": "artifacts/verification/FAILURE_TAXONOMY.json",
+    "dogfoodMetricsPath": "artifacts/release/dogfood_metrics.json"
+  }
+}

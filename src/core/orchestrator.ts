@@ -22,7 +22,8 @@ import { runPlannerReplanWave } from "../supervisor/auto-replan.js";
 import { listEscalationLifecycle, syncEscalationLifecycle } from "../supervisor/escalation-lifecycle.js";
 import { runVerification } from "../verification/verification-gate.js";
 import { createReleaseBundle } from "../skills/release/release-packager.js";
-import { addLearning, retrieveLessons } from "../memory/global-learning-graph.js";
+import { addLearning } from "../memory/global-learning-graph.js";
+import { retrieveLessonsForPlanning } from "../memory/memory-contradiction.js";
 import { createControlPlaneAdapter } from "../runtime/control-plane.js";
 import { defaultRadarEntries } from "../tech-radar/radar.js";
 import { ensureTenant } from "../managed/tenant.js";
@@ -272,12 +273,28 @@ export async function runDexter(
   };
   await writeDiscoveryArtifacts(rootDir, discovery);
 
-  logger.info({ stage: "memory" }, "Loading prior lessons");
-  const priorLessons = await retrieveLessons(rootDir, ["runtime", "policy", "memory"], 5);
-  await fs.writeFile(
+  logger.info({ stage: "memory" }, "Loading prior lessons with contradiction analysis");
+  const memory = await retrieveLessonsForPlanning(rootDir, ["runtime", "policy", "memory"], 5);
+  const priorLessons = memory.lessons.map((item) => item.node);
+  await fs.writeJson(
     path.join(ctx.runDir, "prior_lessons.json"),
-    JSON.stringify(priorLessons, null, 2),
+    {
+      lessons: memory.lessons,
+      contradictionReportPath: path.join(rootDir, "global-memory", "MEMORY_CONTRADICTION_REPORT.json"),
+      contradictionCount: memory.report.contradictionCount,
+    },
+    { spaces: 2 },
   );
+  if (memory.report.contradictionCount > 0) {
+    discovery.risks.push({
+      id: "risk-memory-contradiction",
+      title: "Conflicting global-memory lessons detected before planning.",
+      level: "medium",
+      mitigation:
+        "Review global-memory/MEMORY_CONTRADICTION_REPORT.md and resolve contradictory lessons before relying on retrieved memory.",
+    });
+    await writeDiscoveryArtifacts(rootDir, discovery);
+  }
 
   logger.info({ stage: "planning" }, "Compiling plan artifacts from intake-aware pipeline");
   const planned = await planFromIntakeArtifacts(rootDir, discovery, intakeBrief, {
@@ -421,6 +438,8 @@ export async function runDexter(
       attempted: boolean;
       stalled: boolean;
       stalledReason?: string;
+      stallRemediationClass?: string;
+      plannerRemediationClasses: string[];
       runStatusAfterWave: string;
       unresolvedAfterWave: number;
       plannerEscalationKeys: string[];
@@ -464,6 +483,8 @@ export async function runDexter(
         attempted: replan.attempted,
         stalled: replan.stalled,
         stalledReason: replan.stallReason,
+        stallRemediationClass: replan.stallRemediation?.failureClass,
+        plannerRemediationClasses: replan.plannerRemediations.map((item) => item.failureClass),
         runStatusAfterWave: escalationLifecycle.runStatus,
         unresolvedAfterWave: escalationLifecycle.unresolvedRequired,
         plannerEscalationKeys: replan.plannerEscalationKeys,

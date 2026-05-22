@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Canonical failure classes and deterministic mapping rules for Dexter telemetry.",
+  "classes": [
+    {
+      "id": "execution.command_failed",
+      "title": "Task command execution failed",
+      "severity": "high"
+    },
+    {
+      "id": "execution.acceptance_failed",
+      "title": "Task acceptance checks failed",
+      "severity": "high"
+    },
+    {
+      "id": "execution.dependency_blocked",
+      "title": "Task blocked by unresolved dependencies",
+      "severity": "medium"
+    },
+    {
+      "id": "execution.hitl_blocked",
+      "title": "Required HITL escalation unresolved",
+      "severity": "high"
+    },
+    {
+      "id": "execution.replan_stalled",
+      "title": "Replan loop stalled or exhausted waves",
+      "severity": "high"
+    },
+    {
+      "id": "verification.readiness",
+      "title": "Verification or readiness gate failed",
+      "severity": "high"
+    },
+    {
+      "id": "verification.trust_gates",
+      "title": "Trust gates drill scenario failed",
+      "severity": "critical"
+    },
+    {
+      "id": "release.soak",
+      "title": "Soak cycle step failed",
+      "severity": "high"
+    },
+    {
+      "id": "release.promotion",
+      "title": "Promotion pipeline stage failed",
+      "severity": "critical"
+    },
+    {
+      "id": "release.deploy_health",
+      "title": "Deployment health checks failed",
+      "severity": "critical"
+    },
+    {
+      "id": "release.canary_slo",
+      "title": "Canary SLO breach or rollback triggered",
+      "severity": "critical"
+    },
+    {
+      "id": "intake.clarification",
+      "title": "Intake blocked by clarification gate",
+      "severity": "medium"
+    },
+    {
+      "id": "intake.pilot",
+      "title": "Intake pilot request failed or incomplete",
+      "severity": "medium"
+    },
+    {
+      "id": "policy.governance",
+      "title": "Governance or repeatability verification failed",
+      "severity": "high"
+    },
+    {
+      "id": "unknown",
+      "title": "Unmapped failure signal",
+      "severity": "low"
+    }
+  ],
+  "mappingRules": [
+    {
+      "id": "execution-reason-command",
+      "class": "execution.command_failed",
+      "source": "run.task",
+      "signalIncludes": ["command_failed"]
+    },
+    {
+      "id": "execution-reason-acceptance",
+      "class": "execution.acceptance_failed",
+      "source": "run.task",
+      "signalIncludes": ["acceptance_failed"]
+    },
+    {
+      "id": "execution-reason-dependency",
+      "class": "execution.dependency_blocked",
+      "source": "run.task",
+      "signalIncludes": ["dependency_blocked"]
+    },
+    {
+      "id": "run-blocked",
+      "class": "execution.hitl_blocked",
+      "source": "run",
+      "signalIncludes": ["runstatus=blocked"]
+    },
+    {
+      "id": "run-degraded",
+      "class": "execution.hitl_blocked",
+      "source": "run",
+      "signalIncludes": ["runstatus=degraded"]
+    },
+    {
+      "id": "run-not-ready",
+      "class": "verification.readiness",
+      "source": "run",
+      "signalIncludes": ["verificationpassed=false"]
+    },
+    {
+      "id": "replan-stalled",
+      "class": "execution.replan_stalled",
+      "source": "run.replan",
+      "signalIncludes": ["stalled", "max_waves"]
+    },
+    {
+      "id": "trust-gates-fail",
+      "class": "verification.trust_gates",
+      "source": "trust_gates",
+      "signalIncludes": ["scenario failed", "passed=false"]
+    },
+    {
+      "id": "soak-fail",
+      "class": "release.soak",
+      "source": "soak",
+      "signalIncludes": ["failed with exit code", "soak cycle failed"]
+    },
+    {
+      "id": "promotion-fail",
+      "class": "release.promotion",
+      "source": "promotion",
+      "signalIncludes": ["passed=false", "stage_failed", "promotion failed"]
+    },
+    {
+      "id": "deploy-health",
+      "class": "release.deploy_health",
+      "source": "run",
+      "signalIncludes": ["deployment health", "health check failed"]
+    },
+    {
+      "id": "canary-slo",
+      "class": "release.canary_slo",
+      "source": "canary",
+      "signalIncludes": ["slo", "rollback", "breach", "error_rate"]
+    },
+    {
+      "id": "intake-clarification",
+      "class": "intake.clarification",
+      "source": "intake.pilot",
+      "signalIncludes": ["clarification gate", "clarification_required", "ambiguity"]
+    },
+    {
+      "id": "intake-pilot-fail",
+      "class": "intake.pilot",
+      "source": "intake.pilot",
+      "signalIncludes": ["completed=false", "execution_blocked", "pilot failed"]
+    },
+    {
+      "id": "governance-fail",
+      "class": "policy.governance",
+      "source": "governance",
+      "signalIncludes": ["governance", "repeatability", "check failed"]
+    }
+  ],
+  "sourceFallbacks": {
+    "soak": "release.soak",
+    "run.task": "execution.command_failed",
+    "run": "verification.readiness",
+    "run.replan": "execution.replan_stalled",
+    "trust_gates": "verification.trust_gates",
+    "promotion": "release.promotion",
+    "intake.pilot": "intake.pilot",
+    "governance": "policy.governance",
+    "canary": "release.canary_slo",
+    "escalation": "execution.hitl_blocked"
+  }
+}

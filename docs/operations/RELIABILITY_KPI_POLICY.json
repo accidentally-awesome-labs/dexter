@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Reliability KPI thresholds and mitigation backlog prioritization for Milestone 3 reviews.",
+  "rolling100MinPassRate": 0.9,
+  "maxSoakRepeatFailureRate": 0.4,
+  "maxRunRepeatFailureRate": 0.05,
+  "topFailureClassCount": 3,
+  "severityToPriority": {
+    "critical": "P0",
+    "high": "P1",
+    "medium": "P2",
+    "low": "P2"
+  },
+  "mitigationOwners": {
+    "release.soak": "platform",
+    "release.promotion": "operator",
+    "release.canary_slo": "operator",
+    "release.deploy_health": "operator",
+    "execution.command_failed": "planner",
+    "execution.acceptance_failed": "planner",
+    "execution.replan_stalled": "planner",
+    "execution.hitl_blocked": "operator",
+    "verification.readiness": "platform",
+    "verification.trust_gates": "platform",
+    "policy.governance": "operator",
+    "intake.pilot": "planner",
+    "intake.clarification": "planner",
+    "unknown": "operator"
+  }
+}
