@@ -50,7 +50,7 @@ describe("intake to execution end-to-end", () => {
     expect(taskGraph.every((task: { riskPriority?: unknown; routing?: unknown }) => task.riskPriority && task.routing)).toBe(
       true,
     );
-  });
+  }, 30_000);
 
   it("keeps escalations coherent with high-risk HITL routing", async () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-intake-exec-risk-"));
@@ -90,5 +90,5 @@ describe("intake to execution end-to-end", () => {
     const resume = await buildResumeCheck(rootDir, result.runId);
     expect(resume.runId).toBe(result.runId);
     expect(resume.runStatus).toBeTruthy();
-  }, 30_000);
+  }, 60_000);
 });

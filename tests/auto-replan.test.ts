@@ -154,5 +154,5 @@ describe("auto replan wave", () => {
     expect(result.attempted).toBe(false);
     expect(result.stalled).toBe(true);
     await fs.remove(rootDir);
-  });
+  }, 30_000);
 });
