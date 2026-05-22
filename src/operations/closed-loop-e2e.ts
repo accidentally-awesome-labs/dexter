@@ -9,6 +9,7 @@ import {
 } from "../providers/deployment/coolify-client.js";
 import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 import { runProductionPreflight } from "./production-preflight.js";
+import { loadDeployManifest } from "../release/deploy-manifest.js";
 
 export interface ClosedLoopE2eOptions {
   rootDir: string;
@@ -17,10 +18,18 @@ export interface ClosedLoopE2eOptions {
   constraints?: string[];
   targetUsers?: string[];
   skipPreflight?: boolean;
+  strictHealth?: boolean;
+}
+
+export interface HealthResolution {
+  url: string;
+  source: string;
+  appFqdn?: string;
+  fallbackUsed: boolean;
 }
 
 export interface ClosedLoopE2eReport {
-  schemaVersion: "1.0";
+  schemaVersion: "1.1";
   generatedAt: string;
   passed: boolean;
   project: string;
@@ -28,11 +37,19 @@ export interface ClosedLoopE2eReport {
   runId: string;
   deploymentMode: string;
   deploymentId?: string;
+  deployArtifactRef?: {
+    image: string;
+    tag: string;
+    deployTag: string;
+    stampPath: string;
+  };
   verificationPassed: boolean;
   productionReady: boolean;
   health: {
     url: string;
     appFqdn?: string;
+    source: string;
+    fallbackUsed: boolean;
     passed: boolean;
     checks: Array<{ url: string; status: string; statusCode?: number }>;
   };
@@ -41,12 +58,20 @@ export interface ClosedLoopE2eReport {
     runSummary: string;
     deployment: string;
     deploymentHealth: string;
+    deploymentManifest: string;
     intakeBrief: string;
   };
 }
 
 export function defaultClosedLoopIdea(project: string): string {
   return `Build and ship ${project}: a production-ready internal tools API with policy-gated autonomous delivery through Dexter.`;
+}
+
+export function isStrictHealthEnabled(options?: ClosedLoopE2eOptions): boolean {
+  if (options?.strictHealth !== undefined) {
+    return options.strictHealth;
+  }
+  return process.env.DEXTER_E2E_STRICT_HEALTH !== "false";
 }
 
 export async function validateClosedLoopWiring(rootDir: string): Promise<string[]> {
@@ -66,13 +91,23 @@ export async function validateClosedLoopWiring(rootDir: string): Promise<string[
   return blockers;
 }
 
+function appHealthUrl(fqdn: string, healthPath?: string | null): string {
+  const base = fqdn.replace(/\/$/, "");
+  if (!healthPath || healthPath === "/") {
+    return `${base}/`;
+  }
+  return healthPath.startsWith("/") ? `${base}${healthPath}` : `${base}/${healthPath}`;
+}
+
 export async function resolveClosedLoopHealthUrl(
   rootDir: string,
   appName: string,
-): Promise<{ url: string; appFqdn?: string; source: string }> {
+): Promise<HealthResolution> {
+  const allowPanel = process.env.DEXTER_E2E_ALLOW_PANEL_HEALTH === "true";
   const explicit = process.env.DEXTER_DEPLOY_HEALTH_URL?.trim();
-  if (explicit) {
-    return { url: explicit, source: "DEXTER_DEPLOY_HEALTH_URL" };
+
+  if (allowPanel && explicit) {
+    return { url: explicit, source: "DEXTER_DEPLOY_HEALTH_URL", fallbackUsed: false };
   }
 
   const coolify = createCoolifyClientFromEnv(rootDir);
@@ -80,39 +115,50 @@ export async function resolveClosedLoopHealthUrl(
     try {
       const app = await coolify.findApplicationByName(appName, rootDir);
       const fqdn = app?.fqdn?.trim();
-      if (fqdn) {
-        const base = fqdn.replace(/\/$/, "");
-        const pathSuffix =
-          app?.health_check_path && app.health_check_path !== "/"
-            ? app.health_check_path.startsWith("/")
-              ? app.health_check_path
-              : `/${app.health_check_path}`
-            : "/";
+      if (app && fqdn) {
+        const candidate = appHealthUrl(fqdn, app.health_check_path);
         const probe = await runDeploymentHealthChecks({
-          urls: [`${base}${pathSuffix}`],
+          urls: [candidate],
           timeoutMs: 4000,
         });
         if (probe.passed) {
-          return { url: `${base}${pathSuffix}`, appFqdn: fqdn, source: "coolify_app_fqdn" };
+          return {
+            url: candidate,
+            appFqdn: fqdn,
+            source: "coolify_app_fqdn",
+            fallbackUsed: false,
+          };
         }
       }
     } catch {
-      // fall through to control-plane health
+      // fall through
+    }
+  }
+
+  if (explicit && !allowPanel) {
+    const probe = await runDeploymentHealthChecks({ urls: [explicit], timeoutMs: 4000 });
+    if (probe.passed) {
+      return { url: explicit, source: "DEXTER_DEPLOY_HEALTH_URL", fallbackUsed: false };
     }
   }
 
   const origin = (process.env.COOLIFY_ORIGIN ?? process.env.DEXTER_COOLIFY_ORIGIN ?? "").replace(/\/$/, "");
   if (origin) {
-    return { url: `${origin}/api/health`, source: "coolify_control_plane_health" };
+    return {
+      url: `${origin}/api/health`,
+      source: "coolify_control_plane_health",
+      fallbackUsed: true,
+    };
   }
 
-  throw new Error("Unable to resolve deploy health URL. Set DEXTER_DEPLOY_HEALTH_URL or COOLIFY_ORIGIN.");
+  throw new Error("Unable to resolve deploy health URL. Set COOLIFY_ORIGIN or DEXTER_DEPLOY_HEALTH_URL.");
 }
 
 export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<ClosedLoopE2eReport> {
   const rootDir = options.rootDir;
   const project = options.project ?? process.env.DEXTER_COOLIFY_APP_NAME ?? "dexter";
   const coolifyAppName = process.env.DEXTER_COOLIFY_APP_NAME ?? project;
+  const strictHealth = isStrictHealthEnabled(options);
   const phases: ClosedLoopE2eReport["phases"] = [];
 
   const wiringBlockers = await validateClosedLoopWiring(rootDir);
@@ -137,9 +183,20 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
     }
   }
 
+  if (strictHealth) {
+    delete process.env.DEXTER_DEPLOY_HEALTH_URL;
+  }
+
   const health = await resolveClosedLoopHealthUrl(rootDir, coolifyAppName);
+  if (strictHealth && health.fallbackUsed) {
+    throw new Error(
+      `Strict health mode requires application FQDN health, but only fallback is available (${health.source}). Start the Coolify app or set DEXTER_E2E_ALLOW_PANEL_HEALTH=true for dev.`,
+    );
+  }
+
   process.env.DEXTER_DEPLOY_HEALTH_URL = health.url;
   process.env.DEXTER_REQUIRE_API_DEPLOY = "true";
+  process.env.DEXTER_CLOSED_LOOP_SMOKE = process.env.DEXTER_CLOSED_LOOP_SMOKE ?? "true";
   process.env.DEXTER_AUTO_APPROVE_HITL = process.env.DEXTER_AUTO_APPROVE_HITL ?? "true";
   process.env.DEXTER_SKIP_CLARIFICATION_GATE = process.env.DEXTER_SKIP_CLARIFICATION_GATE ?? "true";
 
@@ -153,10 +210,13 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
   phases.push({
     name: "health_resolution",
     passed: true,
-    detail: `health probe target ${health.url} (${health.source})`,
+    detail: `health ${health.url} (${health.source}, fallback=${health.fallbackUsed})`,
   });
 
-  const runResult = await runDexter(rootDir, idea, { requireApiDeploy: true });
+  const runResult = await runDexter(rootDir, idea, {
+    requireApiDeploy: true,
+    closedLoopSmoke: true,
+  });
   phases.push({
     name: "factory_run",
     passed: runResult.deploymentMode === "api" && runResult.verificationPassed,
@@ -167,6 +227,7 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
   const runSummaryPath = path.join(runDir, "run_summary.json");
   const deploymentPath = path.join(runDir, "deployment.json");
   const deploymentHealthPath = path.join(runDir, "deployment_health.json");
+  const deploymentManifestPath = path.join(runDir, "deploy_manifest.json");
   const intakeBriefPath = path.join(rootDir, "artifacts", "intake", "INTAKE_BRIEF.json");
 
   const deployment = (await fs.readJson(deploymentPath)) as {
@@ -177,15 +238,25 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
     passed: boolean;
     checks: Array<{ url: string; status: string; statusCode?: number }>;
   };
+  const manifest = (await loadDeployManifest(deploymentManifestPath)) ?? (await loadDeployManifest());
+
+  const stampExists = await fs.pathExists(path.join(rootDir, "generated", "RUN_STAMP.json"));
+  phases.push({
+    name: "run_stamp",
+    passed: stampExists,
+    detail: stampExists ? "generated/RUN_STAMP.json present" : "missing RUN_STAMP (DEXTER_CLOSED_LOOP_SMOKE?)",
+  });
 
   const passed =
     runResult.deploymentMode === "api" &&
     runResult.verificationPassed &&
     deploymentHealth.passed &&
-    runResult.productionReady;
+    runResult.productionReady &&
+    stampExists &&
+    Boolean(manifest);
 
   const report: ClosedLoopE2eReport = {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     generatedAt: new Date().toISOString(),
     passed,
     project,
@@ -193,11 +264,21 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
     runId: runResult.runId,
     deploymentMode: runResult.deploymentMode,
     deploymentId: deployment.deploymentId,
+    deployArtifactRef: manifest
+      ? {
+          image: manifest.image,
+          tag: manifest.tag,
+          deployTag: manifest.deployTag,
+          stampPath: manifest.stampPath,
+        }
+      : undefined,
     verificationPassed: runResult.verificationPassed,
     productionReady: runResult.productionReady,
     health: {
       url: health.url,
       appFqdn: health.appFqdn,
+      source: health.source,
+      fallbackUsed: health.fallbackUsed,
       passed: deploymentHealth.passed,
       checks: deploymentHealth.checks,
     },
@@ -206,6 +287,7 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
       runSummary: runSummaryPath,
       deployment: deploymentPath,
       deploymentHealth: deploymentHealthPath,
+      deploymentManifest: deploymentManifestPath,
       intakeBrief: intakeBriefPath,
     },
   };
@@ -219,13 +301,11 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
       "# Closed-Loop E2E",
       "",
       `- Passed: ${passed ? "yes" : "no"}`,
+      `- Schema: ${report.schemaVersion}`,
       `- Run: ${runResult.runId}`,
       `- Project: ${project}`,
-      `- Coolify app: ${coolifyAppName}`,
-      `- Deployment mode: ${runResult.deploymentMode}`,
-      `- Deployment id: ${deployment.deploymentId ?? "n/a"}`,
-      `- Health URL: ${health.url}`,
-      `- Health passed: ${deploymentHealth.passed ? "yes" : "no"}`,
+      `- Deploy tag: ${manifest?.deployTag ?? "n/a"}`,
+      `- Health: ${health.url} (${health.source}, fallback=${health.fallbackUsed})`,
       "",
       "## Phases",
       ...phases.map((phase) => `- ${phase.name}: ${phase.passed ? "PASS" : "FAIL"} — ${phase.detail}`),
@@ -235,7 +315,7 @@ export async function runClosedLoopE2e(options: ClosedLoopE2eOptions): Promise<C
 
   if (!passed) {
     throw new Error(
-      `Closed-loop E2E failed: deploymentMode=${runResult.deploymentMode}, health=${deploymentHealth.passed}, verification=${runResult.verificationPassed}.`,
+      `Closed-loop E2E failed: deploymentMode=${runResult.deploymentMode}, stamp=${stampExists}, manifest=${Boolean(manifest)}.`,
     );
   }
 

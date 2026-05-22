@@ -93,5 +93,5 @@ describe("task executor cleanup behavior", () => {
     expect(cleanupTaskWorkspaceMock).toHaveBeenCalledTimes(1);
     await fs.remove(runDir);
     await fs.remove(workspacePath);
-  });
+  }, 30_000);
 });

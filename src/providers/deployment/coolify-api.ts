@@ -41,6 +41,8 @@ export class CoolifyApiProvider implements DeploymentProvider {
         action: request.action,
         requestedAt: new Date().toISOString(),
         authorizationToken: request.authorizationToken ?? null,
+        deployTag: request.deployTag ?? null,
+        force: request.force ?? null,
       }),
     });
 

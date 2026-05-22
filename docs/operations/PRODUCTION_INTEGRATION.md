@@ -147,9 +147,17 @@ Requirements:
 
 - `infra/coolify/apps.json` maps your Coolify app name (default `dexter`)
 - `DEXTER_COOLIFY_API_URL` + `DEXTER_COOLIFY_TOKEN` in `.env`
-- Optional `DEXTER_DEPLOY_HEALTH_URL` (otherwise resolves app FQDN or Coolify `/api/health`)
+- Health resolution order: app FQDN probe (default), optional `DEXTER_DEPLOY_HEALTH_URL` when `DEXTER_E2E_ALLOW_PANEL_HEALTH=true`, panel `/api/health` fallback (warns in report)
 
-Success writes `artifacts/release/CLOSED_LOOP_E2E.json` with `deploymentMode: "api"` and `passed: true`.
+Track B env (see `.env.example`):
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `DEXTER_CLOSED_LOOP_SMOKE` | `true` in `factory:e2e` | Injects stamp task → `generated/RUN_STAMP.json` |
+| `DEXTER_E2E_STRICT_HEALTH` | `true` | Fail E2E if health uses panel fallback |
+| `DEXTER_DEPLOY_USE_MANIFEST_TAG` | `false` | Pass manifest `deployTag` to Coolify (needs registry tag) |
+
+Success writes `artifacts/release/CLOSED_LOOP_E2E.json` (schema **1.1**) with `deploymentMode: "api"`, `deployArtifactRef`, and `passed: true`.
 
 **v1.0 scope:** See [releases/v1.0.0/RELEASE_SCOPE.md](../releases/v1.0.0/RELEASE_SCOPE.md).  
 **v1.1 product loop (deploy built artifact + app URL health):** [planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md).

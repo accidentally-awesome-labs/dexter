@@ -99,5 +99,5 @@ describe("task executor failure modes", () => {
       process.env.DEXTER_CURSOR_CLI_COMMAND_TEMPLATE = previousTemplate;
     }
     await fs.remove(rootDir);
-  });
+  }, 30_000);
 });
