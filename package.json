@@ -33,6 +33,8 @@
     "milestone:m1:signoff": "tsx src/index.ts milestone-signoff --milestone 1",
     "milestone:m3:signoff": "tsx src/index.ts milestone-signoff --milestone 3",
     "milestone:m4:signoff": "tsx src/dev/run-milestone-m4-signoff.ts",
+    "operational:kpi": "tsx src/index.ts operational-kpi",
+    "operational:signoff": "tsx src/dev/run-operational-signoff.ts",
     "intake:normalize": "tsx src/index.ts intake-normalize --project sample-app --idea \"Build a production-ready internal tools API with policy-gated autonomy\" --constraints \"self-hosted,type-safe\" --target-users \"platform-team\"",
     "intake:normalize:issue": "tsx src/index.ts intake-normalize --adapter issue --issue-file tests/fixtures/intake/github-issue.json",
     "intake:normalize:template": "tsx src/index.ts intake-normalize --adapter template --project sample-app --template-id api-endpoint --template-vars \"{\\\"method\\\":\\\"POST\\\",\\\"path\\\":\\\"/invoices/export\\\",\\\"resource\\\":\\\"invoice export\\\"}\"",

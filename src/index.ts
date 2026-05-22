@@ -41,6 +41,8 @@ import { writeOperatorWorkflowReadiness } from "./operations/operator-workflow-r
 import { generateMilestone1Signoff } from "./operations/milestone-signoff.js";
 import { generateMilestone3Signoff } from "./operations/milestone-3-signoff.js";
 import { generateMilestone4Signoff } from "./operations/milestone-4-signoff.js";
+import { writeCrossMilestoneKpiReport } from "./operations/cross-milestone-kpi.js";
+import { generateOperationalSignoff } from "./operations/operational-signoff.js";
 import { githubIssueAdapter } from "./intake/adapters/issue.js";
 import { cliPromptAdapter } from "./intake/adapters/cli-prompt.js";
 import { templateAdapter } from "./intake/adapters/template.js";
@@ -1081,6 +1083,52 @@ async function main() {
       return;
     }
     throw new Error("Unsupported --milestone. Use 1, 3, or 4.");
+  }
+
+  if (command === "operational-kpi") {
+    const report = await writeCrossMilestoneKpiReport(rootDir);
+    const output = parseArg("--output", "json") as "json" | "table";
+    printOutput(
+      report,
+      output,
+      () =>
+        [
+          formatTable(
+            ["metric", "value", "target", "passed"],
+            report.metrics.map((metric) => [
+              metric.id,
+              String(metric.value ?? "n/a"),
+              String(metric.target),
+              String(metric.passed),
+            ]),
+          ),
+          "",
+          `passed: ${report.passed}`,
+          `report: ${path.join(rootDir, "artifacts", "release", "CROSS_MILESTONE_KPI.json")}`,
+        ].join("\n"),
+    );
+    return;
+  }
+
+  if (command === "operational-signoff") {
+    const report = await generateOperationalSignoff(rootDir);
+    if (!report.passed) {
+      const failed = report.gates.filter((gate) => !gate.passed).map((gate) => gate.id);
+      throw new Error(`Operational signoff failed: ${failed.join(", ")}`);
+    }
+    console.log(
+      JSON.stringify(
+        {
+          passed: report.passed,
+          kpiPassed: report.kpi.passed,
+          gates: report.gates.length,
+          reportPath: path.join(rootDir, "artifacts", "release", "OPERATIONAL_SIGNOFF.json"),
+        },
+        null,
+        2,
+      ),
+    );
+    return;
   }
 
   if (command === "operator-readiness") {
