@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const regressionTemplateSchema = z.object({
   failureClass: z.string().min(1),
@@ -27,6 +27,7 @@ export const DEFAULT_REGRESSION_PREVENTION_POLICY_PATH = path.join(
 );
 
 export async function loadRegressionPreventionPolicy(rootDir: string): Promise<RegressionPreventionPolicy> {
-  const raw = await fs.readJson(path.join(rootDir, DEFAULT_REGRESSION_PREVENTION_POLICY_PATH));
-  return regressionPreventionPolicySchema.parse(raw);
+  return readPolicyJson(rootDir, DEFAULT_REGRESSION_PREVENTION_POLICY_PATH, (raw) =>
+    regressionPreventionPolicySchema.parse(raw),
+  );
 }

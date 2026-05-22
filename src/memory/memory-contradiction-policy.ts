@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const contradictionPairSchema = z.object({
   id: z.string().min(1),
@@ -27,6 +27,7 @@ export const DEFAULT_MEMORY_CONTRADICTION_POLICY_PATH = path.join(
 );
 
 export async function loadMemoryContradictionPolicy(rootDir: string): Promise<MemoryContradictionPolicy> {
-  const raw = await fs.readJson(path.join(rootDir, DEFAULT_MEMORY_CONTRADICTION_POLICY_PATH));
-  return memoryContradictionPolicySchema.parse(raw);
+  return readPolicyJson(rootDir, DEFAULT_MEMORY_CONTRADICTION_POLICY_PATH, (raw) =>
+    memoryContradictionPolicySchema.parse(raw),
+  );
 }

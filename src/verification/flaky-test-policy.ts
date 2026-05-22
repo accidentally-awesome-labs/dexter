@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const flakyTestPolicySchema = z.object({
   schemaVersion: z.literal("1.0"),
@@ -19,6 +19,5 @@ export type FlakyTestPolicy = z.infer<typeof flakyTestPolicySchema>;
 export const DEFAULT_FLAKY_TEST_POLICY_PATH = path.join("docs", "operations", "FLAKY_TEST_POLICY.json");
 
 export async function loadFlakyTestPolicy(rootDir: string): Promise<FlakyTestPolicy> {
-  const raw = await fs.readJson(path.join(rootDir, DEFAULT_FLAKY_TEST_POLICY_PATH));
-  return flakyTestPolicySchema.parse(raw);
+  return readPolicyJson(rootDir, DEFAULT_FLAKY_TEST_POLICY_PATH, (raw) => flakyTestPolicySchema.parse(raw));
 }

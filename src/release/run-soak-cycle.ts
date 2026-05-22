@@ -1,6 +1,7 @@
 import path from "node:path";
 import { spawn } from "node:child_process";
 import fs from "fs-extra";
+import { isCliEntry } from "../lib/cli-entry.js";
 import { updateSoakReliability } from "./soak-reliability.js";
 import { updateSoakTrends } from "./soak-trends.js";
 import type { SoakCycleResult, SoakStatus, SoakStepResult } from "./soak-types.js";
@@ -208,7 +209,9 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (isCliEntry(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

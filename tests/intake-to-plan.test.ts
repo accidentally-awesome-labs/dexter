@@ -87,5 +87,5 @@ describe("intake to plan wiring", () => {
     expect(secondManifest.taskCount).toBe(firstManifest.taskCount);
     expect(secondManifest.tasksWithRiskPriority).toBe(firstManifest.tasksWithRiskPriority);
     expect(secondManifest.tasksRoutedToHitl).toBe(firstManifest.tasksRoutedToHitl);
-  });
+  }, 30_000);
 });

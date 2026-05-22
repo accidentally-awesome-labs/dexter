@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const reliabilityKpiPolicySchema = z.object({
   schemaVersion: z.literal("1.0"),
@@ -29,6 +29,7 @@ export const DEFAULT_RELIABILITY_KPI_POLICY_PATH = path.join(
 );
 
 export async function loadReliabilityKpiPolicy(rootDir: string): Promise<ReliabilityKpiPolicy> {
-  const raw = await fs.readJson(path.join(rootDir, DEFAULT_RELIABILITY_KPI_POLICY_PATH));
-  return reliabilityKpiPolicySchema.parse(raw);
+  return readPolicyJson(rootDir, DEFAULT_RELIABILITY_KPI_POLICY_PATH, (raw) =>
+    reliabilityKpiPolicySchema.parse(raw),
+  );
 }

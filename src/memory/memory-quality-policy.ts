@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const memoryQualityPolicySchema = z.object({
   schemaVersion: z.literal("1.0"),
@@ -21,6 +21,7 @@ export const DEFAULT_MEMORY_QUALITY_POLICY_PATH = path.join(
 );
 
 export async function loadMemoryQualityPolicy(rootDir: string): Promise<MemoryQualityPolicy> {
-  const raw = await fs.readJson(path.join(rootDir, DEFAULT_MEMORY_QUALITY_POLICY_PATH));
-  return memoryQualityPolicySchema.parse(raw);
+  return readPolicyJson(rootDir, DEFAULT_MEMORY_QUALITY_POLICY_PATH, (raw) =>
+    memoryQualityPolicySchema.parse(raw),
+  );
 }

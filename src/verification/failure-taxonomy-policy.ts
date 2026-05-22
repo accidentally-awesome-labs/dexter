@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const failureClassSchema = z.object({
   id: z.string().min(1),
@@ -37,7 +37,5 @@ export async function loadFailureTaxonomyPolicy(
   rootDir: string,
   policyPath = DEFAULT_FAILURE_TAXONOMY_POLICY_PATH,
 ): Promise<FailureTaxonomyPolicy> {
-  const resolved = path.isAbsolute(policyPath) ? policyPath : path.join(rootDir, policyPath);
-  const raw = await fs.readJson(resolved);
-  return policySchema.parse(raw);
+  return readPolicyJson(rootDir, policyPath, (raw) => policySchema.parse(raw));
 }

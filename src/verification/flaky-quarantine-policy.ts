@@ -1,6 +1,6 @@
 import path from "node:path";
-import fs from "fs-extra";
 import { z } from "zod";
+import { readPolicyJson } from "../lib/read-policy-json.js";
 
 const flakyQuarantinePolicySchema = z.object({
   schemaVersion: z.literal("1.0"),
@@ -19,8 +19,9 @@ export const DEFAULT_FLAKY_QUARANTINE_POLICY_PATH = path.join(
 );
 
 export async function loadFlakyQuarantinePolicy(rootDir: string): Promise<FlakyQuarantinePolicy> {
-  const raw = await fs.readJson(path.join(rootDir, DEFAULT_FLAKY_QUARANTINE_POLICY_PATH));
-  return flakyQuarantinePolicySchema.parse(raw);
+  return readPolicyJson(rootDir, DEFAULT_FLAKY_QUARANTINE_POLICY_PATH, (raw) =>
+    flakyQuarantinePolicySchema.parse(raw),
+  );
 }
 
 export function matchesPattern(value: string, patterns: string[]): boolean {

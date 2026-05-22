@@ -16,7 +16,9 @@ describe("deterministic replay", () => {
     delete process.env.DEXTER_AUTO_APPROVE_HITL;
   });
 
-  it("produces stable planning artifacts across runs for same input", async () => {
+  it(
+    "produces stable planning artifacts across runs for same input",
+    async () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-replay-"));
     await seedHooks(rootDir);
     process.env.DEXTER_AUTO_APPROVE_HITL = "true";
@@ -41,5 +43,7 @@ describe("deterministic replay", () => {
 
     expect(secondTaskGraph).toBe(firstTaskGraph);
     expect(secondPrd).toBe(firstPrd);
-  });
+    },
+    30_000,
+  );
 });

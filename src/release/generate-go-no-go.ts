@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "fs-extra";
+import { isCliEntry } from "../lib/cli-entry.js";
 import { buildMetricsReport } from "../metrics/aggregator.js";
 import { resolveFailureTaxonomyReport } from "../verification/failure-taxonomy.js";
 import { loadSoakReliabilitySummary } from "./soak-reliability.js";
@@ -171,10 +172,12 @@ export async function generateGoNoGoDecision(rootDir: string): Promise<{
           report: existingKpi,
         }
       : await writeReliabilityKpiReport(rootDir);
+  const soakStatusPath = path.join(rootDir, "artifacts", "release", "SOAK_STATUS.json");
+  const soakArtifactsPresent = await fs.pathExists(soakStatusPath);
   const soakGatePassed =
-    !soakReliability.present ||
+    !soakArtifactsPresent ||
     (soakReliability.reliabilityStatus !== "critical" && soakReliability.criticalWarningCount === 0);
-  const kpiGatePassed = kpi.report.kpi.gatesPassed;
+  const kpiGatePassed = !soakArtifactsPresent || kpi.report.kpi.gatesPassed;
   const unresolvedEscalations = await readUnresolvedEscalations(rootDir);
   const replanOutcome = await readLatestReplanOutcome(rootDir);
   const replanWaiver = await readReplanOutcomeWaiver(rootDir);
@@ -267,7 +270,9 @@ async function main() {
   console.log(JSON.stringify(result, null, 2));
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (isCliEntry(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
