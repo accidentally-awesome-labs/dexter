@@ -17,9 +17,21 @@ export interface DeployManifest {
   };
   stampPath: string;
   imageRef?: string;
+  registry?: string;
+  imageDigest?: string;
+  publishedAt?: string;
   build?: {
     built: boolean;
     skipped: boolean;
+    detail: string;
+  };
+  publish?: {
+    published: boolean;
+    skipped: boolean;
+    registry: string | null;
+    imageRef: string;
+    digest: string | null;
+    publishedAt: string | null;
     detail: string;
   };
 }
@@ -32,7 +44,25 @@ export interface BuildDeployManifestOptions {
 }
 
 function defaultImageRepo(project: string): string {
-  return process.env.DEXTER_DEPLOY_IMAGE ?? `dexter/${project}`;
+  const deployImage = process.env.DEXTER_DEPLOY_IMAGE?.trim();
+  if (deployImage) {
+    return stripImageTag(deployImage);
+  }
+  const registry = process.env.DEXTER_REGISTRY?.trim().replace(/\/$/, "");
+  if (registry) {
+    return `${registry}/${project}`;
+  }
+  return `dexter/${project}`;
+}
+
+function stripImageTag(image: string): string {
+  const trimmed = image.trim();
+  const lastSlash = trimmed.lastIndexOf("/");
+  const lastColon = trimmed.lastIndexOf(":");
+  if (lastColon > lastSlash) {
+    return trimmed.slice(0, lastColon);
+  }
+  return trimmed;
 }
 
 function runTag(runId: string): string {

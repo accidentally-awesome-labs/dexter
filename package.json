@@ -18,6 +18,7 @@
     "release:center": "tsx src/index.ts release-center --output table",
     "incident:simulate": "tsx src/dev/run-incident-simulations.ts",
     "deploy:self": "tsx src/index.ts deploy-self --control-plane coolify --app dexter",
+    "deploy:publish": "tsx src/dev/run-deploy-publish.ts",
     "deploy:drill": "tsx src/index.ts deploy-self --control-plane coolify --app dexter --rollback-drill true --require-real true",
     "deploy:drill:api": "tsx src/index.ts deploy-self --control-plane coolify --app dexter --rollback-drill true --require-real true --require-api true",
     "deploy:drill:api:local": "tsx src/dev/run-local-api-drill.ts",

@@ -158,6 +158,8 @@ Track B env (see `.env.example`):
 | `DEXTER_DEPLOY_USE_MANIFEST_TAG` | `false` | Pass manifest `deployTag` to Coolify (needs registry tag) |
 | `DEXTER_DEPLOY_SYNC_MANIFEST` | `false` | PATCH Coolify app image from manifest before deploy |
 | `DEXTER_REQUIRE_API_DEPLOY` | auto when bridge env set | Fail runs if deploy is not `api` mode (`intake:run`, uses this) |
+| `DEXTER_REGISTRY` | — | Registry prefix for `deploy:publish` (e.g. `ghcr.io/org`) |
+| `DEXTER_DEPLOY_PUBLISH` | `false` | Push manifest image during closed-loop run |
 
 Success writes `artifacts/release/CLOSED_LOOP_E2E.json` (schema **1.1**) with `deploymentMode: "api"`, `deployArtifactRef`, and `passed: true`.
 
@@ -176,8 +178,30 @@ npm run factory:ci-drill
 
 For a real Coolify panel, use workflow **closed-loop-staging** (`workflow_dispatch`) with repository secrets (`COOLIFY_*`, `DEXTER_*`). Set `coolify_origin` to your panel URL; the job runs `factory:e2e` with strict health.
 
+See [STAGING_HOST.md](./STAGING_HOST.md) for a long-lived staging VPS (bridge service, GHCR, secrets) without ephemeral tunnels.
+
+### 5c. Registry publish (v1.2)
+
+After a factory run with a deploy manifest:
+
+```bash
+export DEXTER_REGISTRY=ghcr.io/your-org
+docker login ghcr.io
+npm run deploy:publish -- --run-id <runId>
+```
+
+Or auto-publish during E2E:
+
+```bash
+export DEXTER_DEPLOY_PUBLISH=true
+npm run factory:e2e
+```
+
+`deploy_manifest.json` gains `registry`, `imageDigest`, `publishedAt`, and a `publish` block. Coolify must have registry pull credentials for private images.
+
 **v1.0 scope:** See [releases/v1.0.0/RELEASE_SCOPE.md](../releases/v1.0.0/RELEASE_SCOPE.md).  
-**v1.1 product loop (deploy built artifact + app URL health):** [releases/v1.1.0/RELEASE_SCOPE.md](../releases/v1.1.0/RELEASE_SCOPE.md) and [planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md).
+**v1.1 product loop:** [releases/v1.1.0/RELEASE_SCOPE.md](../releases/v1.1.0/RELEASE_SCOPE.md)  
+**v1.2 staging + registry:** [releases/v1.2.0/RELEASE_SCOPE.md](../releases/v1.2.0/RELEASE_SCOPE.md) and [STAGING_HOST.md](./STAGING_HOST.md)
 
 ### 6. Continuous reliability
 
