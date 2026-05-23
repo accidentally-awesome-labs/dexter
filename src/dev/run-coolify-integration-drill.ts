@@ -133,6 +133,42 @@ async function seedGovernanceArtifacts(rootDir: string): Promise<void> {
     repeatedFailureRate: 0,
     avgTimeToReadyMs: 100,
   });
+
+  const drillRunId = "integration-drill";
+  await fs.ensureDir(path.join(rootDir, "runs", drillRunId));
+  await fs.writeJson(path.join(rootDir, "runs", drillRunId, "run_summary.json"), {
+    runId: drillRunId,
+    project: "dexter",
+    durationMs: 100,
+    verificationPassed: true,
+    deployed: true,
+    memoryLessonsRetrieved: 1,
+    tasksTotal: 1,
+    tasksPassed: 1,
+  });
+  await fs.writeJson(path.join(rootDir, "artifacts", "release", "RELIABILITY_KPI.json"), {
+    schemaVersion: "1.0",
+    generatedAt: new Date().toISOString(),
+    window: { rolling100CycleCount: 10, runTelemetryCount: 1 },
+    kpi: {
+      soakPassRate: 1,
+      soakPassRateDelta: 0,
+      consecutiveSoakFailures: 0,
+      soakRepeatFailureRate: 0,
+      runRepeatFailureRate: 0,
+      runReadinessPassRate: 1,
+      reliabilityStatus: "healthy",
+      gatesPassed: true,
+    },
+    topRisks: [],
+    mitigationBacklog: [],
+    sources: {
+      soakTrendsPath: "artifacts/release/SOAK_TRENDS.json",
+      soakReliabilityPath: "artifacts/release/SOAK_RELIABILITY.json",
+      failureTaxonomyPath: "artifacts/verification/FAILURE_TAXONOMY.json",
+      dogfoodMetricsPath: "artifacts/release/dogfood_metrics.json",
+    },
+  });
 }
 
 async function runCommand(
