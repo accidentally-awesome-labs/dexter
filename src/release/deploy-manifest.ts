@@ -94,6 +94,26 @@ export async function readRunStamp(
   };
 }
 
+async function ensureRunStampForBuild(rootDir: string, manifest: DeployManifest): Promise<void> {
+  const stampPath = process.env.DEXTER_RUN_STAMP_PATH?.trim()
+    ? path.resolve(rootDir, process.env.DEXTER_RUN_STAMP_PATH.trim())
+    : path.join(rootDir, "generated", "RUN_STAMP.json");
+  if (await fs.pathExists(stampPath)) {
+    return;
+  }
+  await fs.ensureDir(path.dirname(stampPath));
+  await fs.writeJson(
+    stampPath,
+    {
+      schemaVersion: "1.0",
+      runId: manifest.runId,
+      project: manifest.project,
+      generatedAt: manifest.generatedAt,
+    },
+    { spaces: 2 },
+  );
+}
+
 export async function buildDeployManifest(options: BuildDeployManifestOptions): Promise<DeployManifest> {
   const stamp =
     (await readRunStamp(options.rootDir)) ??
@@ -128,6 +148,7 @@ export async function prepareDeployArtifact(
   options: BuildDeployManifestOptions,
 ): Promise<{ manifest: DeployManifest; build: BuildDeployImageResult }> {
   const manifest = await buildDeployManifest(options);
+  await ensureRunStampForBuild(options.rootDir, manifest);
   const build = await buildDeployImage(options.rootDir, manifest);
   manifest.imageRef = build.imageRef;
   manifest.build = {
