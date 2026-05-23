@@ -1,6 +1,6 @@
 # Dexter v1.1.0 — Release Scope (Track B product GA)
 
-**Status:** RC validation complete — ready for `v1.1.0-rc1` tag  
+**Status:** `v1.1.0-rc1` tagged — soak passed; GA checklist ready  
 **Predecessor:** [v1.0.0 RELEASE_SCOPE.md](../v1.0.0/RELEASE_SCOPE.md) (factory OS + integration)  
 **Plan:** [TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md)
 
@@ -34,4 +34,5 @@ One credible closed loop: **idea → built artifact → deploy that artifact →
 - [x] `npm run factory:ci-drill` green in CI (PR #12)
 - [x] Local `npm run factory:e2e` with strict health + running app FQDN — [CLOSED_LOOP_E2E_LOCAL_PROOF.json](./CLOSED_LOOP_E2E_LOCAL_PROOF.json)
 - [x] Staging workflow proof — [CLOSED_LOOP_E2E_STAGING_PROOF.json](./CLOSED_LOOP_E2E_STAGING_PROOF.json) (supersedes [v1.0.0-rc1 proof](../v1.0.0-rc1/CLOSED_LOOP_E2E_PROOF.json) for product loop)
-- [ ] Tag `v1.1.0-rc1` after maintainer review ([RC1_CHECKLIST.md](./RC1_CHECKLIST.md))
+- [x] Tag `v1.1.0-rc1` — [RC1_CHECKLIST.md](./RC1_CHECKLIST.md)
+- [ ] Tag `v1.1.0` after GA sign-off — [GA_CHECKLIST.md](./GA_CHECKLIST.md)

@@ -2,7 +2,7 @@
 
 Complete on branch `v1.0.0-rc1` before tagging `v1.1.0-rc1`. Check items only with command output or committed proof artifacts.
 
-**Validation log (2026-05-23):** Track B Week 3 merged (#12); staging workflow + local E2E passed.
+**Validation log (2026-05-23):** Track B Week 3 merged (#12); staging workflow + local E2E passed; tag `v1.1.0-rc1` pushed.
 
 ## 1. CI closed-loop drills
 
@@ -34,6 +34,8 @@ Prerequisites: `infra/coolify/local` up, `.env` + `apps.json`, `npm run coolify:
 - [ ] Optional: promotion pipeline on non-local Coolify
 
 ## 5. Tag (maintainer)
+
+- [x] Tag `v1.1.0-rc1` pushed (`30a6f17`)
 
 When sections 1–4 are satisfied:
 

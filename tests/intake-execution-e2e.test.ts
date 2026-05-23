@@ -15,13 +15,24 @@ async function seedHooks(rootDir: string) {
   await fs.writeFile(path.join(hooksDir, "rollback.sh"), "#!/usr/bin/env sh\necho rollback\n");
 }
 
+function isolateIntakeDeployEnv(): void {
+  delete process.env.DEXTER_COOLIFY_API_URL;
+  delete process.env.DEXTER_COOLIFY_TOKEN;
+  delete process.env.DEXTER_BRIDGE_TOKEN;
+  delete process.env.DEXTER_REQUIRE_API_DEPLOY;
+  delete process.env.COOLIFY_ORIGIN;
+  delete process.env.COOLIFY_API_TOKEN;
+}
+
 describe("intake to execution end-to-end", () => {
   afterEach(() => {
     delete process.env.DEXTER_AUTO_APPROVE_HITL;
     delete process.env.DEXTER_SKIP_CLARIFICATION_GATE;
+    isolateIntakeDeployEnv();
   });
 
   it("runs from intake artifacts through execution and run summary", async () => {
+    isolateIntakeDeployEnv();
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-intake-exec-"));
     await seedHooks(rootDir);
     process.env.DEXTER_AUTO_APPROVE_HITL = "true";
@@ -53,6 +64,7 @@ describe("intake to execution end-to-end", () => {
   }, 30_000);
 
   it("keeps escalations coherent with high-risk HITL routing", async () => {
+    isolateIntakeDeployEnv();
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-intake-exec-risk-"));
     await seedHooks(rootDir);
     process.env.DEXTER_AUTO_APPROVE_HITL = "true";
