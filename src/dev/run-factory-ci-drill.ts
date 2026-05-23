@@ -122,8 +122,9 @@ async function main(): Promise<void> {
   const runId = crypto.randomUUID();
   const runDir = path.join(rootDir, "runs", runId);
   await fs.ensureDir(runDir);
-  await fs.ensureDir(path.join(rootDir, "generated"));
-  await fs.writeJson(path.join(rootDir, "generated", "RUN_STAMP.json"), {
+  const stampPath = path.join(runDir, "RUN_STAMP.json");
+  process.env.DEXTER_RUN_STAMP_PATH = path.relative(rootDir, stampPath);
+  await fs.writeJson(stampPath, {
     schemaVersion: "1.0",
     runId,
     project: "dexter",
