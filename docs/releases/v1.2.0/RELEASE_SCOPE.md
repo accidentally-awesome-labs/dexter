@@ -27,9 +27,11 @@ Repeatable **production factory**: registry-backed deploys, stable staging (no l
 - Non-Coolify prod control planes
 - Multi-tenant Dexter SaaS
 
-## Verification (TBD)
+## Verification (in progress — P1)
 
-- [ ] Registry push + Coolify pull same run tag
+- [x] `deploy:publish` command + manifest fields (`registry`, `imageDigest`, `publishedAt`)
+- [x] [STAGING_HOST.md](../../operations/STAGING_HOST.md) runbook
+- [ ] Registry push + Coolify pull same run tag on staging host
 - [ ] Two consecutive staging workflow passes without local dev machine
 - [ ] Promotion pipeline manifest on staging
 - [ ] Tag `v1.2.0-rc1` → soak → `v1.2.0`

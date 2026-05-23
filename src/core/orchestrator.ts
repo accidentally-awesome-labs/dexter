@@ -42,6 +42,7 @@ import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 import { writeOpsStatusArtifact } from "./ops-status.js";
 import { injectClosedLoopStampTask } from "../release/closed-loop-stamp.js";
 import { prepareDeployArtifact, writeDeployManifest } from "../release/deploy-manifest.js";
+import { applyPublishResult, publishDeployImage } from "../release/deploy-publish.js";
 
 async function persistIntakeExecutionArtifacts(input: {
   rootDir: string;
@@ -667,6 +668,15 @@ export async function runDexter(
       prepared,
     );
     await fs.writeJson(path.join(ctx.runDir, "deploy_build.json"), prepared.build, { spaces: 2 });
+    if (process.env.DEXTER_DEPLOY_PUBLISH === "true") {
+      const publishResult = await publishDeployImage(rootDir, prepared.manifest, { ensureBuilt: false });
+      applyPublishResult(prepared.manifest, publishResult);
+      await fs.writeJson(path.join(ctx.runDir, "deploy_manifest.json"), prepared.manifest, { spaces: 2 });
+      await fs.writeJson(path.join(ctx.runDir, "deploy_publish.json"), publishResult, { spaces: 2 });
+      await fs.writeJson(path.join(rootDir, "artifacts", "release", "DEPLOY_MANIFEST.json"), prepared.manifest, {
+        spaces: 2,
+      });
+    }
   }
 
   const deployment = await controlPlane.deploy(idea.project, deployAuth, {
