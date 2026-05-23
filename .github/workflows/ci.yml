@@ -51,6 +51,17 @@ jobs:
         run: npm run attest:verify
       - name: Run trust gates failure-injection drill
         run: npm run trust:gates
+      - name: Run Coolify integration drill
+        run: npm run coolify:integration-drill
+      - name: Run factory CI closed-loop drill
+        run: npm run factory:ci-drill
+      - name: Upload closed-loop CI artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: closed-loop-e2e-ci
+          path: artifacts/release/CLOSED_LOOP_E2E.json
+          if-no-files-found: ignore
       - name: Run local API-mode deploy drill
         run: npm run deploy:drill:api:local
       - name: Record soak cycle status

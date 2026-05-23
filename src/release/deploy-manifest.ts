@@ -43,7 +43,9 @@ function runTag(runId: string): string {
 export async function readRunStamp(
   rootDir: string,
 ): Promise<{ runId: string; project: string; generatedAt: string } | null> {
-  const stampPath = path.join(rootDir, "generated", "RUN_STAMP.json");
+  const stampPath = process.env.DEXTER_RUN_STAMP_PATH?.trim()
+    ? path.resolve(rootDir, process.env.DEXTER_RUN_STAMP_PATH.trim())
+    : path.join(rootDir, "generated", "RUN_STAMP.json");
   if (!(await fs.pathExists(stampPath))) {
     return null;
   }
