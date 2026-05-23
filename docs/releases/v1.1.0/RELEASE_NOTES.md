@@ -1,6 +1,8 @@
-# Dexter v1.1.0-rc1 — Release Notes (draft)
+# Dexter v1.1.0 — Release Notes
 
+**Tag:** `v1.1.0`  
 **Branch:** `v1.0.0-rc1`  
+**RC:** [v1.1.0-rc1](https://github.com/accidentally-awesome-labs/dexter/releases/tag/v1.1.0-rc1)  
 **Predecessor:** [v1.0.0](../v1.0.0/RELEASE_NOTES.md)
 
 ## Highlights
