@@ -26,6 +26,17 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Write Coolify apps mapping
+        env:
+          COOLIFY_APP_UUID: ${{ secrets.COOLIFY_APP_UUID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${COOLIFY_APP_UUID}" ]; then
+            echo "COOLIFY_APP_UUID secret is required for staging E2E"
+            exit 1
+          fi
+          mkdir -p infra/coolify
+          printf '%s\n' "{\"schemaVersion\":\"1.0\",\"applications\":{\"dexter\":{\"uuid\":\"${COOLIFY_APP_UUID}\"}}}" > infra/coolify/apps.json
       - name: Run factory E2E (staging secrets)
         env:
           COOLIFY_ORIGIN: ${{ inputs.coolify_origin }}
