@@ -141,7 +141,7 @@ Manifest after publish includes `registry`, `imageDigest`, and `publishedAt` (sc
 | `COOLIFY_APP_UUID` | Coolify application UUID |
 | `DEXTER_DEPLOY_AUTH_KEY` | Non-default deploy auth key |
 | `DEXTER_POLICY_BUNDLE_KEY` | Non-default policy bundle key |
-| `GHCR_PAT` | (optional) local `docker login` if not using `npm run ghcr:login` |
+| `GHCR_PAT` | CI registry publish (org `GITHUB_TOKEN` often lacks `write_package`; set via `gh secret set GHCR_PAT`) |
 
 Dispatch:
 

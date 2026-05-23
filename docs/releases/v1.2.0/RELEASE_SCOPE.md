@@ -31,7 +31,7 @@ Repeatable **production factory**: registry-backed deploys, stable staging (no l
 
 - [x] `deploy:publish` command + manifest fields (`registry`, `imageDigest`, `publishedAt`)
 - [x] [STAGING_HOST.md](../../operations/STAGING_HOST.md) runbook
-- [ ] Registry push + Coolify pull same run tag on staging host (`npm run ghcr:login`, `registry:publish-drill`, CI `registry-publish.yml`)
+- [x] Registry push to GHCR (local + CI [26341188862](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26341188862); Coolify pull same tag still open)
 - [x] Two consecutive staging workflow passes without local dev machine ([26338656357](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338656357), [26338685977](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338685977); interim: local Coolify + trycloudflare tunnels via `scripts/staging-refresh-tunnels.sh`)
 - [ ] Promotion pipeline manifest on staging
 - [ ] Tag `v1.2.0-rc1` → soak → `v1.2.0`
