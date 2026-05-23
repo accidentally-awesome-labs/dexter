@@ -17,12 +17,7 @@ Ship **Track B product loop** on top of v1.0 factory OS. Base branch: `v1.0.0-rc
 
 ## 3. GA tag
 
-```bash
-git checkout v1.0.0-rc1
-git pull origin v1.0.0-rc1
-git tag -a v1.1.0 -m "Dexter v1.1.0 — Track B closed-loop product GA"
-git push origin refs/tags/v1.1.0
-```
+- [x] Tag `v1.1.0` pushed (`cd81671`)
 
 ## 4. GitHub release
 
