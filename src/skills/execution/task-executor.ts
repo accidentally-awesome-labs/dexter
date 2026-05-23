@@ -7,6 +7,7 @@ import { resolveAgentProviderWithPolicy } from "../../providers/agents/factory.j
 import { verifyTaskAcceptance } from "./acceptance-verifier.js";
 import { evaluateRetryPolicy } from "./replan-loop.js";
 import { buildExecutionSchedule } from "./task-scheduler.js";
+import { loadRegressionRemediationPolicy } from "../../verification/regression-prevention.js";
 
 interface ExecuteOptions {
   rootDir: string;
@@ -19,6 +20,7 @@ export async function executeTasks(taskGraph: TaskSpec[], options: ExecuteOption
   const results: ExecutionResult[] = [];
   const regressionsDir = path.join(options.runDir, "regressions");
   await fs.ensureDir(regressionsDir);
+  const remediationPolicy = await loadRegressionRemediationPolicy(options.rootDir);
   const schedule = buildExecutionSchedule(taskGraph);
   const statusByTaskId = new Map<string, "passed" | "failed" | "skipped">();
 
@@ -162,7 +164,12 @@ export async function executeTasks(taskGraph: TaskSpec[], options: ExecuteOption
           failureReason = undefined;
           break;
         }
-        const retryPolicy = evaluateRetryPolicy(task, attempt, failureReason ?? "acceptance_failed");
+        const retryPolicy = evaluateRetryPolicy(
+          task,
+          attempt,
+          failureReason ?? "acceptance_failed",
+          remediationPolicy,
+        );
         lastLogs.push(retryPolicy.hint);
         escalation = retryPolicy.escalation;
         if (retryPolicy.escalation.required) {

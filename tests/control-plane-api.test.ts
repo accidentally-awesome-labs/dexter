@@ -26,6 +26,10 @@ afterEach(() => {
   cleanupEnv();
 });
 
+function isolateCoolifyBridgeEnv(): void {
+  cleanupEnv();
+}
+
 describe("control plane adapter api mode", () => {
   async function seedForDeployAuth(rootDir: string) {
     const planningDir = path.join(rootDir, "artifacts", "planning");
@@ -45,6 +49,7 @@ describe("control plane adapter api mode", () => {
   }
 
   it("uses external API when configured", async () => {
+    isolateCoolifyBridgeEnv();
     const server = http.createServer((req, res) => {
       if (req.headers.authorization !== "Bearer test-token") {
         res.statusCode = 401;
@@ -70,8 +75,8 @@ describe("control plane adapter api mode", () => {
       throw new Error("failed to bind test server");
     }
 
-    process.env.DEXTER_CONTROL_PLANE_ENDPOINT = `http://127.0.0.1:${address.port}`;
-    process.env.DEXTER_CONTROL_PLANE_TOKEN = "test-token";
+    process.env.DEXTER_COOLIFY_API_URL = `http://127.0.0.1:${address.port}`;
+    process.env.DEXTER_COOLIFY_TOKEN = "test-token";
 
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-api-"));
     await seedForDeployAuth(root);
@@ -100,6 +105,7 @@ describe("control plane adapter api mode", () => {
   });
 
   it("uses provider-specific endpoint and path overrides", async () => {
+    isolateCoolifyBridgeEnv();
     const server = http.createServer((req, res) => {
       if (req.headers.authorization !== "Bearer dokploy-token") {
         res.statusCode = 401;

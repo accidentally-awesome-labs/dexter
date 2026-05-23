@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.1",
+  "generatedAt": "2026-05-23T05:09:18.268Z",
+  "passed": true,
+  "project": "dexter",
+  "coolifyAppName": "dexter",
+  "runId": "31ab7187-4915-489c-baaa-ffbdb74d6fc3",
+  "deploymentMode": "api",
+  "deploymentId": "b7qojdqo33pthav2vnd69x9q",
+  "deployArtifactRef": {
+    "image": "dexter/dexter",
+    "tag": "run-31ab71874915",
+    "deployTag": "run-31ab71874915",
+    "stampPath": "generated/RUN_STAMP.json"
+  },
+  "verificationPassed": true,
+  "productionReady": true,
+  "health": {
+    "url": "<staging-app-fqdn>/",
+    "appFqdn": "<staging-app-fqdn>",
+    "source": "coolify_app_fqdn",
+    "fallbackUsed": false,
+    "passed": true,
+    "checks": [
+      {
+        "url": "<staging-app-fqdn>/",
+        "status": "pass",
+        "statusCode": 200,
+        "durationMs": 239
+      }
+    ]
+  },
+  "phases": [
+    { "name": "wiring", "passed": true },
+    { "name": "health_resolution", "passed": true, "detail": "coolify_app_fqdn, fallback=false" },
+    { "name": "factory_run", "passed": true, "detail": "deploymentMode=api, verification=true" },
+    { "name": "run_stamp", "passed": true }
+  ],
+  "_note": "Redacted from GitHub Actions workflow closed-loop-staging run 26324234124 (2026-05-23). Ephemeral trycloudflare tunnels + local Coolify bridge; secrets in repo settings."
+}

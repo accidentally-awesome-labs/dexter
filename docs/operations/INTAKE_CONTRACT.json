@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Normalized intake contract for external requests before planning.",
+  "requiredFields": [
+    "schemaVersion",
+    "intakeId",
+    "generatedAt",
+    "source",
+    "project",
+    "title",
+    "summary",
+    "request",
+    "normalization",
+    "ambiguity",
+    "riskPriority"
+  ],
+  "ambiguityFields": {
+    "score": "integer(0-100)",
+    "level": "low|medium|high",
+    "clarificationRequired": "boolean",
+    "threshold": "integer(0-100)",
+    "signals": "array of { id, weight, reason, hits? }"
+  },
+  "ambiguityPolicy": "docs/operations/INTAKE_AMBIGUITY_POLICY.json",
+  "riskPriorityPolicy": "docs/operations/INTAKE_RISK_PRIORITY_POLICY.json",
+  "riskPriorityFields": {
+    "riskScore": "integer(0-100)",
+    "priorityScore": "integer(0-100)",
+    "riskLevel": "low|medium|high|critical",
+    "priorityLevel": "low|medium|high|critical",
+    "highRisk": "boolean",
+    "dimensions": "security|blastRadius|complexity|urgency"
+  },
+  "sourceTypes": ["cli-prompt", "issue", "template"],
+  "requestFields": {
+    "description": "string(min 10)",
+    "constraints": "string[]",
+    "targetUsers": "string[]",
+    "labels": "string[] (optional)",
+    "acceptanceSignals": "string[] (optional)"
+  },
+  "artifactOutputs": {
+    "json": "artifacts/intake/INTAKE_BRIEF.json",
+    "markdown": "artifacts/intake/INTAKE_BRIEF.md",
+    "clarificationLogJson": "artifacts/intake/CLARIFICATION_LOG.json",
+    "clarificationLogMarkdown": "artifacts/intake/CLARIFICATION_LOG.md"
+  },
+  "clarificationGate": {
+    "triggerField": "ambiguity.clarificationRequired",
+    "statusWhenBlocked": "pending_operator_response"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-21T22:51:42.664Z",
+  "comparedToGeneratedAt": "2026-05-21T22:51:41.109Z",
+  "reliabilityStatus": "degraded",
+  "deltas": {
+    "rolling100PassRate": {
+      "current": 0.99,
+      "previous": 1,
+      "delta": -0.01
+    },
+    "rolling100FailedCycles": {
+      "current": 1,
+      "previous": 0,
+      "delta": 1
+    },
+    "rolling100AvgDurationMs": {
+      "current": 2559950,
+      "previous": 2603098,
+      "delta": -43148
+    },
+    "dailyPassRate": {
+      "current": 0.889,
+      "previous": 1,
+      "delta": -0.111
+    },
+    "consecutiveFailures": {
+      "current": 1,
+      "previous": 0,
+      "delta": 1
+    }
+  },
+  "latestCycle": {
+    "passed": false,
+    "previousPassed": true,
+    "currentStreak": 0,
+    "streakDelta": -431
+  },
+  "warnings": [
+    {
+      "id": "daily-pass-rate-drop",
+      "severity": "warning",
+      "message": "Latest daily pass rate dropped by 0.111.",
+      "metric": "daily.passRate",
+      "current": 0.889,
+      "previous": 1,
+      "delta": -0.111,
+      "threshold": 0.1
+    }
+  ],
+  "snapshot": {
+    "rolling100PassRate": 0.99,
+    "rolling100FailedCycles": 1,
+    "rolling100AvgDurationMs": 2559950,
+    "consecutiveFailures": 1,
+    "currentStreak": 0,
+    "latestCyclePassed": false,
+    "dailyPassRate": 0.889,
+    "dailyWindowKey": "2026-05-21",
+    "topStepFailure": "api-drill-local",
+    "topStepFailureCount": 1
+  }
+}

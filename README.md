@@ -1,6 +1,20 @@
-# Dexter v1 Autonomous Factory
+# Dexter v1 — Policy-Gated Software Factory
 
-Dexter is a polyglot-ready autonomous software factory inspired by Ralph-loop execution patterns and skill-driven planning pipelines. It runs through:
+Dexter is a polyglot-ready **software factory runtime**: intake, planning, policy-gated execution, verification, release governance, and Coolify production integration. It is inspired by Ralph-loop execution patterns and skill-driven planning pipelines.
+
+### What v1.0 includes
+
+- Full factory path: discovery → planning → execution → verification → release artifacts
+- Staged promotion (`dev → staging → canary → prod`), deploy authorization, audit log, soak/KPI ops
+- **Coolify integration** (bridge + API deploy) when `.env` and `infra/coolify/apps.json` are configured
+- **`npm run factory:e2e`** — proves idea → factory run → **real API deploy** ([scope](./docs/releases/v1.0.0/RELEASE_SCOPE.md))
+
+### What v1.0 does not include (see v1.1 plan)
+
+- Hands-off “idea → brand-new app URL” with zero Coolify prep or placeholder apps
+- Deploying **only** the artifact built in the same run (planned: [Track B](./docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md))
+
+The pipeline stages:
 
 1. Discovery and deep-research artifact generation
 2. Gapless planning and atomic task graph compilation
@@ -15,6 +29,10 @@ npm install
 npm run run:sample
 npm test
 ```
+
+**Shipping v1.0.0?** Use the [GA checklist](./docs/releases/v1.0.0/GA_CHECKLIST.md).  
+**Production wiring:** [PRODUCTION_INTEGRATION.md](./docs/operations/PRODUCTION_INTEGRATION.md).  
+**Closed-loop E2E:** `npm run factory:bootstrap` → `npm run coolify:bridge` (terminal 1) → `npm run factory` or `npm run factory:e2e` (terminal 2).
 
 ## Core Commands
 
@@ -33,10 +51,42 @@ npm test
 - `npm run operator:readiness` - summarize operator workflow readiness from ops + release artifacts
 - `npm run canary:rollback:drill` - force canary SLO breach and verify automatic rollback + audit capture
 - `npm run milestone:m1:signoff` - verify Milestone 1 acceptance gates and write signoff artifact
+- `npm run milestone:m3:signoff` - verify Milestone 3 reliability gates (30+ soak passes, KPI, learning controls) and write `MILESTONE_3_SIGNOFF.md`
+- `npm run milestone:m4:signoff` - verify Milestone 4 control-plane gates and write `MILESTONE_4_SIGNOFF.md`
+- `npm run operational:kpi` - measure cross-milestone KPIs (autonomy, reliability, safety, recovery, governance)
+- `npm run operational:signoff` - verify fully operational KPI targets and write `OPERATIONAL_SIGNOFF.md`
+- `npm run production:preflight` - validate env, control plane reachability, and release gates before real promotions
+- `npm run coolify:bridge` - start HTTP bridge that calls Coolify API for deploy/rollback
+- `npm run coolify:deploy` - deploy app via Coolify API (uses `infra/coolify/apps.json`)
+- `npm run coolify:rollback` - restart or redeploy app via Coolify API
+- `npm run coolify:setup` - discover Coolify apps and merge bridge env into `.env`
+- `npm run factory:e2e` - closed-loop E2E: intake → factory run → API deploy proof
+- `npm run alert:live-drill` - deliver test alerts to configured webhooks (non-dry-run)
+- `npm run intake:normalize` - normalize a CLI request into `artifacts/intake/INTAKE_BRIEF.json`
+- `npm run intake:normalize:issue` - normalize a GitHub issue fixture into intake brief
+- `npm run intake:normalize:template` - normalize a template-driven request into intake brief
+- `npm run intake:score` - re-score ambiguity on the latest intake brief using policy file
+- `npm run intake:clarify` - run clarification gate against latest intake brief
+- `npm run intake:normalize:ambiguous` - sample ambiguous intake that triggers clarification log
+- `npm run intake:normalize:high-risk` - sample high-risk intake with elevated risk/priority scores
+- `npm run intake:route-preview` - preview AFK/HITL routing for latest intake brief
+- `npm run intake:plan` - compile planning artifacts from latest intake brief
+- `npm run intake:run` - execute full Dexter run starting from latest intake brief
+- `npm run intake:pilot:batch` - run Milestone 2 Day 9 five-request intake pilot batch
+- `npm run intake:pilot:batch:full` - same pilot batch with full orchestrator runs
 - `npm run ops:status` - write consolidated operator status dashboard artifacts
+- `npm run alert:route` - evaluate alert rules and route payloads (dry-run by default)
+- `npm run triage:blocked` - one-command blocked-run diagnosis (ops status + findings + next steps)
+- `npm run triage:degraded` - one-command degraded-run diagnosis
+- `npm run release:center` - release command center (readiness, governance, promotion auth, audit)
+- `npm run incident:simulate` - run three incident simulations (blocked storm, SLO breach, policy gate)
 - `npm run resume:check` - inspect resume readiness for a run (`--latest true` supported)
 - `npm run trust:gates` - run failure-injection trust gate matrix and write report artifacts
-- `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`)
+- `npm run soak:cycle` - run one full soak cycle and update streak gate status (`SOAK_STATUS.json`) plus trend rollups (`SOAK_TRENDS.json`)
+- `npm run soak:schedule` - run a scheduled soak cycle when due (writes `SOAK_SCHEDULE_STATE.json`)
+- `npm run soak:reliability` - refresh run-to-run reliability deltas and warnings (`SOAK_RELIABILITY.json`)
+- `npm run reliability:kpi` - rolling-100 KPI review with top risks and prioritized mitigation backlog (`RELIABILITY_KPI.json`)
+- `npm run test:unit` - run unit tests with telemetry ingest, flaky scoring, and quarantine report (`FLAKY_QUARANTINE.json`)
 - `npm run benchmark:backend` - benchmark pluggable coding backends and select default
 - `npm run dogfood:run` - run multi-scenario dogfood benchmark
 - `npm run dogfood:metrics` - regenerate aggregated run metrics
@@ -44,6 +94,10 @@ npm test
 - `npm run attest:verify` - verify release attestation signatures
 - `npm test` - verify required release artifacts exist
 - `npm run build` - compile TypeScript
+
+## Production Integration
+
+See [docs/operations/PRODUCTION_INTEGRATION.md](docs/operations/PRODUCTION_INTEGRATION.md) for wiring real control planes (not local mocks). Copy `.env.example` to `.env` and run `npm run production:preflight` before `promotion:pipeline`.
 
 ## Production Integration Env Vars
 

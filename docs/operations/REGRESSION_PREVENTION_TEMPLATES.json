@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Per-failure-class remediation templates for escalations and replan waves.",
+  "templates": [
+    {
+      "failureClass": "execution.command_failed",
+      "title": "Command execution failure",
+      "retryGuidance": "Re-run the failing command in an isolated worktree with verbose logging and a clean environment.",
+      "replanSuggestions": [
+        "Split setup and verify commands into separate shell steps",
+        "Pin toolchain versions in task commands",
+        "Add preflight checks for required binaries and env vars"
+      ],
+      "operatorChecklist": [
+        "Capture stdout/stderr from the failed attempt",
+        "Verify cwd, PATH, and secret-backed env vars",
+        "Confirm container runtime health before rerun"
+      ],
+      "regressionChecks": [
+        "Add a shell guard that fails fast on non-zero exit codes",
+        "Record command duration and exit code in task logs"
+      ]
+    },
+    {
+      "failureClass": "execution.acceptance_failed",
+      "title": "Acceptance check failure",
+      "retryGuidance": "Re-run acceptance checks only after confirming required artifacts exist and paths are stable.",
+      "replanSuggestions": [
+        "Tighten acceptance checks to assert artifact paths explicitly",
+        "Add intermediate artifact-producing commands before checks",
+        "Lower task parallelism for flaky artifact races"
+      ],
+      "operatorChecklist": [
+        "Inspect generated artifacts against acceptance criteria",
+        "Validate file permissions and mount paths in the workspace",
+        "Compare acceptance command output with prior passing run"
+      ],
+      "regressionChecks": [
+        "Add acceptance checks that validate artifact checksums",
+        "Gate retries on artifact presence probes"
+      ]
+    },
+    {
+      "failureClass": "execution.dependency_blocked",
+      "title": "Dependency-blocked task",
+      "retryGuidance": "Resolve upstream task failures before retrying blocked dependents.",
+      "replanSuggestions": [
+        "Reorder tasks to reduce brittle dependency chains",
+        "Add explicit dependency health probes",
+        "Split blocking prerequisites into smaller tasks"
+      ],
+      "operatorChecklist": [
+        "List unresolved upstream task IDs from execution results",
+        "Confirm dependency graph matches plan spec",
+        "Re-run only the upstream closure before dependents"
+      ],
+      "regressionChecks": [
+        "Add dependency preflight logging in task executor",
+        "Emit blockedBy details in escalation artifacts"
+      ]
+    },
+    {
+      "failureClass": "execution.hitl_blocked",
+      "title": "Unresolved HITL escalation",
+      "retryGuidance": "Pause automated retries until required operator or planner escalations are resolved or waived.",
+      "replanSuggestions": [
+        "Convert operator-only blockers into planner-adjustable task specs",
+        "Add waiver metadata with expiry for known-safe exceptions"
+      ],
+      "operatorChecklist": [
+        "Review SUPERVISOR_ACTIONS.json and ESCALATION_STATE.md",
+        "Resolve or waive high-priority operator escalations",
+        "Confirm run status is no longer blocked before resume"
+      ],
+      "regressionChecks": [
+        "Track escalation aging in ops status",
+        "Alert when unresolved operator/high count is non-zero"
+      ]
+    },
+    {
+      "failureClass": "execution.replan_stalled",
+      "title": "Replan loop stalled",
+      "retryGuidance": "Do not rerun identical planner signatures; change task commands or escalation keys before the next wave.",
+      "replanSuggestions": [
+        "Increase maxAttempts only for tasks with new command signatures",
+        "Escalate unchanged planner keys to operator review",
+        "Reduce replan wave scope to the minimal failing closure"
+      ],
+      "operatorChecklist": [
+        "Compare replan_wave summaries for unchanged plannerSignature",
+        "Inspect stallReason on the latest wave artifact",
+        "Validate planner actions changed between waves"
+      ],
+      "regressionChecks": [
+        "Fail replan when planner signature is unchanged across waves",
+        "Attach class-specific remediation to replan_waves_summary.json"
+      ]
+    },
+    {
+      "failureClass": "verification.readiness",
+      "title": "Verification readiness failure",
+      "retryGuidance": "Re-run verification after execution and escalation gates report healthy status.",
+      "replanSuggestions": [
+        "Add verification preflight tasks for missing artifacts",
+        "Split verification into staged gates with clearer failure signals"
+      ],
+      "operatorChecklist": [
+        "Review run_summary verificationPassed and productionReady flags",
+        "Confirm required run artifacts exist under runs/<id>/",
+        "Check FAILURE_TAXONOMY.md for dominant classes"
+      ],
+      "regressionChecks": [
+        "Block promotion when verificationPassed is false",
+        "Map readiness failures into taxonomy before go/no-go"
+      ]
+    },
+    {
+      "failureClass": "release.soak",
+      "title": "Soak cycle failure",
+      "retryGuidance": "Re-run soak with enforce-gate disabled only for diagnosis; fix root step before enforcing gates again.",
+      "replanSuggestions": [
+        "Quarantine flaky unit tests identified in FLAKY_CANDIDATES.json",
+        "Stabilize soak step ordering and timeouts"
+      ],
+      "operatorChecklist": [
+        "Inspect SOAK_STATUS.json failed step and exit code",
+        "Review SOAK_TRENDS.json for repeat failures",
+        "Confirm flaky quarantine policy effective exit code"
+      ],
+      "regressionChecks": [
+        "Track soak failure class share week over week",
+        "Alert on repeat failure class across 3+ cycles"
+      ]
+    },
+    {
+      "failureClass": "unknown",
+      "title": "Unmapped failure",
+      "retryGuidance": "Capture raw failure signals and extend FAILURE_TAXONOMY_POLICY mapping before retrying.",
+      "replanSuggestions": [
+        "Add explicit mapping rule for the observed signal",
+        "Route unmapped failures to operator review"
+      ],
+      "operatorChecklist": [
+        "Collect raw logs and signal text from the failing subsystem",
+        "File a taxonomy mapping update if signal is new"
+      ],
+      "regressionChecks": [
+        "Keep unmappedCount at zero in FAILURE_TAXONOMY.json",
+        "Review unknown class share during reliability KPI review"
+      ]
+    }
+  ]
+}

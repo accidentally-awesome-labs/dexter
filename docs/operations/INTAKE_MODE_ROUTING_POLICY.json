@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Auto-route task execution mode from intake/task risk profiles.",
+  "forceHitlWhenIntakeHighRisk": true,
+  "forceHitlWhenTaskHighRisk": true,
+  "forceHitlRiskLevels": ["high", "critical"],
+  "alwaysHitlTaskIds": ["t3-policy"],
+  "alwaysHitlNfrTags": ["governance"],
+  "preserveExplicitHitl": true,
+  "lowRiskMaxScore": 39
+}

@@ -2,6 +2,11 @@ import path from "node:path";
 import fs from "fs-extra";
 import type { ExecutionResult, TaskSpec } from "../protocols/types.js";
 import { executeTasks } from "../skills/execution/task-executor.js";
+import {
+  buildRegressionRemediation,
+  loadRegressionRemediationPolicy,
+  type RegressionRemediation,
+} from "../verification/regression-prevention.js";
 
 interface SupervisorActionsPlan {
   actions: Array<{
@@ -11,7 +16,17 @@ interface SupervisorActionsPlan {
     priority: "high" | "medium";
     reason: string;
     action: string;
+    failureReason?: string;
+    failureClass?: string;
+    remediation?: RegressionRemediation;
   }>;
+}
+
+export interface PlannerReplanRemediation {
+  taskId: string;
+  failureClass: string;
+  replanSuggestions: string[];
+  retryGuidance: string;
 }
 
 export interface AutoReplanResult {
@@ -20,10 +35,12 @@ export interface AutoReplanResult {
   plannerTaskIds: string[];
   plannerEscalationKeys: string[];
   plannerSignature?: string;
+  plannerRemediations: PlannerReplanRemediation[];
   rerunTaskIds: string[];
   mergedExecution: ExecutionResult[];
   stalled: boolean;
   stallReason?: string;
+  stallRemediation?: RegressionRemediation;
   waveResultPath?: string;
 }
 
@@ -58,6 +75,7 @@ export async function runPlannerReplanWave(options: {
   wave: number;
   previousPlannerSignature?: string;
 }): Promise<AutoReplanResult> {
+  const remediationPolicy = await loadRegressionRemediationPolicy(options.rootDir);
   const supervisorActionsPath = path.join(options.rootDir, "artifacts", "execution", "SUPERVISOR_ACTIONS.json");
   if (!(await fs.pathExists(supervisorActionsPath))) {
     return {
@@ -65,6 +83,7 @@ export async function runPlannerReplanWave(options: {
       attempted: false,
       plannerTaskIds: [],
       plannerEscalationKeys: [],
+      plannerRemediations: [],
       rerunTaskIds: [],
       mergedExecution: options.currentExecution,
       stalled: false,
@@ -72,22 +91,42 @@ export async function runPlannerReplanWave(options: {
   }
   const plan = (await fs.readJson(supervisorActionsPath)) as SupervisorActionsPlan;
   const plannerActions = plan.actions.filter((action) => action.target === "planner");
+  const buildPlannerRemediations = (): PlannerReplanRemediation[] =>
+    plannerActions.map((action) => {
+      const remediation =
+        action.remediation ??
+        buildRegressionRemediation(remediationPolicy, {
+          failureReason: action.failureReason as ExecutionResult["failureReason"],
+          escalationReason: action.reason,
+        });
+      return {
+        taskId: action.taskId,
+        failureClass: remediation.failureClass,
+        replanSuggestions: remediation.replanSuggestions,
+        retryGuidance: remediation.retryGuidance,
+      };
+    });
   const plannerTaskIds = [...new Set(plannerActions.map((action) => action.taskId))];
   const plannerEscalationKeys = plannerActions.map(
     (action) => action.key ?? `${action.taskId}:${action.target}:${action.reason}`,
   );
   const plannerSignature = [...plannerEscalationKeys].sort().join("|");
   if (options.previousPlannerSignature && plannerSignature === options.previousPlannerSignature) {
+    const stallRemediation = buildRegressionRemediation(remediationPolicy, {
+      failureClass: "execution.replan_stalled",
+    });
     return {
       wave: options.wave,
       attempted: false,
       plannerTaskIds,
       plannerEscalationKeys,
       plannerSignature,
+      plannerRemediations: buildPlannerRemediations(),
       rerunTaskIds: [],
       mergedExecution: options.currentExecution,
       stalled: true,
       stallReason: "Planner escalation keys unchanged from previous wave.",
+      stallRemediation,
     };
   }
   if (plannerTaskIds.length === 0) {
@@ -97,6 +136,7 @@ export async function runPlannerReplanWave(options: {
       plannerTaskIds,
       plannerEscalationKeys,
       plannerSignature,
+      plannerRemediations: [],
       rerunTaskIds: [],
       mergedExecution: options.currentExecution,
       stalled: false,
@@ -129,6 +169,7 @@ export async function runPlannerReplanWave(options: {
     .filter((result): result is ExecutionResult => Boolean(result));
 
   const waveResultPath = path.join(options.runDir, `replan_wave_${options.wave}_results.json`);
+  const plannerRemediations = buildPlannerRemediations();
   await fs.writeJson(
     waveResultPath,
     {
@@ -136,6 +177,7 @@ export async function runPlannerReplanWave(options: {
       plannerTaskIds,
       plannerEscalationKeys,
       plannerSignature,
+      plannerRemediations,
       rerunTaskIds,
       rerunResults,
       mergedExecution,
@@ -149,6 +191,7 @@ export async function runPlannerReplanWave(options: {
     plannerTaskIds,
     plannerEscalationKeys,
     plannerSignature,
+    plannerRemediations,
     rerunTaskIds,
     mergedExecution,
     stalled: false,

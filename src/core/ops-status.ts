@@ -1,7 +1,18 @@
 import path from "node:path";
 import fs from "fs-extra";
+import {
+  buildCostSnapshot,
+  buildEscalationAgingSnapshot,
+  buildQueueSnapshot,
+  buildSloSnapshot,
+  loadOpsStatusPolicy,
+} from "./ops-status-snapshot.js";
 import { readCanaryGateStatus } from "../operations/canary-gate.js";
 import { readSloRollbackStatus } from "../operations/slo-rollback.js";
+import { loadFlakyQuarantineReport } from "../verification/flaky-quarantine.js";
+import { loadSoakReliabilitySummary } from "../release/soak-reliability.js";
+import { loadSoakScheduleState } from "../release/soak-schedule.js";
+import { loadReliabilityKpiSummary } from "../release/reliability-kpi.js";
 
 type EscalationStatus = "open" | "in_progress" | "resolved" | "waived";
 type EscalationTarget = "operator" | "planner";
@@ -21,6 +32,8 @@ interface EscalationItem {
   priority: EscalationPriority;
   reason: string;
   lastRunId: string;
+  firstSeenAt?: string;
+  lastSeenAt?: string;
 }
 
 interface ReplanSummary {
@@ -48,8 +61,38 @@ export async function writeOpsStatusArtifact(options: {
   await fs.ensureDir(executionDir);
 
   const runSummaryPath = path.join(runDir, "run_summary.json");
-  const runSummary: RunSummary | null = (await fs.pathExists(runSummaryPath))
-    ? ((await fs.readJson(runSummaryPath)) as RunSummary)
+  const opsPolicy = await loadOpsStatusPolicy(rootDir);
+
+  const runSummary: (RunSummary & {
+    durationMs?: number;
+    intake?: {
+      intakeId?: string;
+      riskScore?: number;
+      highRisk?: boolean;
+      tasksRoutedToHitl?: number;
+      tasksRoutedToAfk?: number;
+    };
+    intakeExecutionCoherent?: boolean;
+  }) | null = (await fs.pathExists(runSummaryPath))
+    ? ((await fs.readJson(runSummaryPath)) as RunSummary & {
+        intake?: {
+          intakeId?: string;
+          riskScore?: number;
+          highRisk?: boolean;
+          tasksRoutedToHitl?: number;
+          tasksRoutedToAfk?: number;
+        };
+        intakeExecutionCoherent?: boolean;
+      })
+    : null;
+
+  const intakeManifestPath = path.join(runDir, "intake_execution_manifest.json");
+  const intakeManifest = (await fs.pathExists(intakeManifestPath))
+    ? ((await fs.readJson(intakeManifestPath)) as {
+        coherence?: { passed?: boolean };
+        routing?: { routedToHitl?: number; routedToAfk?: number };
+        intake?: { riskScore?: number; highRisk?: boolean };
+      })
     : null;
 
   const escalationStatePath = path.join(executionDir, "ESCALATION_STATE.json");
@@ -69,6 +112,27 @@ export async function writeOpsStatusArtifact(options: {
   const replan = (await fs.pathExists(replanPath)) ? ((await fs.readJson(replanPath)) as ReplanSummary) : null;
   const canaryGate = await readCanaryGateStatus(rootDir);
   const sloRollback = await readSloRollbackStatus(rootDir);
+  const flakyQuarantine = await loadFlakyQuarantineReport(rootDir);
+  const soakReliability = await loadSoakReliabilitySummary(rootDir);
+  const soakSchedule = await loadSoakScheduleState(rootDir);
+  const reliabilityKpi = await loadReliabilityKpiSummary(rootDir);
+
+  const cost = await buildCostSnapshot({
+    rootDir,
+    runDir,
+    policy: opsPolicy,
+  });
+  const queue = await buildQueueSnapshot(rootDir, opsPolicy);
+  const slo = buildSloSnapshot({
+    canaryPresent: canaryGate.present,
+    canaryBurnState: canaryGate.burnState ?? null,
+    sloRollbackPresent: sloRollback.present,
+    sloRollbackTriggered: sloRollback.triggered,
+  });
+  const escalationAging = buildEscalationAgingSnapshot({
+    items: escalationItems,
+    policy: opsPolicy,
+  });
 
   const runStatus = (runSummary?.runStatus as RunStatus | undefined) ?? "unknown";
   const resumeAllowed = unresolved.length === 0 && runStatus === "healthy";
@@ -80,6 +144,25 @@ export async function writeOpsStatusArtifact(options: {
   }
   if (unresolvedOperatorHigh > 0) {
     nextCommands.push('npm run escalation:resolve -- --all-unresolved true --target operator --status resolved --note "operator escalation resolved"');
+  }
+  if (slo.state === "breach" || slo.state === "warn") {
+    nextCommands.push("npm run ops:status");
+    nextCommands.push("npm run release:decision");
+  }
+  if (escalationAging.oldestUnresolved?.bucket === "stale") {
+    nextCommands.push("npm run escalation:list -- --unresolved-only true --output table");
+  }
+  if (
+    queue.backlogAging.stale > 0 ||
+    (queue.oldestBacklogAgeMs !== null &&
+      queue.oldestBacklogAgeMs > opsPolicy.backlogAgingBucketsHours.stale * 3_600_000)
+  ) {
+    nextCommands.push("npm run resume:check -- --latest-blocked true --output table");
+  } else if (queue.depth > 0) {
+    nextCommands.push("npm run resume:check -- --latest-blocked true --output table");
+  }
+  if (cost.degraded) {
+    nextCommands.push("npm run dogfood:metrics");
   }
   if (runStatus === "blocked") {
     nextCommands.push("npm run resume:check -- --latest-blocked true --output table");
@@ -93,10 +176,15 @@ export async function writeOpsStatusArtifact(options: {
   }
 
   const payload = {
+    schemaVersion: "1.1",
     generatedAt: new Date().toISOString(),
     runId,
     runStatus,
     productionReady: runSummary?.productionReady ?? false,
+    cost,
+    queue,
+    slo,
+    escalationAging,
     unresolved: {
       count: unresolved.length,
       operatorHigh: unresolvedOperatorHigh,
@@ -110,6 +198,54 @@ export async function writeOpsStatusArtifact(options: {
           attemptedWaves: replan.waves?.length ?? 0,
         }
       : null,
+    intake: runSummary?.intake
+      ? {
+          intakeId: runSummary.intake.intakeId ?? null,
+          riskScore: runSummary.intake.riskScore ?? intakeManifest?.intake?.riskScore ?? null,
+          highRisk: runSummary.intake.highRisk ?? intakeManifest?.intake?.highRisk ?? null,
+          tasksRoutedToHitl:
+            runSummary.intake.tasksRoutedToHitl ?? intakeManifest?.routing?.routedToHitl ?? null,
+          tasksRoutedToAfk: runSummary.intake.tasksRoutedToAfk ?? intakeManifest?.routing?.routedToAfk ?? null,
+          executionCoherent: runSummary.intakeExecutionCoherent ?? intakeManifest?.coherence?.passed ?? null,
+        }
+      : null,
+    verification: {
+      flakyQuarantine: {
+        present: flakyQuarantine !== null,
+        quarantinedCount: flakyQuarantine?.quarantinedCount ?? 0,
+        blockingFlakyCount: flakyQuarantine?.blockingFlakyCount ?? 0,
+        lastEffectiveExitCode: flakyQuarantine?.lastRun?.effectiveExitCode ?? null,
+        artifactPath: path.join(rootDir, "artifacts", "verification", "FLAKY_QUARANTINE.json"),
+      },
+    },
+    soak: {
+      schedule: {
+        enabled: soakSchedule?.enabled ?? false,
+        nextDueAt: soakSchedule?.nextDueAt ?? null,
+        lastRunAt: soakSchedule?.lastRunAt ?? null,
+        lastRunResult: soakSchedule?.lastRunResult ?? null,
+        githubActionsCron: soakSchedule?.githubActionsCron ?? null,
+        manifestPath: path.join(rootDir, "artifacts", "release", "SOAK_SCHEDULE_MANIFEST.md"),
+      },
+      reliability: {
+        present: soakReliability.present,
+        status: soakReliability.reliabilityStatus,
+        warningCount: soakReliability.warningCount,
+        criticalWarningCount: soakReliability.criticalWarningCount,
+        rolling100PassRate: soakReliability.rolling100PassRate,
+        passRateDelta: soakReliability.passRateDelta,
+        consecutiveFailures: soakReliability.consecutiveFailures,
+        artifactPath: soakReliability.artifactPath,
+      },
+      kpi: {
+        present: reliabilityKpi.present,
+        gatesPassed: reliabilityKpi.gatesPassed,
+        topRiskClass: reliabilityKpi.topRiskClass,
+        mitigationCount: reliabilityKpi.mitigationCount,
+        soakPassRate: reliabilityKpi.soakPassRate,
+        artifactPath: reliabilityKpi.artifactPath,
+      },
+    },
     promotion: {
       canaryGate: {
         present: canaryGate.present,
@@ -146,6 +282,63 @@ export async function writeOpsStatusArtifact(options: {
       `Run status: ${payload.runStatus}`,
       `Production ready: ${payload.productionReady}`,
       "",
+      "## Intake Execution",
+      ...(payload.intake
+        ? [
+            `- Intake ID: ${payload.intake.intakeId ?? "unknown"}`,
+            `- Risk score: ${payload.intake.riskScore ?? "unknown"}`,
+            `- High risk: ${payload.intake.highRisk ?? "unknown"}`,
+            `- Routed to HITL: ${payload.intake.tasksRoutedToHitl ?? "unknown"}`,
+            `- AFK eligible: ${payload.intake.tasksRoutedToAfk ?? "unknown"}`,
+            `- Execution coherent: ${payload.intake.executionCoherent ?? "unknown"}`,
+          ]
+        : ["- No intake execution metadata for this run"]),
+      "",
+      "## Cost / Run",
+      `- Present: ${payload.cost.present}`,
+      `- Source: ${payload.cost.source}`,
+      `- Degraded: ${payload.cost.degraded}`,
+      ...(payload.cost.degradationReasons.length > 0
+        ? payload.cost.degradationReasons.map((reason) => `- Degrade reason: ${reason}`)
+        : []),
+      `- Duration (ms): ${payload.cost.durationMs ?? "unknown"}`,
+      `- Estimated cost: ${payload.cost.estimatedCostUsd ?? "unknown"} ${payload.cost.currency}`,
+      `- Rate basis: ${payload.cost.hourlyRateUsd ?? "unknown"} ${payload.cost.currency}/hour`,
+      `- Tasks: ${payload.cost.tasksPassed ?? "?"}/${payload.cost.tasksTotal ?? "?"}`,
+      `- Dogfood benchmark: ${payload.cost.dogfoodBenchmark.present ? `${payload.cost.dogfoodBenchmark.avgTimeToReadyMs ?? "n/a"} ms avg (${payload.cost.dogfoodBenchmark.totalRuns ?? 0} runs)` : "missing"}`,
+      "",
+      "## Queue Depth",
+      `- Present: ${payload.queue.present}`,
+      `- Degraded: ${payload.queue.degraded}`,
+      ...(payload.queue.degradationReasons.length > 0
+        ? payload.queue.degradationReasons.map((reason) => `- Degrade reason: ${reason}`)
+        : []),
+      `- Backlog depth: ${payload.queue.depth} (blocked=${payload.queue.blockedCount}, degraded=${payload.queue.degradedCount})`,
+      `- Average backlog age (ms): ${payload.queue.averageBacklogAgeMs ?? "n/a"}`,
+      `- Backlog aging: fresh=${payload.queue.backlogAging.fresh}, aging=${payload.queue.backlogAging.aging}, stale=${payload.queue.backlogAging.stale}, unknown=${payload.queue.backlogAging.unknown}`,
+      `- Oldest backlog: ${payload.queue.oldestBacklogRunId ?? "none"} (${payload.queue.oldestBacklogAgeMs ?? "n/a"} ms)`,
+      ...(payload.queue.entries.length > 0
+        ? payload.queue.entries.map(
+            (entry) =>
+              `- backlog run=${entry.runId} status=${entry.runStatus} bucket=${entry.bucket} ageMs=${entry.ageMs}`,
+          )
+        : ["- No backlog runs"]),
+      "",
+      "## SLO State",
+      `- Present: ${payload.slo.present}`,
+      `- Overall: ${payload.slo.state}`,
+      `- Canary burn: ${payload.slo.canaryBurnState}`,
+      `- SLO rollback triggered: ${payload.slo.sloRollbackTriggered}`,
+      "",
+      "## Escalation Aging",
+      `- Unresolved: ${payload.escalationAging.unresolvedCount}`,
+      `- Buckets: fresh=${payload.escalationAging.buckets.fresh}, aging=${payload.escalationAging.buckets.aging}, stale=${payload.escalationAging.buckets.stale}`,
+      ...(payload.escalationAging.oldestUnresolved
+        ? [
+            `- Oldest unresolved: ${payload.escalationAging.oldestUnresolved.key} (${payload.escalationAging.oldestUnresolved.bucket}, ${payload.escalationAging.oldestUnresolved.ageMs} ms, ${payload.escalationAging.oldestUnresolved.target}/${payload.escalationAging.oldestUnresolved.priority})`,
+          ]
+        : ["- Oldest unresolved: none"]),
+      "",
       "## Unresolved Escalations",
       `- Count: ${payload.unresolved.count}`,
       `- Operator high: ${payload.unresolved.operatorHigh}`,
@@ -160,6 +353,35 @@ export async function writeOpsStatusArtifact(options: {
             `- Attempted waves: ${payload.replan.attemptedWaves}`,
           ]
         : ["- No replan data for this run"]),
+      "",
+      "## Soak Schedule",
+      `- Enabled: ${payload.soak.schedule.enabled}`,
+      `- Next due: ${payload.soak.schedule.nextDueAt ?? "unknown"}`,
+      `- Last run: ${payload.soak.schedule.lastRunAt ?? "never"} (${payload.soak.schedule.lastRunResult ?? "n/a"})`,
+      `- GitHub cron: ${payload.soak.schedule.githubActionsCron ?? "unknown"}`,
+      "",
+      "## Reliability KPI",
+      `- Present: ${payload.soak.kpi.present}`,
+      `- Gates passed: ${payload.soak.kpi.gatesPassed}`,
+      `- Top risk class: ${payload.soak.kpi.topRiskClass ?? "unknown"}`,
+      `- Mitigation backlog items: ${payload.soak.kpi.mitigationCount}`,
+      `- Rolling-100 pass rate: ${payload.soak.kpi.soakPassRate ?? "unknown"}`,
+      `- Artifact: ${payload.soak.kpi.artifactPath}`,
+      "",
+      "## Soak Reliability",
+      `- Present: ${payload.soak.reliability.present}`,
+      `- Status: ${payload.soak.reliability.status ?? "unknown"}`,
+      `- Warnings: ${payload.soak.reliability.warningCount} (critical: ${payload.soak.reliability.criticalWarningCount})`,
+      `- Rolling-100 pass rate: ${payload.soak.reliability.rolling100PassRate ?? "unknown"} (delta: ${payload.soak.reliability.passRateDelta ?? "n/a"})`,
+      `- Consecutive failures: ${payload.soak.reliability.consecutiveFailures ?? "unknown"}`,
+      `- Artifact: ${payload.soak.reliability.artifactPath}`,
+      "",
+      "## Flaky Quarantine",
+      `- Present: ${payload.verification.flakyQuarantine.present}`,
+      `- Quarantined tests: ${payload.verification.flakyQuarantine.quarantinedCount}`,
+      `- Blocking flaky (regression-critical): ${payload.verification.flakyQuarantine.blockingFlakyCount}`,
+      `- Last effective test exit code: ${payload.verification.flakyQuarantine.lastEffectiveExitCode ?? "unknown"}`,
+      `- Artifact: ${payload.verification.flakyQuarantine.artifactPath}`,
       "",
       "## Canary Gate",
       `- Present: ${payload.promotion.canaryGate.present}`,

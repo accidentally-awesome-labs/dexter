@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Milestone 4 operational control plane signoff thresholds.",
+  "maxDiagnosisDurationMs": 600000,
+  "minimumPromotionsForGovernance": 3,
+  "requiredAlertRuleIds": [
+    "run_blocked",
+    "run_degraded",
+    "slo_breach",
+    "slo_warn",
+    "escalation_stale",
+    "queue_stale_backlog"
+  ],
+  "requiredRunbookKeys": [
+    "blocked-run-triage",
+    "degraded-run-triage",
+    "slo-breach-response",
+    "slo-warn-watch",
+    "stale-escalation",
+    "stale-backlog"
+  ]
+}

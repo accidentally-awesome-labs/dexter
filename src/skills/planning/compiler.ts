@@ -1,4 +1,7 @@
 import type { DiscoveryArtifact, PlanArtifact, TaskSpec } from "../../protocols/types.js";
+import { applyExecutionModeRouting } from "../../intake/mode-routing.js";
+import { enrichTaskGraphWithRiskPriority } from "../../intake/risk-priority.js";
+import type { IntakeBrief } from "../../intake/schema.js";
 import { validateTaskGraph } from "./graph-validator.js";
 
 function buildTaskGraph(project: string, _priorLessons: string[] = []): TaskSpec[] {
@@ -68,7 +71,10 @@ function buildTaskGraph(project: string, _priorLessons: string[] = []): TaskSpec
   ];
 }
 
-export function compilePlan(discovery: DiscoveryArtifact, options?: { project?: string; priorLessons?: string[] }): PlanArtifact {
+export function compilePlan(
+  discovery: DiscoveryArtifact,
+  options?: { project?: string; priorLessons?: string[]; intakeBrief?: IntakeBrief },
+): PlanArtifact {
   const prd = `# PRD\n\n${discovery.brief}\n\n## Risks\n${discovery.risks
     .map((r) => `- (${r.level}) ${r.title}: ${r.mitigation}`)
     .join("\n")}`;
@@ -77,7 +83,12 @@ export function compilePlan(discovery: DiscoveryArtifact, options?: { project?: 
   const nfrSpec = `# NFR Specification\n\n- Performance budget: complete AFK task in <= 5 minutes.\n- Reliability target: 99% task completion without manual retry.\n- Security: enforce secret-safety and supply-chain checks before release.`;
   const testStrategy = `# Test Strategy\n\n- Unit-test compilers and policy evaluators.\n- Integration-test orchestrator pipeline.\n- Golden-run replay tests for regression detection.`;
 
-  const tasks = buildTaskGraph(options?.project ?? "dexter-project", options?.priorLessons ?? []);
+  const baseTasks = buildTaskGraph(options?.project ?? "dexter-project", options?.priorLessons ?? []);
+  const scoredTasks = options?.intakeBrief
+    ? enrichTaskGraphWithRiskPriority(options.intakeBrief, baseTasks)
+    : baseTasks;
+  const routed = applyExecutionModeRouting(options?.intakeBrief, scoredTasks);
+  const tasks = routed.tasks;
   const validation = validateTaskGraph(tasks);
   if (!validation.valid) {
     throw new Error(`Invalid compiled task graph: ${validation.errors.join("; ")}`);

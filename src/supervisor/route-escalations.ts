@@ -1,6 +1,11 @@
 import path from "node:path";
 import fs from "fs-extra";
 import type { EscalationReport } from "../skills/execution/escalation-report.js";
+import {
+  buildRegressionRemediation,
+  loadRegressionRemediationPolicy,
+  type RegressionRemediation,
+} from "../verification/regression-prevention.js";
 
 interface SupervisorActionItem {
   key: string;
@@ -11,6 +16,8 @@ interface SupervisorActionItem {
   action: string;
   failureReason?: string;
   attempts?: number;
+  failureClass: string;
+  remediation: RegressionRemediation;
 }
 
 interface SupervisorActionPlan {
@@ -49,10 +56,10 @@ function toMarkdown(plan: SupervisorActionPlan): string {
     "## Actions",
     ...(plan.actions.length === 0
       ? ["- None"]
-      : plan.actions.map(
-          (action) =>
-            `- [${action.priority}] task=${action.taskId} target=${action.target} reason=${action.reason} action=${action.action}`,
-        )),
+      : plan.actions.flatMap((action) => [
+          `- [${action.priority}] task=${action.taskId} target=${action.target} class=${action.failureClass} reason=${action.reason} action=${action.action}`,
+          `  retry: ${action.remediation.retryGuidance}`,
+        ])),
     "",
   ].join("\n");
 }
@@ -71,16 +78,30 @@ export async function routeEscalations(rootDir: string): Promise<{
     throw new Error(`Escalations artifact not found: ${sourcePath}`);
   }
   const report = (await fs.readJson(sourcePath)) as EscalationReport;
-  const actions: SupervisorActionItem[] = report.items.map((item) => ({
-    key: `${item.taskId}:${item.target}:${item.reason}`,
-    taskId: item.taskId,
-    target: item.target,
-    priority: mapPriority(item.reason),
-    reason: item.reason,
-    action: item.action,
-    failureReason: item.failureReason,
-    attempts: item.attempts,
-  }));
+  const remediationPolicy = await loadRegressionRemediationPolicy(rootDir);
+  const actions: SupervisorActionItem[] = report.items.map((item) => {
+    const failureClass =
+      item.failureClass ??
+      buildRegressionRemediation(remediationPolicy, { escalationReason: item.reason }).failureClass;
+    const remediation =
+      item.remediation ??
+      buildRegressionRemediation(remediationPolicy, {
+        failureClass,
+        escalationReason: item.reason,
+      });
+    return {
+      key: `${item.taskId}:${item.target}:${item.reason}`,
+      taskId: item.taskId,
+      target: item.target,
+      priority: mapPriority(item.reason),
+      reason: item.reason,
+      action: item.action,
+      failureReason: item.failureReason,
+      attempts: item.attempts,
+      failureClass,
+      remediation,
+    };
+  });
   const plan: SupervisorActionPlan = {
     generatedAt: new Date().toISOString(),
     sourceEscalationsPath: sourcePath,

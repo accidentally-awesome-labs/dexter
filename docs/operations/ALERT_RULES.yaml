@@ -1,0 +1,70 @@
+schemaVersion: "1.0"
+description: Alert routing for blocked/degraded runs, SLO burn, and stale escalations.
+
+channels:
+  webhook:
+    enabled: true
+    envVar: DEXTER_ALERT_WEBHOOK_URL
+  chat:
+    enabled: true
+    envVar: DEXTER_ALERT_CHAT_WEBHOOK_URL
+  pager:
+    enabled: true
+    envVar: DEXTER_ALERT_PAGER_WEBHOOK_URL
+
+runbooks:
+  blocked-run-triage: docs/operations/INCIDENT_RUNBOOK.md
+  degraded-run-triage: docs/operations/INCIDENT_RUNBOOK.md
+  slo-breach-response: docs/operations/DR_PLAYBOOK.md
+  slo-warn-watch: docs/operations/SLO_TEMPLATE.md
+  stale-escalation: docs/operations/INCIDENT_RUNBOOK.md
+  stale-backlog: docs/operations/INCIDENT_RUNBOOK.md
+
+rules:
+  - id: run_blocked
+    severity: critical
+    channels: [pager, chat, webhook]
+    runbook: blocked-run-triage
+    when:
+      field: runStatus
+      equals: blocked
+
+  - id: run_degraded
+    severity: warning
+    channels: [chat, webhook]
+    runbook: degraded-run-triage
+    when:
+      field: runStatus
+      equals: degraded
+
+  - id: slo_breach
+    severity: critical
+    channels: [pager, chat, webhook]
+    runbook: slo-breach-response
+    when:
+      field: slo.state
+      equals: breach
+
+  - id: slo_warn
+    severity: warning
+    channels: [chat, webhook]
+    runbook: slo-warn-watch
+    when:
+      field: slo.state
+      equals: warn
+
+  - id: escalation_stale
+    severity: warning
+    channels: [chat, webhook]
+    runbook: stale-escalation
+    when:
+      field: escalationAging.oldestUnresolved.bucket
+      equals: stale
+
+  - id: queue_stale_backlog
+    severity: warning
+    channels: [webhook]
+    runbook: stale-backlog
+    when:
+      field: queue.backlogAging.stale
+      gte: 1

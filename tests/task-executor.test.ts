@@ -4,10 +4,16 @@ import fs from "fs-extra";
 import { describe, expect, it } from "vitest";
 import { executeTasks } from "../src/skills/execution/task-executor.js";
 import type { TaskSpec } from "../src/protocols/types.js";
+import { loadRegressionPreventionPolicy } from "../src/verification/regression-prevention-policy.js";
 
 describe("task executor failure modes", () => {
   it("enforces retry boundary, command-failure gating, dependency skips, and backend-unavailable handling", async () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "dexter-executor-root-"));
+    const policy = await loadRegressionPreventionPolicy(process.cwd());
+    await fs.ensureDir(path.join(rootDir, "docs", "operations"));
+    await fs.writeJson(path.join(rootDir, "docs", "operations", "REGRESSION_PREVENTION_TEMPLATES.json"), policy, {
+      spaces: 2,
+    });
     const runDir = path.join(rootDir, "runs", "test");
     await fs.ensureDir(runDir);
     const previousTemplate = process.env.DEXTER_CURSOR_CLI_COMMAND_TEMPLATE;
@@ -93,5 +99,5 @@ describe("task executor failure modes", () => {
       process.env.DEXTER_CURSOR_CLI_COMMAND_TEMPLATE = previousTemplate;
     }
     await fs.remove(rootDir);
-  });
+  }, 30_000);
 });

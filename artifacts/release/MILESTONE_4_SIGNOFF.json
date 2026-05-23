@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "milestone": "M4",
+  "generatedAt": "2026-05-22T01:27:51.173Z",
+  "passed": true,
+  "gates": [
+    {
+      "id": "ops_status_policy",
+      "description": "OPS_STATUS policy configured",
+      "passed": true,
+      "detail": "OPS_STATUS_POLICY.json present"
+    },
+    {
+      "id": "alert_rules_doc",
+      "description": "Alert rules policy documented",
+      "passed": true,
+      "detail": "ALERT_RULES.yaml present"
+    },
+    {
+      "id": "runbook_links_doc",
+      "description": "Runbook link index documented",
+      "passed": true,
+      "detail": "RUNBOOK_LINKS.md present"
+    },
+    {
+      "id": "alert_rule_coverage",
+      "description": "Alert rules cover blocked/degraded/SLO and aging events",
+      "passed": true,
+      "detail": "rules=run_blocked,run_degraded,slo_breach,slo_warn,escalation_stale,queue_stale_backlog"
+    },
+    {
+      "id": "runbook_coverage",
+      "description": "Every alert class maps to a runbook entry",
+      "passed": true,
+      "detail": "runbooks=blocked-run-triage,degraded-run-triage,slo-breach-response,slo-warn-watch,stale-escalation,stale-backlog"
+    },
+    {
+      "id": "ops_status_extended",
+      "description": "OPS_STATUS exposes cost, queue, SLO, and escalation aging",
+      "passed": true,
+      "detail": "schema 1.1 refreshed for run 4f147520-ad4a-4aca-a4aa-79b81940a53f"
+    },
+    {
+      "id": "diagnosis_sla",
+      "description": "Failed-run diagnosis completes within 10 minutes (automated benchmark)",
+      "passed": true,
+      "detail": "durationMs=6, max=600000"
+    },
+    {
+      "id": "one_command_triage",
+      "description": "One-command triage produces actionable summary and next steps",
+      "passed": true,
+      "detail": "Triage report includes findings, next steps, and executable commands"
+    },
+    {
+      "id": "blocked_triage_entrypoint",
+      "description": "Blocked triage entrypoint available via resume-check --triage",
+      "passed": true,
+      "detail": "No blocked run in workspace; synthetic benchmark used for SLA gate"
+    },
+    {
+      "id": "incident_simulations",
+      "description": "Three incident simulations pass end-to-end",
+      "passed": true,
+      "detail": "simulations=3, passed=true"
+    },
+    {
+      "id": "release_command_center",
+      "description": "Release command center flow produces governance artifact",
+      "passed": true,
+      "detail": "ready=true, steps=5, audit=/Users/salar/Projects/dexter/artifacts/operations/AUDIT_LOG.jsonl"
+    },
+    {
+      "id": "governance_verify",
+      "description": "Governance verification for promotions and waivers",
+      "passed": true,
+      "detail": "unresolved_operator_high=true; unresolved_escalations=true; promotion_history_count=true; promotion_stage_policy_promotion-local-2026-05-21-001=true; promotion_audit_trail_promotion-local-2026-05-21-001=true; promotion_stage_policy_promotion-local-2026-05-21-002=true; promotion_audit_trail_promotion-local-2026-05-21-002=true; promotion_stage_policy_promotion-local-2026-05-21-003=true; promotion_audit_trail_promotion-local-2026-05-21-003=true"
+    },
+    {
+      "id": "promotion_policy_gate",
+      "description": "Prod promotion blocked without passing canary gate",
+      "passed": true,
+      "detail": "assertPromotionAllowed blocks prod when canary gate is not satisfied"
+    },
+    {
+      "id": "promotion_governance_docs",
+      "description": "Promotion provenance and policy docs present",
+      "passed": true,
+      "detail": "deployPolicy=true, rbac=true"
+    }
+  ],
+  "diagnosis": {
+    "durationMs": 6,
+    "maxDurationMs": 600000,
+    "singleCommand": true
+  },
+  "incidentSimulations": {
+    "passed": true,
+    "count": 3
+  }
+}

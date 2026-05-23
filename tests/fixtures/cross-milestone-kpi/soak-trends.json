@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "source": {
+    "statusPath": "artifacts/release/SOAK_STATUS.json",
+    "totalCyclesInSource": 100,
+    "historyCyclesUsed": 100
+  },
+  "rolling100": {
+    "windowType": "rolling100",
+    "windowKey": "rolling-100",
+    "periodStart": "2026-01-01T00:00:00.000Z",
+    "periodEnd": "2026-01-02T00:00:00.000Z",
+    "totalCycles": 100,
+    "passedCycles": 99,
+    "failedCycles": 1,
+    "passRate": 0.99,
+    "avgDurationMs": 1000,
+    "stepFailureCounts": {},
+    "lastUpdatedAt": "2026-01-02T00:00:00.000Z"
+  },
+  "daily": []
+}

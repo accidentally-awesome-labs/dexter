@@ -1,0 +1,57 @@
+name: closed-loop-staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      coolify_origin:
+        description: Coolify panel URL
+        required: true
+        type: string
+      skip_preflight:
+        description: Skip production preflight
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  staging-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Write Coolify apps mapping
+        env:
+          COOLIFY_APP_UUID: ${{ secrets.COOLIFY_APP_UUID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${COOLIFY_APP_UUID}" ]; then
+            echo "COOLIFY_APP_UUID secret is required for staging E2E"
+            exit 1
+          fi
+          mkdir -p infra/coolify
+          printf '%s\n' "{\"schemaVersion\":\"1.0\",\"applications\":{\"dexter\":{\"uuid\":\"${COOLIFY_APP_UUID}\"}}}" > infra/coolify/apps.json
+      - name: Run factory E2E (staging secrets)
+        env:
+          COOLIFY_ORIGIN: ${{ inputs.coolify_origin }}
+          COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
+          DEXTER_COOLIFY_API_URL: ${{ secrets.DEXTER_COOLIFY_API_URL }}
+          DEXTER_COOLIFY_TOKEN: ${{ secrets.DEXTER_COOLIFY_TOKEN }}
+          DEXTER_BRIDGE_TOKEN: ${{ secrets.DEXTER_BRIDGE_TOKEN }}
+          DEXTER_DEPLOY_AUTH_KEY: ${{ secrets.DEXTER_DEPLOY_AUTH_KEY }}
+          DEXTER_POLICY_BUNDLE_KEY: ${{ secrets.DEXTER_POLICY_BUNDLE_KEY }}
+          DEXTER_E2E_STRICT_HEALTH: "true"
+          DEXTER_SKIP_DEPLOY_BUILD: "true"
+        run: npm run factory:e2e -- --skip-preflight ${{ inputs.skip_preflight }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: closed-loop-e2e-staging
+          path: artifacts/release/CLOSED_LOOP_E2E.json
+          if-no-files-found: ignore

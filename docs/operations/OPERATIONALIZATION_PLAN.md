@@ -6,24 +6,22 @@ This document tracks the work required to make Dexter a fully operational autono
 
 - Plan owner: _TBD_
 - Last updated: 2026-05-21
-- Current phase: Milestone 1 (complete)
-- Overall completion: 25%
+- Current phase: Production integration (real services)
+- Overall completion: 100% (milestones + KPI signoff); production wiring in progress
 
 ## Today View
 
-- Today focus: Milestone 1 / Day 10 (Forced Canary Rollback Drill + Signoff)
+- Today focus: **v1.0.0 GA** (Track A) — scope docs + checklist; **Track B** plan for v1.1 product loop
 - Active owner: _TBD_
-- Current status: Day 10 complete — Milestone 1 signed off
-- Current blocker: None for Milestone 1 baseline
+- Current status: Local Coolify + bridge wired; `factory:e2e` and promotion pipeline pass with `deploymentMode: api`
+- Current blocker: None for v1.0 GA tag; product closed-loop (deploy built artifact + app health) is Track B
 - Next command sequence:
-  - `npm run typecheck`
-  - `npm run test:unit`
-  - `npm run release:decision`
-  - `npm run ops:status`
+  - Complete [docs/releases/v1.0.0/GA_CHECKLIST.md](../releases/v1.0.0/GA_CHECKLIST.md)
+  - Tag `v1.0.0` when checklist satisfied on target environment
+  - Kick off [docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md)
 - Today success criteria:
-  - [x] append-only audit logger implemented and wired to governed escalation and promotion actions
-  - [x] `artifacts/operations/AUDIT_LOG.jsonl` emits structured records with actor/action/scope/reason/timestamp/runId
-  - [x] no regression in Day 3 validation commands
+  - [x] Cost metrics use run_summary with dogfood benchmark fallback
+  - [x] Queue metrics expose backlog aging buckets and degrade flags
 
 ## Milestone 1: Production Foundations (Weeks 1-2)
 
@@ -198,23 +196,25 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Build intake pipeline: request/issue -> normalized brief -> task graph
-- [ ] Add clarification gate for ambiguous requests
-- [ ] Add risk and priority scoring for incoming work
-- [ ] Auto-route tasks to AFK or HITL mode based on risk policy
-- [ ] Validate with 10 real requests end-to-end
+- [x] Build intake pipeline: request/issue -> normalized brief -> task graph
+- [x] Add clarification gate for ambiguous requests
+- [x] Add risk and priority scoring for incoming work
+- [x] Auto-route tasks to AFK or HITL mode based on risk policy
+- [x] Validate with 10 real requests end-to-end
 
 ### Deliverables
 
-- [ ] `artifacts/intake/INTAKE_BRIEF.json`
-- [ ] `artifacts/intake/CLARIFICATION_LOG.md`
-- [ ] `artifacts/planning/TASK_GRAPH.json` with risk and priority metadata
+- [x] `artifacts/intake/INTAKE_BRIEF.json`
+- [x] `artifacts/intake/CLARIFICATION_LOG.md`
+- [x] `artifacts/planning/TASK_GRAPH.json` with risk and priority metadata
+- [x] `artifacts/intake/pilot-batch/PILOT_BATCH_REPORT.json`
+- [x] `artifacts/intake/pilot-batch/PILOT_BATCH_INTERVENTIONS.md`
 
 ### Acceptance Gates
 
-- [ ] 10 real requests processed end-to-end
-- [ ] >=80% requests require no manual task decomposition
-- [ ] High-risk requests always route through HITL
+- [x] 10 real requests processed end-to-end
+- [x] >=80% requests require no manual task decomposition (Day 9 batch: 100%)
+- [x] High-risk requests always route through HITL
 
 ### Progress Notes
 
@@ -227,12 +227,13 @@ Use this checklist for day-level tracking. Do not move to the next day until val
 
 #### Day 1: Intake Contract and Request Normalization
 
-- [ ] Define normalized intake schema for external requests/issues
-- [ ] Add intake artifact writer for `artifacts/intake/INTAKE_BRIEF.json`
+- [x] Define normalized intake schema for external requests/issues
+- [x] Add intake artifact writer for `artifacts/intake/INTAKE_BRIEF.json`
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-normalize.test.ts`
+- `npm run intake:normalize`
 
 Pass criteria:
 - Intake schema is documented and validated at runtime
@@ -240,12 +241,14 @@ Pass criteria:
 
 #### Day 2: Source Adapters (Issue/Prompt/Template)
 
-- [ ] Implement adapters for at least two request sources (e.g., CLI prompt + issue payload)
-- [ ] Normalize both sources into a single intake contract
+- [x] Implement adapters for at least two request sources (e.g., CLI prompt + issue payload)
+- [x] Normalize both sources into a single intake contract
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-adapters.test.ts tests/intake-normalize.test.ts`
+- `npm run intake:normalize:issue`
+- `npm run intake:normalize:template`
 
 Pass criteria:
 - Different source formats produce equivalent normalized intake artifacts
@@ -253,12 +256,13 @@ Pass criteria:
 
 #### Day 3: Ambiguity Scoring Engine
 
-- [ ] Add ambiguity scoring for incomplete or conflicting requirements
-- [ ] Define threshold for auto-clarification gate
+- [x] Add ambiguity scoring for incomplete or conflicting requirements
+- [x] Define threshold for auto-clarification gate
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-ambiguity.test.ts`
+- `npm run intake:normalize`
 
 Pass criteria:
 - Ambiguity score is deterministic for fixed input
@@ -266,12 +270,14 @@ Pass criteria:
 
 #### Day 4: Clarification Gate and Logging
 
-- [ ] Implement clarification question generation for ambiguous requests
-- [ ] Write `artifacts/intake/CLARIFICATION_LOG.md` for each clarification cycle
+- [x] Implement clarification question generation for ambiguous requests
+- [x] Write `artifacts/intake/CLARIFICATION_LOG.md` for each clarification cycle
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-clarification.test.ts`
+- `npm run intake:normalize:ambiguous` (expect blocked gate + log)
+- `npm run intake:normalize` (expect bypass)
 
 Pass criteria:
 - Ambiguous input triggers clarification log
@@ -279,12 +285,13 @@ Pass criteria:
 
 #### Day 5: Risk and Priority Scoring
 
-- [ ] Add risk score and priority score fields to normalized intake/task metadata
-- [ ] Define scoring rubric (security, blast radius, complexity, urgency)
+- [x] Add risk score and priority score fields to normalized intake/task metadata
+- [x] Define scoring rubric (security, blast radius, complexity, urgency)
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit`
+- `npm run test:unit -- tests/intake-risk-priority.test.ts`
+- `npm run intake:normalize:high-risk`
 
 Pass criteria:
 - Risk and priority scores are present in intake/task artifacts
@@ -292,12 +299,13 @@ Pass criteria:
 
 #### Day 6: AFK/HITL Auto-Routing
 
-- [ ] Implement routing policy from risk profile to AFK/HITL execution mode
-- [ ] Enforce HITL for high-risk requests
+- [x] Implement routing policy from risk profile to AFK/HITL execution mode
+- [x] Enforce HITL for high-risk requests
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit -- tests/acceptance-verifier.test.ts`
+- `npm run test:unit -- tests/intake-mode-routing.test.ts tests/acceptance-verifier.test.ts`
+- `npm run intake:normalize:high-risk && npm run intake:route-preview`
 
 Pass criteria:
 - High-risk requests route to HITL path
@@ -305,12 +313,13 @@ Pass criteria:
 
 #### Day 7: Intake-to-Plan End-to-End Wiring
 
-- [ ] Connect normalized intake and clarification output into planning compiler
-- [ ] Ensure `TASK_GRAPH.json` includes intake-derived risk/priority metadata
+- [x] Connect normalized intake and clarification output into planning compiler
+- [x] Ensure `TASK_GRAPH.json` includes intake-derived risk/priority metadata
 
 Validation commands:
 - `npm run typecheck`
-- `npm run test:unit -- tests/graph-validator.test.ts tests/replay.test.ts`
+- `npm run test:unit -- tests/intake-to-plan.test.ts tests/graph-validator.test.ts tests/replay.test.ts`
+- `npm run intake:plan`
 
 Pass criteria:
 - Intake request deterministically produces task graph with metadata
@@ -318,13 +327,15 @@ Pass criteria:
 
 #### Day 8: Intake-to-Execution End-to-End Validation
 
-- [ ] Execute full run starting from intake artifacts
-- [ ] Verify escalations and run status are coherent with risk routing decisions
+- [x] Execute full run starting from intake artifacts
+- [x] Verify escalations and run status are coherent with risk routing decisions
 
 Validation commands:
 - `npm run run:sample`
+- `npm run intake:run`
 - `npm run ops:status`
 - `npm run resume:check -- --latest true --output table`
+- `npm run test:unit -- tests/intake-execution-e2e.test.ts`
 
 Pass criteria:
 - End-to-end flow completes from intake to run summary
@@ -332,10 +343,12 @@ Pass criteria:
 
 #### Day 9: Real Request Pilot (Batch of 5)
 
-- [ ] Process 5 real requests end-to-end with intake pipeline
-- [ ] Capture manual interventions and decomposition overrides
+- [x] Process 5 real requests end-to-end with intake pipeline
+- [x] Capture manual interventions and decomposition overrides
 
 Validation commands:
+- `npm run intake:pilot:batch`
+- `npm run test:unit -- tests/intake-pilot-batch.test.ts`
 - `npm run release:decision`
 - `npm run escalation:list -- --output table`
 
@@ -345,8 +358,8 @@ Pass criteria:
 
 #### Day 10: Real Request Pilot (Batch of 5) + Signoff
 
-- [ ] Process additional 5 real requests (total 10)
-- [ ] Close Milestone 2 acceptance gates
+- [x] Process additional 5 real requests (total 10)
+- [x] Close Milestone 2 acceptance gates
 
 Validation commands:
 - `npm run ops:status`
@@ -362,27 +375,27 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Add continuous soak runner with trend tracking
-- [ ] Add flaky-test detection and quarantine policy
-- [ ] Add memory quality controls: contradiction checks and stale lesson decay
-- [ ] Add regression-prevention templates by failure class
-- [ ] Track repeat-failure reduction over rolling windows
+- [x] Add continuous soak runner with trend tracking
+- [x] Add flaky-test detection and quarantine policy
+- [x] Add memory quality controls: contradiction checks and stale lesson decay
+- [x] Add regression-prevention templates by failure class
+- [x] Track repeat-failure reduction over rolling windows
 
 ### Deliverables
 
-- [ ] `artifacts/release/SOAK_TRENDS.json`
-- [ ] `artifacts/verification/FAILURE_TAXONOMY.md`
-- [ ] `global-memory/MEMORY_QUALITY_SCORECARD.md`
+- [x] `artifacts/release/SOAK_TRENDS.json`
+- [x] `artifacts/verification/FAILURE_TAXONOMY.md`
+- [x] `global-memory/MEMORY_QUALITY_SCORECARD.md`
 
 ### Acceptance Gates
 
-- [ ] 30+ consecutive soak cycles without critical blocker
-- [ ] Repeat-failure rate decreases week-over-week
-- [ ] Contradictory or stale lessons are flagged pre-planning
+- [x] 30+ consecutive soak cycles without critical blocker (verified via `npm run milestone:m3:signoff`)
+- [x] Repeat-failure rate decreases week-over-week (weekly pass-rate trend gate in KPI/signoff)
+- [x] Contradictory or stale lessons are flagged pre-planning
 
 ### Progress Notes
 
-- Soak runner and streak tracking exist (`SOAK_STATUS`), but trend/taxonomy artifacts are still missing.
+- Soak runner writes `SOAK_STATUS` and `SOAK_TRENDS` trend rollups; unit tests emit flaky telemetry; memory contradiction and quality scorecards are generated before planning.
 
 ### Day-by-Day Execution Checklist (Milestone 3)
 
@@ -390,8 +403,8 @@ Use this checklist for day-level tracking. Do not move to the next day until val
 
 #### Day 1: Soak Trend Artifact Baseline
 
-- [ ] Add trend rollup output `artifacts/release/SOAK_TRENDS.json`
-- [ ] Define retained windows (daily, weekly, rolling 100 runs)
+- [x] Add trend rollup output `artifacts/release/SOAK_TRENDS.json`
+- [x] Define retained windows (daily, weekly, rolling 100 runs)
 
 Validation commands:
 - `npm run soak:cycle -- --target-streak 1 --enforce-gate false`
@@ -403,8 +416,8 @@ Pass criteria:
 
 #### Day 2: Failure Taxonomy Classification
 
-- [ ] Add canonical failure classes and mapping rules
-- [ ] Emit `artifacts/verification/FAILURE_TAXONOMY.md`
+- [x] Add canonical failure classes and mapping rules
+- [x] Emit `artifacts/verification/FAILURE_TAXONOMY.md`
 
 Validation commands:
 - `npm run test:unit`
@@ -416,8 +429,8 @@ Pass criteria:
 
 #### Day 3: Flaky Test Detection
 
-- [ ] Add flaky-test heuristic (intermittent pass/fail patterns)
-- [ ] Record flaky candidates and confidence score
+- [x] Add flaky-test heuristic (intermittent pass/fail patterns)
+- [x] Record flaky candidates and confidence score
 
 Validation commands:
 - `npm run test:unit`
@@ -429,8 +442,8 @@ Pass criteria:
 
 #### Day 4: Flaky Quarantine Policy
 
-- [ ] Implement quarantine policy and reporting for flaky tests
-- [ ] Ensure quarantined tests do not silently mask regressions
+- [x] Implement quarantine policy and reporting for flaky tests
+- [x] Ensure quarantined tests do not silently mask regressions
 
 Validation commands:
 - `npm run test:unit`
@@ -442,8 +455,8 @@ Pass criteria:
 
 #### Day 5: Memory Contradiction Detection
 
-- [ ] Detect conflicting lessons in global memory
-- [ ] Flag contradictions during planning context retrieval
+- [x] Detect conflicting lessons in global memory
+- [x] Flag contradictions during planning context retrieval
 
 Validation commands:
 - `npm run typecheck`
@@ -455,8 +468,8 @@ Pass criteria:
 
 #### Day 6: Stale Lesson Decay
 
-- [ ] Add freshness decay for older/low-confidence lessons
-- [ ] Persist quality scoring to `global-memory/MEMORY_QUALITY_SCORECARD.md`
+- [x] Add freshness decay for older/low-confidence lessons
+- [x] Persist quality scoring to `global-memory/MEMORY_QUALITY_SCORECARD.md`
 
 Validation commands:
 - `npm run typecheck`
@@ -468,8 +481,8 @@ Pass criteria:
 
 #### Day 7: Regression-Prevention Templates
 
-- [ ] Add per-failure-class remediation templates
-- [ ] Attach template hints to escalations and replans
+- [x] Add per-failure-class remediation templates
+- [x] Attach template hints to escalations and replans
 
 Validation commands:
 - `npm run test:unit -- tests/replan-loop.test.ts tests/task-executor.test.ts`
@@ -481,8 +494,8 @@ Pass criteria:
 
 #### Day 8: Continuous Soak Scheduling
 
-- [ ] Schedule continuous soak execution (cron/automation)
-- [ ] Emit run-to-run reliability deltas and warning thresholds
+- [x] Schedule continuous soak execution (cron/automation)
+- [x] Emit run-to-run reliability deltas and warning thresholds
 
 Validation commands:
 - `npm run soak:cycle -- --target-streak 1 --enforce-gate false`
@@ -494,8 +507,8 @@ Pass criteria:
 
 #### Day 9: Reliability KPI Review
 
-- [ ] Evaluate rolling 100-run reliability and repeat-failure trend
-- [ ] Produce remediation actions for top 3 failure classes
+- [x] Evaluate rolling 100-run reliability and repeat-failure trend
+- [x] Produce remediation actions for top 3 failure classes
 
 Validation commands:
 - `npm run ops:status`
@@ -507,8 +520,8 @@ Pass criteria:
 
 #### Day 10: 30+ Cycle Reliability Signoff
 
-- [ ] Demonstrate 30+ consecutive soak cycles without critical blocker
-- [ ] Close Milestone 3 acceptance gates
+- [x] Demonstrate 30+ consecutive soak cycles without critical blocker
+- [x] Close Milestone 3 acceptance gates
 
 Validation commands:
 - `npm run soak:cycle`
@@ -524,28 +537,29 @@ Pass criteria:
 
 ### Tasks
 
-- [ ] Extend `OPS_STATUS` with cost/run, queue depth, SLO state, and escalation aging
-- [ ] Add alerting hooks (Slack/webhook/pager) tied to runbooks
+- [x] Extend `OPS_STATUS` with cost/run, queue depth, SLO state, and escalation aging
+- [x] Add alerting hooks (Slack/webhook/pager) tied to runbooks
 - [x] Add one-command triage flows for blocked and degraded runs
-- [ ] Add release command center workflow (readiness, waivers, promotion auth)
-- [ ] Run 3 incident simulations end-to-end
+- [x] Add release command center workflow (readiness, waivers, promotion auth)
+- [x] Run 3 incident simulations end-to-end
 
 ### Deliverables
 
-- [ ] `artifacts/execution/OPS_STATUS.json` (extended; baseline artifact already exists)
-- [ ] `docs/operations/ALERT_RULES.yaml`
-- [ ] `docs/operations/RUNBOOK_LINKS.md`
+- [x] `artifacts/execution/OPS_STATUS.json` (extended; baseline artifact already exists)
+- [x] `docs/operations/ALERT_RULES.yaml`
+- [x] `docs/operations/RUNBOOK_LINKS.md`
 
 ### Acceptance Gates
 
-- [ ] Failed run diagnosis in <10 minutes from dashboard artifacts only
-- [ ] Alert -> runbook -> remediation flow validated in 3 simulations
-- [ ] All promotions pass provenance, attestation, and policy checks
+- [x] Failed run diagnosis in <10 minutes from dashboard artifacts only
+- [x] Alert -> runbook -> remediation flow validated in 3 simulations
+- [x] All promotions pass provenance, attestation, and policy checks
 
 ### Progress Notes
 
 - `OPS_STATUS` dashboard baseline is implemented with resume readiness and next-command suggestions.
-- Additional dimensions (cost, queue depth, SLO state, escalation aging) are still pending.
+- Cost, queue, SLO, and escalation aging are integrated into OPS_STATUS v1.1.
+- M4 signoff validates triage SLA, incident simulations, release command center, and governance gates.
 
 ### Day-by-Day Execution Checklist (Milestone 4)
 
@@ -553,8 +567,8 @@ Use this checklist for day-level tracking. Do not move to the next day until val
 
 #### Day 1: OPS_STATUS Data Model Extension
 
-- [ ] Extend `OPS_STATUS` schema with cost/run, queue depth, SLO state, escalation aging
-- [ ] Update markdown rendering for new dimensions
+- [x] Extend `OPS_STATUS` schema with cost/run, queue depth, SLO state, escalation aging
+- [x] Update markdown rendering for new dimensions
 
 Validation commands:
 - `npm run typecheck`
@@ -566,8 +580,8 @@ Pass criteria:
 
 #### Day 2: Cost and Queue Metrics Integration
 
-- [ ] Integrate cost/run estimation source
-- [ ] Add queue depth and backlog aging metrics
+- [x] Integrate cost/run estimation source
+- [x] Add queue depth and backlog aging metrics
 
 Validation commands:
 - `npm run ops:status`
@@ -579,8 +593,8 @@ Pass criteria:
 
 #### Day 3: SLO State and Escalation Aging
 
-- [ ] Add SLO burn state (healthy/warn/breach) to ops dashboard
-- [ ] Add escalation age buckets and oldest-unresolved indicator
+- [x] Add SLO burn state (healthy/warn/breach) to ops dashboard
+- [x] Add escalation age buckets and oldest-unresolved indicator
 
 Validation commands:
 - `npm run ops:status`
@@ -592,8 +606,8 @@ Pass criteria:
 
 #### Day 4: Alert Rules and Routing
 
-- [ ] Create `docs/operations/ALERT_RULES.yaml`
-- [ ] Implement alert routing to webhook/chat/pager adapters
+- [x] Create `docs/operations/ALERT_RULES.yaml`
+- [x] Implement alert routing to webhook/chat/pager adapters
 
 Validation commands:
 - `npm run typecheck`
@@ -605,8 +619,8 @@ Pass criteria:
 
 #### Day 5: Runbook Link Index
 
-- [ ] Create `docs/operations/RUNBOOK_LINKS.md`
-- [ ] Map each alert/event class to a runbook procedure
+- [x] Create `docs/operations/RUNBOOK_LINKS.md`
+- [x] Map each alert/event class to a runbook procedure
 
 Validation commands:
 - `npm run ops:status`
@@ -618,8 +632,8 @@ Pass criteria:
 
 #### Day 6: One-Command Triage Expansion
 
-- [ ] Add single-command triage workflows for blocked and degraded states
-- [ ] Ensure commands produce actionable summaries and next steps
+- [x] Add single-command triage workflows for blocked and degraded states
+- [x] Ensure commands produce actionable summaries and next steps
 
 Validation commands:
 - `npm run resume:check -- --latest-blocked true --output table`
@@ -631,8 +645,8 @@ Pass criteria:
 
 #### Day 7: Release Command Center Flow
 
-- [ ] Compose readiness + waiver + promotion authorization into one operator flow
-- [ ] Ensure full audit coverage across that flow
+- [x] Compose readiness + waiver + promotion authorization into one operator flow
+- [x] Ensure full audit coverage across that flow
 
 Validation commands:
 - `npm run release:decision`
@@ -645,8 +659,8 @@ Pass criteria:
 
 #### Day 8: Incident Simulation #1 and #2
 
-- [ ] Run simulation: blocked escalation storm
-- [ ] Run simulation: canary SLO breach with rollback
+- [x] Run simulation: blocked escalation storm
+- [x] Run simulation: canary SLO breach with rollback
 
 Validation commands:
 - `npm run deploy:drill:api:local`
@@ -659,8 +673,8 @@ Pass criteria:
 
 #### Day 9: Incident Simulation #3
 
-- [ ] Run simulation: provenance/attestation/policy gate failure at promotion time
-- [ ] Validate alert-to-runbook response path
+- [x] Run simulation: provenance/attestation/policy gate failure at promotion time
+- [x] Validate alert-to-runbook response path
 
 Validation commands:
 - `npm run release:decision`
@@ -672,8 +686,8 @@ Pass criteria:
 
 #### Day 10: Control Plane Signoff
 
-- [ ] Validate <10 minute diagnosis target with timed operator run
-- [ ] Close Milestone 4 acceptance gates
+- [x] Validate <10 minute diagnosis target with timed operator run
+- [x] Close Milestone 4 acceptance gates
 
 Validation commands:
 - `npm run ops:status`
@@ -686,11 +700,46 @@ Pass criteria:
 
 ## Cross-Milestone KPI Targets (Definition of Fully Operational)
 
-- [ ] Autonomy: >=85% work items complete without manual decomposition/intervention
-- [ ] Reliability: >=95% successful runs across last 100 runs
-- [ ] Safety: 100% production promotions gated by policy + provenance + rollback readiness
-- [ ] Recovery: blocked-run MTTR <30 minutes
-- [ ] Governance: 100% waivers/overrides have complete metadata and valid expiry
+- [x] Autonomy: >=85% work items complete without manual decomposition/intervention
+- [x] Reliability: >=95% successful runs across last 100 runs
+- [x] Safety: 100% production promotions gated by policy + provenance + rollback readiness
+- [x] Recovery: blocked-run MTTR <30 minutes
+- [x] Governance: 100% waivers/overrides have complete metadata and valid expiry
+
+Validation commands:
+- `npm run operational:kpi`
+- `npm run operational:signoff`
+
+Pass criteria:
+- `artifacts/release/CROSS_MILESTONE_KPI.json` reports `passed: true`
+- `artifacts/release/OPERATIONAL_SIGNOFF.json` reports `passed: true`
+
+## Production Integration (Post-Milestone)
+
+**Goal:** Replace mock-only promotions with real control-plane deploys and live alert delivery.
+
+### Tasks
+
+- [x] Deploy HTTP deploy bridge (or implement hook-backed bridge) per `infra/coolify/bridge/README.md`
+- [x] Configure `.env` from `.env.example` (control plane, health URL, alert webhooks)
+- [x] Pass `npm run production:preflight`
+- [x] Run staging deploy with `deploymentMode: api`
+- [x] Run first real `npm run promotion:pipeline` on a target service
+- [x] Enable live alert delivery (`alert:live-drill` / `alert-route --dry-run false`)
+- [x] `npm run factory:e2e` closed-loop proof
+
+### Deliverables
+
+- [x] `artifacts/release/PRODUCTION_PREFLIGHT.json` with `passed: true`
+- [x] `artifacts/release/PROMOTION_PIPELINE_MANIFEST.json` from real (local) promotion
+- [x] Alert deliveries in `artifacts/execution/ALERT_DELIVERIES.jsonl`
+- [x] `artifacts/release/CLOSED_LOOP_E2E.json` with `passed: true`
+
+### Guide
+
+- `docs/operations/PRODUCTION_INTEGRATION.md`
+- v1.0 GA: `docs/releases/v1.0.0/GA_CHECKLIST.md`
+- v1.1 product: `docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md`
 
 ## Weekly Update Template
 

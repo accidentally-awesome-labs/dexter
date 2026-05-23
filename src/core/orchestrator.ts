@@ -1,12 +1,19 @@
 import path from "node:path";
 import fs from "fs-extra";
-import type { IdeaInput, PolicyDecision } from "../protocols/types.js";
+import type { IdeaInput, PlanArtifact, PolicyDecision } from "../protocols/types.js";
 import { ideaInputSchema } from "../protocols/schemas.js";
 import { createRunContext } from "./context.js";
 import { createLogger } from "../observability/logger.js";
 import { runGrillingSession } from "../skills/discovery/grilling.js";
 import { synthesizeResearch } from "../skills/discovery/research.js";
-import { compilePlan } from "../skills/planning/compiler.js";
+import type { IntakeBrief } from "../intake/schema.js";
+import {
+  buildIntakeExecutionManifest,
+  buildIntakeRunSummaryFields,
+} from "../intake/execution-coherence.js";
+import { planFromIntakeArtifacts, risksFromIntakeBrief } from "../intake/plan-from-intake.js";
+import { runIntakePipelineFromIdea } from "../intake/run-intake-pipeline.js";
+import type { ClarificationGateResult } from "../intake/clarification-gate.js";
 import { provisionIsolatedEnvironment } from "../runtime/provisioner.js";
 import { executeTasks } from "../skills/execution/task-executor.js";
 import { writeEscalationReport } from "../skills/execution/escalation-report.js";
@@ -15,7 +22,8 @@ import { runPlannerReplanWave } from "../supervisor/auto-replan.js";
 import { listEscalationLifecycle, syncEscalationLifecycle } from "../supervisor/escalation-lifecycle.js";
 import { runVerification } from "../verification/verification-gate.js";
 import { createReleaseBundle } from "../skills/release/release-packager.js";
-import { addLearning, retrieveLessons } from "../memory/global-learning-graph.js";
+import { addLearning } from "../memory/global-learning-graph.js";
+import { retrieveLessonsForPlanning } from "../memory/memory-contradiction.js";
 import { createControlPlaneAdapter } from "../runtime/control-plane.js";
 import { defaultRadarEntries } from "../tech-radar/radar.js";
 import { ensureTenant } from "../managed/tenant.js";
@@ -32,8 +40,50 @@ import {
 import { generateDeployAuthorization } from "../deploy/authorization.js";
 import { runDeploymentHealthChecks } from "../runtime/deployment-health.js";
 import { writeOpsStatusArtifact } from "./ops-status.js";
+import { injectClosedLoopStampTask } from "../release/closed-loop-stamp.js";
+import { prepareDeployArtifact, writeDeployManifest } from "../release/deploy-manifest.js";
 
-async function writePlanningArtifacts(rootDir: string, plan: ReturnType<typeof compilePlan>) {
+async function persistIntakeExecutionArtifacts(input: {
+  rootDir: string;
+  runDir: string;
+  runId: string;
+  intake: IntakeBrief;
+  tasks: PlanArtifact["tasks"];
+  execution: Awaited<ReturnType<typeof executeTasks>>;
+  runStatus: string;
+  unresolvedRequired: number;
+  operatorHighEscalations: number;
+}) {
+  const manifest = buildIntakeExecutionManifest({
+    intake: input.intake,
+    runId: input.runId,
+    tasks: input.tasks,
+    execution: input.execution,
+    runStatus: input.runStatus,
+    unresolvedRequired: input.unresolvedRequired,
+    operatorHighEscalations: input.operatorHighEscalations,
+  });
+  await fs.writeJson(path.join(input.runDir, "intake_execution_manifest.json"), manifest, { spaces: 2 });
+  await fs.writeJson(
+    path.join(input.rootDir, "artifacts", "intake", "INTAKE_EXECUTION_MANIFEST.json"),
+    manifest,
+    { spaces: 2 },
+  );
+  return manifest;
+}
+
+function withIntakeSummary<T extends Record<string, unknown>>(
+  summary: T,
+  intake: IntakeBrief,
+  tasks: PlanArtifact["tasks"],
+): T & { intake: ReturnType<typeof buildIntakeRunSummaryFields> } {
+  return {
+    ...summary,
+    intake: buildIntakeRunSummaryFields(intake, tasks),
+  };
+}
+
+async function writePlanningArtifacts(rootDir: string, plan: PlanArtifact) {
   const dir = path.join(rootDir, "artifacts", "planning");
   await fs.ensureDir(dir);
   await fs.writeFile(path.join(dir, "PRD.md"), plan.prd);
@@ -170,11 +220,22 @@ async function writeReleaseArtifacts(rootDir: string) {
   );
 }
 
+function requireApiDeployEnabled(options?: { requireApiDeploy?: boolean }): boolean {
+  return (
+    options?.requireApiDeploy === true ||
+    process.env.DEXTER_REQUIRE_API_DEPLOY === "true"
+  );
+}
+
 export async function runDexter(
   rootDir: string,
   rawInput: IdeaInput,
   options?: {
     replanMaxWaves?: number;
+    intakeBrief?: IntakeBrief;
+    skipIntakePipeline?: boolean;
+    requireApiDeploy?: boolean;
+    closedLoopSmoke?: boolean;
   },
 ) {
   const startedAtMs = Date.now();
@@ -182,29 +243,84 @@ export async function runDexter(
   const ctx = await createRunContext(rootDir, idea);
   const logger = await createLogger(ctx);
 
+  let intakeBrief: IntakeBrief;
+  let intakeClarification: ClarificationGateResult;
+  if (options?.skipIntakePipeline && options.intakeBrief) {
+    intakeBrief = options.intakeBrief;
+    if (
+      intakeBrief.ambiguity.clarificationRequired &&
+      process.env.DEXTER_SKIP_CLARIFICATION_GATE !== "true"
+    ) {
+      throw new Error(
+        `Clarification gate blocked execution (score ${intakeBrief.ambiguity.score} >= ${intakeBrief.ambiguity.threshold}).`,
+      );
+    }
+    intakeClarification = {
+      passed: !intakeBrief.ambiguity.clarificationRequired,
+      clarificationRequired: intakeBrief.ambiguity.clarificationRequired,
+      bypassed: !intakeBrief.ambiguity.clarificationRequired,
+      logPath: null,
+      jsonPath: null,
+      cycle: null,
+    };
+    logger.info({ stage: "intake" }, "Using existing intake artifacts");
+  } else {
+    logger.info({ stage: "intake" }, "Normalizing request into intake contract");
+    const intake = await runIntakePipelineFromIdea(rootDir, idea, {
+      skipClarificationGate: process.env.DEXTER_SKIP_CLARIFICATION_GATE === "true",
+    });
+    intakeBrief = intake.brief;
+    intakeClarification = intake.clarification;
+  }
+  await fs.writeJson(path.join(ctx.runDir, "intake_gate.json"), intakeClarification, { spaces: 2 });
+
   logger.info({ stage: "discovery" }, "Starting discovery phase");
   const grilled = runGrillingSession(idea);
   const research = await synthesizeResearch(idea);
   const discovery = {
     ...grilled,
     marketEvidence: research.marketEvidence,
-    risks: [...grilled.risks, ...research.risks],
+    risks: [...grilled.risks, ...research.risks, ...risksFromIntakeBrief(intakeBrief)],
   };
   await writeDiscoveryArtifacts(rootDir, discovery);
 
-  logger.info({ stage: "memory" }, "Loading prior lessons");
-  const priorLessons = await retrieveLessons(rootDir, ["runtime", "policy", "memory"], 5);
-  await fs.writeFile(
+  logger.info({ stage: "memory" }, "Loading prior lessons with contradiction analysis");
+  const memory = await retrieveLessonsForPlanning(rootDir, ["runtime", "policy", "memory"], 5);
+  const priorLessons = memory.lessons.map((item) => item.node);
+  await fs.writeJson(
     path.join(ctx.runDir, "prior_lessons.json"),
-    JSON.stringify(priorLessons, null, 2),
+    {
+      lessons: memory.lessons,
+      contradictionReportPath: path.join(rootDir, "global-memory", "MEMORY_CONTRADICTION_REPORT.json"),
+      contradictionCount: memory.report.contradictionCount,
+    },
+    { spaces: 2 },
   );
+  if (memory.report.contradictionCount > 0) {
+    discovery.risks.push({
+      id: "risk-memory-contradiction",
+      title: "Conflicting global-memory lessons detected before planning.",
+      level: "medium",
+      mitigation:
+        "Review global-memory/MEMORY_CONTRADICTION_REPORT.md and resolve contradictory lessons before relying on retrieved memory.",
+    });
+    await writeDiscoveryArtifacts(rootDir, discovery);
+  }
 
-  logger.info({ stage: "planning" }, "Compiling plan artifacts");
-  const plan = compilePlan(discovery, {
+  logger.info({ stage: "planning" }, "Compiling plan artifacts from intake-aware pipeline");
+  const planned = await planFromIntakeArtifacts(rootDir, discovery, intakeBrief, {
     project: idea.project,
     priorLessons: priorLessons.map((item) => item.lesson),
   });
+  let plan = planned.plan;
+  if (options?.closedLoopSmoke ?? process.env.DEXTER_CLOSED_LOOP_SMOKE === "true") {
+    plan = {
+      ...plan,
+      tasks: injectClosedLoopStampTask(plan.tasks, ctx.runId, idea.project),
+    };
+  }
   await writePlanningArtifacts(rootDir, plan);
+  await fs.writeJson(path.join(ctx.runDir, "intake_to_plan_manifest.json"), planned.manifest, { spaces: 2 });
   await generatePlanningSignatures(rootDir);
 
   logger.info({ stage: "policyGate" }, "Evaluating policy gate");
@@ -282,25 +398,41 @@ export async function runDexter(
   );
   if (escalationLifecycle.runStatus === "blocked") {
     const durationMs = Date.now() - startedAtMs;
+    const intakeManifest = await persistIntakeExecutionArtifacts({
+      rootDir,
+      runDir: ctx.runDir,
+      runId: ctx.runId,
+      intake: intakeBrief,
+      tasks: plan.tasks,
+      execution,
+      runStatus: escalationLifecycle.runStatus,
+      unresolvedRequired: escalationLifecycle.unresolvedRequired,
+      operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+    });
     await fs.writeJson(
       path.join(ctx.runDir, "run_summary.json"),
-      {
-        runId: ctx.runId,
-        project: idea.project,
-        startedAt: ctx.now,
-        durationMs,
-        verificationPassed: false,
-        deployed: false,
-        deploymentMode: "not_started",
-        memoryLessonsRetrieved: priorLessons.length,
-        tasksTotal: plan.tasks.length,
-        tasksPassed: execution.filter((item) => item.status === "passed").length,
-        policyApproved: policy.approved,
-        runStatus: escalationLifecycle.runStatus,
-        requiredEscalations: escalationLifecycle.unresolvedRequired,
-        operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
-        productionReady: false,
-      },
+      withIntakeSummary(
+        {
+          runId: ctx.runId,
+          project: idea.project,
+          startedAt: ctx.now,
+          durationMs,
+          verificationPassed: false,
+          deployed: false,
+          deploymentMode: "not_started",
+          memoryLessonsRetrieved: priorLessons.length,
+          tasksTotal: plan.tasks.length,
+          tasksPassed: execution.filter((item) => item.status === "passed").length,
+          policyApproved: policy.approved,
+          runStatus: escalationLifecycle.runStatus,
+          requiredEscalations: escalationLifecycle.unresolvedRequired,
+          operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+          productionReady: false,
+          intakeExecutionCoherent: intakeManifest.coherence.passed,
+        },
+        intakeBrief,
+        plan.tasks,
+      ),
       { spaces: 2 },
     );
     await writeOpsStatusArtifact({
@@ -323,6 +455,8 @@ export async function runDexter(
       attempted: boolean;
       stalled: boolean;
       stalledReason?: string;
+      stallRemediationClass?: string;
+      plannerRemediationClasses: string[];
       runStatusAfterWave: string;
       unresolvedAfterWave: number;
       plannerEscalationKeys: string[];
@@ -366,6 +500,8 @@ export async function runDexter(
         attempted: replan.attempted,
         stalled: replan.stalled,
         stalledReason: replan.stallReason,
+        stallRemediationClass: replan.stallRemediation?.failureClass,
+        plannerRemediationClasses: replan.plannerRemediations.map((item) => item.failureClass),
         runStatusAfterWave: escalationLifecycle.runStatus,
         unresolvedAfterWave: escalationLifecycle.unresolvedRequired,
         plannerEscalationKeys: replan.plannerEscalationKeys,
@@ -374,27 +510,43 @@ export async function runDexter(
 
       if (escalationLifecycle.runStatus === "blocked") {
         const durationMs = Date.now() - startedAtMs;
+        const intakeManifest = await persistIntakeExecutionArtifacts({
+          rootDir,
+          runDir: ctx.runDir,
+          runId: ctx.runId,
+          intake: intakeBrief,
+          tasks: plan.tasks,
+          execution,
+          runStatus: escalationLifecycle.runStatus,
+          unresolvedRequired: escalationLifecycle.unresolvedRequired,
+          operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+        });
         await fs.writeJson(
           path.join(ctx.runDir, "run_summary.json"),
-          {
-            runId: ctx.runId,
-            project: idea.project,
-            startedAt: ctx.now,
-            durationMs,
-            verificationPassed: false,
-            deployed: false,
-            deploymentMode: "not_started",
-            memoryLessonsRetrieved: priorLessons.length,
-            tasksTotal: plan.tasks.length,
-            tasksPassed: execution.filter((item) => item.status === "passed").length,
-            policyApproved: policy.approved,
-            runStatus: escalationLifecycle.runStatus,
-            requiredEscalations: escalationLifecycle.unresolvedRequired,
-            operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
-            productionReady: false,
-            replanAttempted: true,
-            replanWaves: replanWaves.length,
-          },
+          withIntakeSummary(
+            {
+              runId: ctx.runId,
+              project: idea.project,
+              startedAt: ctx.now,
+              durationMs,
+              verificationPassed: false,
+              deployed: false,
+              deploymentMode: "not_started",
+              memoryLessonsRetrieved: priorLessons.length,
+              tasksTotal: plan.tasks.length,
+              tasksPassed: execution.filter((item) => item.status === "passed").length,
+              policyApproved: policy.approved,
+              runStatus: escalationLifecycle.runStatus,
+              requiredEscalations: escalationLifecycle.unresolvedRequired,
+              operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+              productionReady: false,
+              replanAttempted: true,
+              replanWaves: replanWaves.length,
+              intakeExecutionCoherent: intakeManifest.coherence.passed,
+            },
+            intakeBrief,
+            plan.tasks,
+          ),
           { spaces: 2 },
         );
         await fs.writeJson(
@@ -433,6 +585,21 @@ export async function runDexter(
       { spaces: 2 },
     );
   }
+
+  const intakeManifest = await persistIntakeExecutionArtifacts({
+    rootDir,
+    runDir: ctx.runDir,
+    runId: ctx.runId,
+    intake: intakeBrief,
+    tasks: plan.tasks,
+    execution,
+    runStatus: escalationLifecycle.runStatus,
+    unresolvedRequired: escalationLifecycle.unresolvedRequired,
+    operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+  });
+  await fs.writeJson(path.join(ctx.runDir, "intake_execution_coherence.json"), intakeManifest.coherence, {
+    spaces: 2,
+  });
 
   logger.info({ stage: "verification" }, "Running verification gate");
   const verification = await runVerification(rootDir, execution);
@@ -482,10 +649,36 @@ export async function runDexter(
     await controlPlane.rollback(idea.project);
     throw new Error("Verification failed. Rollback has been triggered.");
   }
+
+  if (options?.closedLoopSmoke ?? process.env.DEXTER_CLOSED_LOOP_SMOKE === "true") {
+    const prepared = await prepareDeployArtifact({
+      rootDir,
+      runDir: ctx.runDir,
+      runId: ctx.runId,
+      project: idea.project,
+    });
+    await writeDeployManifest(
+      {
+        rootDir,
+        runDir: ctx.runDir,
+        runId: ctx.runId,
+        project: idea.project,
+      },
+      prepared,
+    );
+    await fs.writeJson(path.join(ctx.runDir, "deploy_build.json"), prepared.build, { spaces: 2 });
+  }
+
   const deployment = await controlPlane.deploy(idea.project, deployAuth, {
     environment: process.env.DEXTER_DEPLOY_ENV ?? "production",
     tenantId: tenant.tenantId,
   });
+  if (requireApiDeployEnabled(options) && deployment.mode !== "api") {
+    await controlPlane.rollback(idea.project);
+    throw new Error(
+      `Closed-loop deploy requires API mode (set DEXTER_COOLIFY_API_URL + DEXTER_COOLIFY_TOKEN). Got mode=${deployment.mode}.`,
+    );
+  }
   const healthUrls = [
     ...(process.env.DEXTER_DEPLOY_HEALTH_URLS ?? "").split(","),
     process.env.DEXTER_DEPLOY_HEALTH_URL ?? "",
@@ -514,23 +707,28 @@ export async function runDexter(
 
   logger.info({ stage: "complete" }, "Dexter run complete");
   const durationMs = Date.now() - startedAtMs;
-  const summary = {
-    runId: ctx.runId,
-    project: idea.project,
-    startedAt: ctx.now,
-    durationMs,
-    verificationPassed: verification.passed,
-    deployed: true,
-    deploymentMode: deployment.mode,
-    memoryLessonsRetrieved: priorLessons.length,
-    tasksTotal: plan.tasks.length,
-    tasksPassed: execution.filter((item) => item.status === "passed").length,
-    policyApproved: policy.approved,
-    runStatus: escalationLifecycle.runStatus,
-    requiredEscalations: escalationLifecycle.unresolvedRequired,
-    operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
-    productionReady: verification.passed && escalationLifecycle.unresolvedRequired === 0,
-  };
+  const summary = withIntakeSummary(
+    {
+      runId: ctx.runId,
+      project: idea.project,
+      startedAt: ctx.now,
+      durationMs,
+      verificationPassed: verification.passed,
+      deployed: true,
+      deploymentMode: deployment.mode,
+      memoryLessonsRetrieved: priorLessons.length,
+      tasksTotal: plan.tasks.length,
+      tasksPassed: execution.filter((item) => item.status === "passed").length,
+      policyApproved: policy.approved,
+      runStatus: escalationLifecycle.runStatus,
+      requiredEscalations: escalationLifecycle.unresolvedRequired,
+      operatorHighEscalations: escalationLifecycle.unresolvedOperatorHigh,
+      productionReady: verification.passed && escalationLifecycle.unresolvedRequired === 0,
+      intakeExecutionCoherent: intakeManifest.coherence.passed,
+    },
+    intakeBrief,
+    plan.tasks,
+  );
   await fs.writeJson(path.join(ctx.runDir, "run_summary.json"), summary, { spaces: 2 });
   await writeOpsStatusArtifact({
     rootDir,

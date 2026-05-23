@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0",
+  "applications": {
+    "dexter": {
+      "uuid": "00000000-0000-0000-0000-000000000001",
+      "comment": "Replace with your Coolify application UUID from the dashboard."
+    },
+    "dexter-ops-api": {
+      "uuid": "00000000-0000-0000-0000-000000000002"
+    },
+    "dexter-worker": {
+      "uuid": "00000000-0000-0000-0000-000000000003"
+    }
+  }
+}
