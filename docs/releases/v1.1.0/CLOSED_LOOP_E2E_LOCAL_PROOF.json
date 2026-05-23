@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.1",
+  "generatedAt": "2026-05-23T05:11:13.187Z",
+  "passed": true,
+  "project": "dexter",
+  "coolifyAppName": "dexter",
+  "runId": "eb04aa5b-e531-4cd6-bac5-e29cc294ab9c",
+  "deploymentMode": "api",
+  "deploymentId": "o13k4dm60tw0wgqawd7bevri",
+  "deployArtifactRef": {
+    "image": "dexter/dexter",
+    "tag": "run-eb04aa5be531",
+    "deployTag": "run-eb04aa5be531",
+    "stampPath": "generated/RUN_STAMP.json"
+  },
+  "verificationPassed": true,
+  "productionReady": true,
+  "health": {
+    "url": "http://127.0.0.1:18080/",
+    "appFqdn": "http://127.0.0.1:18080",
+    "source": "coolify_app_fqdn",
+    "fallbackUsed": false,
+    "passed": true,
+    "checks": [
+      {
+        "url": "http://127.0.0.1:18080/",
+        "status": "pass",
+        "statusCode": 200,
+        "durationMs": 106
+      }
+    ]
+  },
+  "phases": [
+    { "name": "wiring", "passed": true },
+    { "name": "health_resolution", "passed": true, "detail": "coolify_app_fqdn, fallback=false" },
+    { "name": "factory_run", "passed": true, "detail": "deploymentMode=api, verification=true" },
+    { "name": "run_stamp", "passed": true }
+  ],
+  "_note": "Local factory:e2e with Coolify on :8001, bridge on :9876, nginx health on :18080. Live artifact: artifacts/release/CLOSED_LOOP_E2E.json (gitignored)."
+}
