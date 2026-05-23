@@ -156,11 +156,28 @@ Track B env (see `.env.example`):
 | `DEXTER_CLOSED_LOOP_SMOKE` | `true` in `factory:e2e` | Injects stamp task → `generated/RUN_STAMP.json` |
 | `DEXTER_E2E_STRICT_HEALTH` | `true` | Fail E2E if health uses panel fallback |
 | `DEXTER_DEPLOY_USE_MANIFEST_TAG` | `false` | Pass manifest `deployTag` to Coolify (needs registry tag) |
+| `DEXTER_DEPLOY_SYNC_MANIFEST` | `false` | PATCH Coolify app image from manifest before deploy |
+| `DEXTER_REQUIRE_API_DEPLOY` | auto when bridge env set | Fail runs if deploy is not `api` mode (`intake:run`, uses this) |
 
 Success writes `artifacts/release/CLOSED_LOOP_E2E.json` (schema **1.1**) with `deploymentMode: "api"`, `deployArtifactRef`, and `passed: true`.
 
+### 5a. CI closed-loop drill (no live Coolify)
+
+GitHub Actions runs a mock Coolify + bridge drill on every PR:
+
+```bash
+npm run coolify:integration-drill
+npm run factory:ci-drill
+```
+
+`factory:ci-drill` builds a deploy manifest, PATCHes the mock app image, deploys via the bridge, and writes `artifacts/release/CLOSED_LOOP_E2E.json` with `ci.drill: "factory:ci-drill"`. CI uploads that file as artifact `closed-loop-e2e-ci`.
+
+### 5b. Staging E2E (manual)
+
+For a real Coolify panel, use workflow **closed-loop-staging** (`workflow_dispatch`) with repository secrets (`COOLIFY_*`, `DEXTER_*`). Set `coolify_origin` to your panel URL; the job runs `factory:e2e` with strict health.
+
 **v1.0 scope:** See [releases/v1.0.0/RELEASE_SCOPE.md](../releases/v1.0.0/RELEASE_SCOPE.md).  
-**v1.1 product loop (deploy built artifact + app URL health):** [planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md).
+**v1.1 product loop (deploy built artifact + app URL health):** [releases/v1.1.0/RELEASE_SCOPE.md](../releases/v1.1.0/RELEASE_SCOPE.md) and [planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md](../planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md).
 
 ### 6. Continuous reliability
 

@@ -1,5 +1,6 @@
 import type { IdeaInput } from "../protocols/types.js";
 import { runDexter } from "../core/orchestrator.js";
+import { shouldRequireApiDeployFromEnv } from "../runtime/api-deploy-policy.js";
 import { toIdeaInput } from "./planning-bridge.js";
 import { readIntakeArtifact } from "./write-artifact.js";
 
@@ -25,5 +26,6 @@ export async function runDexterFromIntakeArtifacts(
     replanMaxWaves: options?.replanMaxWaves,
     intakeBrief: brief,
     skipIntakePipeline: true,
+    requireApiDeploy: shouldRequireApiDeployFromEnv(),
   });
 }

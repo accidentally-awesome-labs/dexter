@@ -42,6 +42,7 @@
     "coolify:setup": "tsx src/dev/run-coolify-setup.ts",
     "coolify:integration-drill": "tsx src/dev/run-coolify-integration-drill.ts",
     "alert:live-drill": "tsx src/dev/run-live-alert-drill.ts",
+    "factory:ci-drill": "tsx src/dev/run-factory-ci-drill.ts",
     "factory": "tsx src/dev/run-closed-loop-e2e.ts",
     "factory:e2e": "tsx src/dev/run-closed-loop-e2e.ts",
     "factory:bootstrap": "tsx src/dev/run-factory-bootstrap.ts",

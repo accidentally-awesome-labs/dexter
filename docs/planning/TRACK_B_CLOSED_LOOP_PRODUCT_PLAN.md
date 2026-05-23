@@ -259,13 +259,14 @@ New module: `src/providers/deployment/coolify-provision.ts`
 
 ---
 
-### B5 — CI and staging (2–3 days, parallel)
+### B5 — CI and staging (2–3 days, parallel) ✅ partial
 
-1. GitHub Actions job `closed-loop-e2e`:
-   - Job 1: `coolify:integration-drill` (existing mock).
-   - Job 2 (optional, manual): staging Coolify with secrets.
-2. Strict E2E in CI uses mock control plane **or** drill-only; document staging workflow_dispatch.
-3. Upload `CLOSED_LOOP_E2E.json` as artifact.
+1. GitHub Actions: `coolify:integration-drill` + `factory:ci-drill` in `ci.yml`; artifact upload.
+2. **`factory:ci-drill`** — mock Coolify + bridge + manifest sync + health (no full `runDexter`).
+3. **`closed-loop-staging.yml`** — `workflow_dispatch` for real Coolify with secrets.
+4. **`intake:run`** auto-sets `requireApiDeploy` when bridge env present (`api-deploy-policy.ts`).
+
+Remaining: staging soak proof, tag `v1.1.0-rc1`.
 
 ---
 
