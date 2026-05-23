@@ -96,18 +96,34 @@ sudo systemctl enable --now dexter-bridge
 
 ## 3. Registry (GHCR)
 
-On your workstation or CI:
+**Org default:** `ghcr.io/accidentally-awesome-labs/<project>:<deployTag>`
+
+### Local publish
 
 ```bash
-export DEXTER_REGISTRY=ghcr.io/your-org
-export DEXTER_DEPLOY_PUBLISH=true   # optional: publish during factory:e2e
-echo "$GHCR_PAT" | docker login ghcr.io -u YOUR_USER --password-stdin
+# One-time: grant packages scope to gh CLI, then log Docker into GHCR
+gh auth refresh -h github.com -s write:packages,read:packages
+npm run ghcr:login
 
-npm run factory:e2e -- --skip-preflight true
-npm run deploy:publish -- --run-id <runId>
+export DEXTER_REGISTRY=ghcr.io/accidentally-awesome-labs
+npm run registry:publish-drill          # smoke build + push
+npm run deploy:publish -- --run-id <runId>   # publish an existing run manifest
 ```
 
-In Coolify → application → **Private Docker Registry**, add GHCR credentials so pulls succeed.
+Optional: `DEXTER_DEPLOY_PUBLISH=true` during `factory:e2e` to publish after each closed-loop run.
+
+### CI publish
+
+```bash
+gh workflow run registry-publish.yml
+```
+
+Uses `GITHUB_TOKEN` with `packages: write` (see `.github/workflows/registry-publish.yml`).
+
+### Coolify pull
+
+Coolify → application → **Private Docker Registry** → add GHCR credentials (classic PAT with `read:packages`, or deploy token).
+Set image to the manifest `imageRef` / digest after publish.
 
 Manifest after publish includes `registry`, `imageDigest`, and `publishedAt` (schema 1.0 manifest + publish block).
 
@@ -125,15 +141,19 @@ Manifest after publish includes `registry`, `imageDigest`, and `publishedAt` (sc
 | `COOLIFY_APP_UUID` | Coolify application UUID |
 | `DEXTER_DEPLOY_AUTH_KEY` | Non-default deploy auth key |
 | `DEXTER_POLICY_BUNDLE_KEY` | Non-default policy bundle key |
-| `GHCR_PAT` | (optional) if workflow builds/pushes images |
+| `GHCR_PAT` | (optional) local `docker login` if not using `npm run ghcr:login` |
 
 Dispatch:
 
 ```bash
+# Refresh tunnels + GitHub secrets when using local Coolify (interim staging)
+./scripts/staging-refresh-tunnels.sh
+
 gh workflow run closed-loop-staging \
-  -f coolify_origin=https://coolify-staging.example.com \
-  -f skip_preflight=true
+  -f coolify_origin=https://coolify-staging.example.com
 ```
+
+`skip_preflight` defaults to `true` — staging resolves health from the Coolify app FQDN.
 
 ---
 

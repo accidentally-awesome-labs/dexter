@@ -8,9 +8,9 @@ on:
         required: true
         type: string
       skip_preflight:
-        description: Skip production preflight
+        description: Skip production preflight (staging resolves health from Coolify FQDN)
         required: false
-        default: "false"
+        default: "true"
         type: choice
         options:
           - "false"

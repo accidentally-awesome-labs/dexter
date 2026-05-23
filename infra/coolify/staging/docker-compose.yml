@@ -1,0 +1,31 @@
+# Staging bridge service — run on VPS alongside Coolify.
+# Coolify API stays on localhost:8000; bridge exposes deploy webhook to Dexter CI.
+#
+# Usage:
+#   cp .env.example .env.staging && edit
+#   docker compose -f infra/coolify/staging/docker-compose.yml up -d
+#
+services:
+  dexter-bridge:
+    image: node:22-alpine
+    working_dir: /app
+    command: ["node", "dist/dev/run-coolify-bridge.js"]
+    volumes:
+      - ../../..:/app:ro
+    ports:
+      - "127.0.0.1:9876:9876"
+    environment:
+      DEXTER_BRIDGE_PORT: "9876"
+      DEXTER_BRIDGE_TOKEN: ${DEXTER_BRIDGE_TOKEN}
+      DEXTER_COOLIFY_API_URL: http://host.docker.internal:8000
+      DEXTER_COOLIFY_TOKEN: ${COOLIFY_API_TOKEN}
+      COOLIFY_APP_UUID: ${COOLIFY_APP_UUID}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:9876/deploy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

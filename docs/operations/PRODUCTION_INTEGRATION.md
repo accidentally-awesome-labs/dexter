@@ -185,8 +185,9 @@ See [STAGING_HOST.md](./STAGING_HOST.md) for a long-lived staging VPS (bridge se
 After a factory run with a deploy manifest:
 
 ```bash
-export DEXTER_REGISTRY=ghcr.io/your-org
-docker login ghcr.io
+export DEXTER_REGISTRY=ghcr.io/accidentally-awesome-labs
+npm run ghcr:login   # gh auth refresh -s write:packages first
+npm run registry:publish-drill
 npm run deploy:publish -- --run-id <runId>
 ```
 
