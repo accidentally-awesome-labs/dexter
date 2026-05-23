@@ -2,17 +2,17 @@
 
 Dexter is a polyglot-ready **software factory runtime**: intake, planning, policy-gated execution, verification, release governance, and Coolify production integration. It is inspired by Ralph-loop execution patterns and skill-driven planning pipelines.
 
-### What v1.0 includes
+### What v1.1 includes (Track B — shipped)
 
-- Full factory path: discovery → planning → execution → verification → release artifacts
-- Staged promotion (`dev → staging → canary → prod`), deploy authorization, audit log, soak/KPI ops
-- **Coolify integration** (bridge + API deploy) when `.env` and `infra/coolify/apps.json` are configured
-- **`npm run factory:e2e`** — proves idea → factory run → **real API deploy** ([scope](./docs/releases/v1.0.0/RELEASE_SCOPE.md))
+- **Closed-loop product factory:** deploy manifest, Coolify image sync, strict app FQDN health ([v1.1 scope](./docs/releases/v1.1.0/RELEASE_SCOPE.md))
+- **`factory:ci-drill`** in PR CI; **`closed-loop-staging`** workflow for manual staging
+- **`factory:bootstrap`** → bridge → **`npm run factory`** / **`factory:e2e`**
 
-### What v1.0 does not include (see v1.1 plan)
+### What v1.2 plans (see [v1.2 plan](./docs/planning/V1_2_PRODUCTION_FACTORY_PLAN.md))
 
-- Hands-off “idea → brand-new app URL” with zero Coolify prep or placeholder apps
-- Deploying **only** the artifact built in the same run (planned: [Track B](./docs/planning/TRACK_B_CLOSED_LOOP_PRODUCT_PLAN.md))
+- GHCR/registry publish, stable staging host (no tunnels)
+- Full `factory:e2e` on schedule against staging
+- Multi-service Coolify provision + remote promotion proof
 
 The pipeline stages:
 
@@ -30,7 +30,7 @@ npm run run:sample
 npm test
 ```
 
-**Shipping v1.0.0?** Use the [GA checklist](./docs/releases/v1.0.0/GA_CHECKLIST.md).  
+**Shipping v1.1.0?** [GA checklist](./docs/releases/v1.1.0/GA_CHECKLIST.md) · **v1.2 planning:** [V1_2_PRODUCTION_FACTORY_PLAN.md](./docs/planning/V1_2_PRODUCTION_FACTORY_PLAN.md)  
 **Production wiring:** [PRODUCTION_INTEGRATION.md](./docs/operations/PRODUCTION_INTEGRATION.md).  
 **Closed-loop E2E:** `npm run factory:bootstrap` → `npm run coolify:bridge` (terminal 1) → `npm run factory` or `npm run factory:e2e` (terminal 2).
 
