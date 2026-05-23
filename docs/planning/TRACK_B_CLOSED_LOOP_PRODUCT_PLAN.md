@@ -136,6 +136,12 @@ flowchart TB
 
 #### Phase B2.1 — Deploy contract — **done**
 
+#### Phase B2.2–B2.4 — Build, provision, manifest sync — **in progress (branch)**
+
+- `prepareDeployArtifact` + optional `docker build` (`DEXTER_BUILD_DEPLOY_IMAGE`)
+- `npm run coolify:provision` + `DEXTER_COOLIFY_AUTO_PROVISION`
+- Bridge deploy body: `image`, `tag`, `syncManifestImage` → PATCH application before deploy
+
 Introduce `artifacts/release/DEPLOY_MANIFEST.json`:
 
 ```json

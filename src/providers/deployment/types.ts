@@ -8,6 +8,9 @@ export interface DeploymentRequest {
   authorizationToken?: string;
   deployTag?: string;
   force?: boolean;
+  image?: string;
+  tag?: string;
+  syncManifestImage?: boolean;
 }
 
 export interface DeploymentResponse {
