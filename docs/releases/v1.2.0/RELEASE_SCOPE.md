@@ -35,5 +35,5 @@ Repeatable **production factory**: registry-backed deploys, stable staging (no l
 - [x] Coolify wired to GHCR image (`npm run coolify:ghcr-wire` → `ghcr.io/accidentally-awesome-labs/dexter:<deployTag>`; local Docker Desktop: `npm run coolify:fix-local-server` + public GHCR package or `sudo npm run coolify:mac-docker-config`)
 - [x] Staging E2E from CI after GHCR + Coolify wire ([26351461640](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26351461640); interim: local Coolify + trycloudflare tunnels via `scripts/staging-refresh-tunnels.sh`)
 - [x] Two consecutive staging workflow passes without local dev machine ([26338656357](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338656357), [26338685977](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338685977))
-- [ ] Promotion pipeline manifest on staging
+- [x] Promotion pipeline manifest on staging (`promotion-2026-05-24-001`; canary/prod `deploymentMode: api` — [PROMOTION_PIPELINE_STAGING_PROOF.json](./PROMOTION_PIPELINE_STAGING_PROOF.json))
 - [ ] Tag `v1.2.0-rc1` → soak → `v1.2.0`

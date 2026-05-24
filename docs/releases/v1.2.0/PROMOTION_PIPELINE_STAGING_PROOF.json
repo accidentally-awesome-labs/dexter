@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-05-24T05:25:59.141Z",
+  "passed": true,
+  "promotionId": "promotion-2026-05-24-001",
+  "appName": "dexter",
+  "controlPlane": "coolify",
+  "targetService": "dexter",
+  "healthUrl": "https://universal-advertisers-organizational-painted.trycloudflare.com/",
+  "releaseDecision": "GO",
+  "stages": [
+    {
+      "environment": "dev",
+      "exitCode": 0
+    },
+    {
+      "environment": "staging",
+      "exitCode": 0
+    },
+    {
+      "environment": "canary",
+      "exitCode": 0,
+      "deploymentId": "jig8ks7x4pgavxqdt6m7zvuz",
+      "deploymentMode": "api"
+    },
+    {
+      "environment": "prod",
+      "exitCode": 0,
+      "deploymentId": "kez3081lejohiey7wc78xbtw",
+      "deploymentMode": "api"
+    }
+  ],
+  "_note": "Local staging Coolify + bridge (npm run promotion:pipeline -- --app dexter --health-url <app-fqdn>). Interim trycloudflare tunnel; canary/prod stages confirmed deploymentMode=api. Live artifact: artifacts/release/PROMOTION_PIPELINE_MANIFEST.json (gitignored)."
+}
