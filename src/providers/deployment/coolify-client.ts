@@ -22,6 +22,8 @@ export interface CoolifyApplicationSummary {
 
 export interface CoolifyApplicationDetail extends CoolifyApplicationSummary {
   fqdn?: string;
+  docker_registry_image_name?: string;
+  docker_registry_image_tag?: string;
   health_check_path?: string;
   health_check_enabled?: boolean;
 }
