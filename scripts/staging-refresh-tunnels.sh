@@ -33,15 +33,24 @@ APP_TUNNEL="$(start_tunnel app 18080)"
 docker exec coolify-db psql -U coolify -d coolify -c \
   "UPDATE applications SET fqdn='${APP_TUNNEL}' WHERE uuid='${APP_UUID}';"
 
-# shellcheck source=/dev/null
-set -a && source "$ROOT/.env" && set +a
+read_env() {
+  local key="$1"
+  local line
+  line=$(grep -E "^${key}=" "$ROOT/.env" | tail -1 || true)
+  if [ -z "$line" ]; then
+    return
+  fi
+  printf '%s' "${line#*=}"
+}
 
-gh secret set COOLIFY_API_TOKEN <<< "$COOLIFY_API_TOKEN"
+gh secret set COOLIFY_API_TOKEN <<< "$(read_env COOLIFY_API_TOKEN)"
 gh secret set DEXTER_COOLIFY_API_URL <<< "$BRIDGE_TUNNEL"
-gh secret set DEXTER_COOLIFY_TOKEN <<< "${DEXTER_COOLIFY_TOKEN:-$DEXTER_BRIDGE_TOKEN}"
-gh secret set DEXTER_BRIDGE_TOKEN <<< "$DEXTER_BRIDGE_TOKEN"
-gh secret set DEXTER_DEPLOY_AUTH_KEY <<< "${DEXTER_DEPLOY_AUTH_KEY:-dexter-staging-deploy-auth-key}"
-gh secret set DEXTER_POLICY_BUNDLE_KEY <<< "${DEXTER_POLICY_BUNDLE_KEY:-dexter-staging-policy-bundle-key}"
+gh secret set DEXTER_COOLIFY_TOKEN <<< "$(read_env DEXTER_COOLIFY_TOKEN)"
+gh secret set DEXTER_BRIDGE_TOKEN <<< "$(read_env DEXTER_BRIDGE_TOKEN)"
+DEPLOY_AUTH_KEY="$(read_env DEXTER_DEPLOY_AUTH_KEY)"
+POLICY_BUNDLE_KEY="$(read_env DEXTER_POLICY_BUNDLE_KEY)"
+gh secret set DEXTER_DEPLOY_AUTH_KEY <<< "${DEPLOY_AUTH_KEY:-dexter-staging-deploy-auth-key}"
+gh secret set DEXTER_POLICY_BUNDLE_KEY <<< "${POLICY_BUNDLE_KEY:-dexter-staging-policy-bundle-key}"
 gh secret set COOLIFY_APP_UUID <<< "$APP_UUID"
 
 cat <<EOF

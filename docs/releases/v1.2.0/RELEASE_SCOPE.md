@@ -31,7 +31,9 @@ Repeatable **production factory**: registry-backed deploys, stable staging (no l
 
 - [x] `deploy:publish` command + manifest fields (`registry`, `imageDigest`, `publishedAt`)
 - [x] [STAGING_HOST.md](../../operations/STAGING_HOST.md) runbook
-- [x] Registry push to GHCR (local + CI [26341188862](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26341188862); Coolify pull same tag still open)
-- [x] Two consecutive staging workflow passes without local dev machine ([26338656357](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338656357), [26338685977](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338685977); interim: local Coolify + trycloudflare tunnels via `scripts/staging-refresh-tunnels.sh`)
+- [x] Registry push to GHCR (local + CI [26341188862](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26341188862))
+- [x] Coolify wired to GHCR image (`npm run coolify:ghcr-wire` → `ghcr.io/accidentally-awesome-labs/dexter:<deployTag>`; local Docker Desktop: `npm run coolify:fix-local-server` + public GHCR package or `sudo npm run coolify:mac-docker-config`)
+- [x] Staging E2E from CI after GHCR + Coolify wire ([26351461640](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26351461640); interim: local Coolify + trycloudflare tunnels via `scripts/staging-refresh-tunnels.sh`)
+- [x] Two consecutive staging workflow passes without local dev machine ([26338656357](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338656357), [26338685977](https://github.com/accidentally-awesome-labs/dexter/actions/runs/26338685977))
 - [ ] Promotion pipeline manifest on staging
 - [ ] Tag `v1.2.0-rc1` → soak → `v1.2.0`

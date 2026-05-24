@@ -122,10 +122,40 @@ Uses `GITHUB_TOKEN` with `packages: write` (see `.github/workflows/registry-publ
 
 ### Coolify pull
 
-Coolify → application → **Private Docker Registry** → add GHCR credentials (classic PAT with `read:packages`, or deploy token).
-Set image to the manifest `imageRef` / digest after publish.
+**Public GHCR package (current):** no registry login on the Coolify host — wire image + deploy:
+
+```bash
+npm run registry:publish-drill   # or deploy:publish on a run
+npm run coolify:ghcr-wire        # PATCH app + queue deploy
+```
+
+Uses `artifacts/release/REGISTRY_PUBLISH_DRILL.json` or the latest published `deploy_manifest.json` for `imageRef`.
+
+**Private GHCR package:** on the Coolify Docker host:
+
+```bash
+./scripts/coolify-host-ghcr-login.sh
+```
+
+Or Coolify UI → **Private Docker Registry** → GHCR credentials (`read:packages` PAT).
 
 Manifest after publish includes `registry`, `imageDigest`, and `publishedAt` (schema 1.0 manifest + publish block).
+
+**Local Docker Desktop (two common blockers):**
+
+1. **Server unreachable** — `host.docker.internal:22` is closed. Fix:
+   ```bash
+   npm run coolify:fix-local-server
+   ```
+   Points the bundled `localhost` server at `coolify-testing-host` and validates SSH.
+
+2. **Private GHCR pull fails** — Coolify bind-mounts `/root/.docker/config.json` from the **Mac host** (not inside the container). Fix:
+   ```bash
+   npm run coolify:fix-local-server   # writes infra/coolify/local/.docker/config.json
+   sudo npm run coolify:mac-docker-config
+   npm run coolify:ghcr-wire
+   ```
+   Org-owned packages default to **private**; making them public may require org admins to allow public packages in GitHub → Organization settings → Packages.
 
 ---
 

@@ -1,4 +1,5 @@
 .env
+.docker/
 ssh/
 applications/
 databases/

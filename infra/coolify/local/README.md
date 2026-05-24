@@ -44,5 +44,9 @@ If Coolify has no apps yet, create a **Docker Image** app named `dexter` (e.g. `
 ## Notes
 
 - `apps.json` and repo-root `.env` are gitignored; do not commit tokens.
-- The bundled `localhost` server may show unreachable until validated; local drills can mark it usable in `server_settings` for API deploys.
-- Traefik/proxy may be `exited` on Docker Desktop; deploy API calls can still queue builds on the testing host.
+- **Unreachable localhost server (Docker Desktop):** `host.docker.internal:22` is usually closed. From repo root:
+  ```bash
+  npm run coolify:fix-local-server   # point server at coolify-testing-host + validate + GHCR login
+  ```
+- **Private GHCR images on Docker Desktop:** after `npm run coolify:fix-local-server`, run `sudo npm run coolify:mac-docker-config` (installs `/root/.docker/config.json` on the Mac for Coolify’s helper container mounts). Then `npm run coolify:ghcr-wire`.
+- Traefik/proxy may be `exited` on Docker Desktop; app containers can still run on the testing host Docker socket.
