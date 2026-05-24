@@ -1,0 +1,9 @@
+# Linux VPS overrides for infra/coolify/local/docker-compose.yml
+# - Do not use Docker Desktop–specific flags
+# - Bind Coolify UI to localhost; expose via Caddy (see caddy/Caddyfile)
+services:
+  coolify:
+    environment:
+      IS_WINDOWS_DOCKER_DESKTOP: "false"
+    ports:
+      - "127.0.0.1:${APP_PORT:-8001}:8080"

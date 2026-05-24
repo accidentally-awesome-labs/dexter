@@ -1,8 +1,14 @@
-# Dexter bridge on staging VPS (host network → Coolify on 127.0.0.1:8001).
+# Full staging stack: Coolify (local compose + Linux overrides) + Dexter bridge + optional Caddy TLS.
 #
-#   cp .env.example .env && edit
-#   docker compose -f infra/coolify/staging/docker-compose.yml up -d
+#   cd infra/coolify/staging && cp .env.example .env
+#   # Edit .env (Coolify APP_KEY from panel bootstrap, tokens, STAGING_DOMAIN)
+#   docker compose -f docker-compose.full.yml up -d
+#   docker compose -f docker-compose.full.yml --profile tls up -d   # enable HTTPS
 #
+include:
+  - path: ../local/docker-compose.yml
+  - path: ./coolify.linux.yml
+
 services:
   dexter-bridge:
     image: node:22-bookworm-slim
@@ -15,10 +21,10 @@ services:
     environment:
       DEXTER_BRIDGE_HOST: "0.0.0.0"
       DEXTER_BRIDGE_PORT: "${DEXTER_BRIDGE_PORT:-9876}"
-      COOLIFY_ORIGIN: "${COOLIFY_ORIGIN:-http://127.0.0.1:8001}"
+      COOLIFY_ORIGIN: "http://127.0.0.1:${APP_PORT:-8001}"
     volumes:
       - ../../..:/app
-      - ../../../infra/coolify/apps.json:/app/infra/coolify/apps.json:ro
+      - ../apps.json:/app/infra/coolify/apps.json:ro
     command:
       - bash
       - -lc
@@ -26,16 +32,9 @@ services:
         set -euo pipefail
         npm ci
         exec npm run coolify:bridge
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget -q -S -O /dev/null --post-data='{}' --header=Content-Type:application/json http://127.0.0.1:${DEXTER_BRIDGE_PORT:-9876}/deploy 2>&1 | grep -qE 'HTTP/1.[01] (401|200)'",
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 120s
+    depends_on:
+      coolify:
+        condition: service_healthy
 
   caddy:
     image: caddy:2-alpine
@@ -51,9 +50,6 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
       - caddy-config:/config
-    depends_on:
-      dexter-bridge:
-        condition: service_started
 
 volumes:
   caddy-data:

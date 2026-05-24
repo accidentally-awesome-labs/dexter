@@ -1,0 +1,19 @@
+# Replace STAGING_DOMAIN (e.g. staging.example.com) before use.
+# DNS: coolify.STAGING_DOMAIN, bridge.STAGING_DOMAIN, dexter.STAGING_DOMAIN → VPS public IP
+
+{
+	email {$CADDY_ACME_EMAIL}
+}
+
+coolify.{$STAGING_DOMAIN} {
+	reverse_proxy 127.0.0.1:8001
+}
+
+bridge.{$STAGING_DOMAIN} {
+	reverse_proxy 127.0.0.1:9876
+}
+
+# Optional: static route if not using Coolify-managed Traefik for the app FQDN
+# dexter.{$STAGING_DOMAIN} {
+# 	reverse_proxy 127.0.0.1:80
+# }

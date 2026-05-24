@@ -32,13 +32,24 @@ Requirements:
 
 Minimum: 2 vCPU, 4 GB RAM, Docker + Docker Compose.
 
+### Automated bootstrap (recommended)
+
 ```bash
-# On the staging VPS (example)
-sudo apt update && sudo apt install -y docker.io docker-compose-plugin
+# On a fresh Ubuntu/Debian VPS:
+sudo bash scripts/staging-vps-bootstrap.sh --repo-dir /opt/dexter
+```
+
+This installs Docker, clones Dexter, generates `infra/coolify/staging/.env` and `infra/coolify/local/.env`, and starts Coolify. See [infra/coolify/staging/README.md](../../infra/coolify/staging/README.md) for the post-bootstrap checklist (API token, app UUID, DNS, TLS, GHCR wire).
+
+### Manual compose
+
+```bash
+# On the staging VPS
 git clone https://github.com/accidentally-awesome-labs/dexter.git /opt/dexter
-cd /opt/dexter/infra/coolify/local
-cp .env.example .env   # if present; otherwise follow local README
-docker compose up -d
+cd /opt/dexter/infra/coolify/staging
+cp .env.example .env
+docker compose -f docker-compose.full.yml up -d
+docker compose -f docker-compose.full.yml --profile tls up -d   # after DNS
 ```
 
 Complete Coolify onboarding, enable **API Access**, create **Keys & Tokens** → save as `COOLIFY_API_TOKEN`.
@@ -53,21 +64,19 @@ Configure the app **FQDN** in Coolify to a real URL (e.g. `https://dexter-stagin
 
 ### Option A — Docker (recommended)
 
-```bash
-cd /opt/dexter
-cp .env.example .env
-# Set COOLIFY_ORIGIN, COOLIFY_API_TOKEN, DEXTER_BRIDGE_TOKEN, infra/coolify/apps.json
+Use the staging compose stack (host network bridge + optional Caddy):
 
-docker run -d --name dexter-bridge --restart unless-stopped \
-  --network host \
-  --env-file .env \
-  -v /opt/dexter/infra/coolify/apps.json:/opt/dexter/infra/coolify/apps.json:ro \
-  -w /opt/dexter \
-  node:22-bookworm \
-  bash -lc "npm ci && npm run coolify:bridge"
+```bash
+cd /opt/dexter/infra/coolify/staging
+docker compose -f docker-compose.full.yml up -d dexter-bridge
+docker compose -f docker-compose.full.yml --profile tls up -d
 ```
 
-Expose `:9876` via firewall or reverse proxy (Caddy/nginx) as `https://bridge-staging.example.com`.
+Or bridge-only if Coolify is already running:
+
+```bash
+docker compose -f docker-compose.yml up -d
+```
 
 ### Option B — systemd on the host
 
@@ -176,11 +185,13 @@ Manifest after publish includes `registry`, `imageDigest`, and `publishedAt` (sc
 Dispatch:
 
 ```bash
-# Refresh tunnels + GitHub secrets when using local Coolify (interim staging)
-./scripts/staging-refresh-tunnels.sh
+# VPS staging (stable URLs in infra/coolify/staging/.env):
+bash scripts/staging-vps-sync-secrets.sh
+gh workflow run closed-loop-staging.yml -f coolify_origin=https://coolify.staging.example.com
 
-gh workflow run closed-loop-staging \
-  -f coolify_origin=https://coolify-staging.example.com
+# Interim local Coolify + tunnels:
+./scripts/staging-refresh-tunnels.sh
+gh workflow run closed-loop-staging.yml -f coolify_origin=<coolify-tunnel-url>
 ```
 
 `skip_preflight` defaults to `true` — staging resolves health from the Coolify app FQDN.
